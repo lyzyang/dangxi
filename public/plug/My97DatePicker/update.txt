@@ -1,0 +1,38 @@
+
+############################################################
+增加属性，在按下enter，不管输入框是否改变，强制更新
+WdatePicket.js
+56 增加一行，默认不执行
+forceChange:false,
+
+calendar-src.js
+1277 在判断语句中增加，如果是true就执行
+if($dp.forceChange)
+	
+使用，在初始化的时候增加forceChange即可
+WdatePicker({
+	forceChange: true	
+})
+
+############################################################
+将jquery传入calendar中使用
+WdatePicket.js
+58 增加一行
+jQuery: jQuery,
+
+在calendar-src.js中使用
+$dp.jQuery.each();
+$dp.jQuery("").show();
+
+############################################################
+setAttribute在IE中不生效，改由jquery实现
+calendar-src.js
+667
+$dp.jQuery(A).removeClass("WdateFmtErr");
+677
+$dp.jQuery($).addClass("WdateFmtErr");
+
+
+############################################################
+
+

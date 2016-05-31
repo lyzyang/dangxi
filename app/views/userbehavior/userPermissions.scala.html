@@ -1,0 +1,140 @@
+<!--Created by lyz-->
+<script src="/public/js/userbehavior/userPermissions.min.js"></script>
+<br>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-xs-1">
+        <br>
+	    <a href="javascript:;" class="btn btn-sm btn-primary" onclick="userPermission_treeObj.expandAll(true);"><i class="icon-share-alt"></i>展开</a><br><br>
+	    <a href="javascript:;" class="btn btn-sm btn-primary" onclick="userPermission_treeObj.expandAll(false);"><i class="icon-reply"></i>折叠</a><br><br>
+	    <a href="javascript:;" class="btn btn-sm btn-primary" onclick="userPermission_checkAll()"><i class="icon-reorder"></i>全选</a><br><br>
+	    <a href="javascript:;" class="btn btn-sm btn-primary" onclick="userPermission_add_dialog_open()"><i class="icon-file-alt"></i>添加</a><br><br>
+	    <a href="javascript:;" class="btn btn-sm btn-primary" onclick="userPermission_changeNodes();"><i class="icon-save"></i>更新</a><br><br>
+    </div>
+    <div class="col-xs-11">
+        <div class="row">
+            <div class="col-xs-3 ztree_div">
+                <div >
+			        <label>权限列表： </label>
+			        <ul id="userPermission_tree" class="ztree"></ul>
+			    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div id="userPermission_add_dialog" style="display:none;">
+    <form id="userPermission_add_form" class="form-horizontal col-sm-11">
+        <input id="userPermission_add_pId" type="hidden" class="form-control" name="pId">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图标</label>
+            <div class="col-sm-9">
+                <select id="userPermission_add_iconClass" class="form-control" name="iconClass">
+                		<option></option>
+                	  <option value='icon-user'> icon-user</option>
+                	  <option value='icon-group'> icon-group</option>
+                	  <option value='icon-book'> icon-book</option>
+                	  <option value='icon-envelope'> icon-envelope</option>
+                	  <option value='icon-table'> icon-table</option>
+                    <option value='icon-hand-right'>icon-hand-right</option>
+                    <option value='icon-th-large'>icon-th-large</option>
+                    <option value='icon-exchange'>icon-exchange</option>
+                    <option value='icon-angle-right'>icon-angle-right</option>
+                    <option value='icon-road'>icon-road</option>
+                    <option value='icon-retweet'>icon-retweet</option>
+                    <option value='icon-cogs'>icon-cogs</option>
+                    <option value='icon-filter'>icon-filter</option>
+                    <option value='icon-picture'>icon-picture</option>
+                    <option value='icon-desktop'>icon-desktop</option>
+				      <option value='icon-bar-chart'>icon-bar-chart</option>
+				      <option value='icon-dashboard'>icon-dashboard</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">类型</label>
+            <div class="col-sm-9">
+                <select id="userPermission_add_ismenu" class="form-control" name="ismenu">
+                    	<option></option>
+                    	<option value='1'>菜单</option>
+                    	<option value='2'>权限</option>
+                    	<option value='0'>目录</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">权限</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="value" placeholder="必填">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div id="userPermission_up_dialog" style="display:none;">
+    <form id="userPermission_up_form" class="form-horizontal col-sm-11">
+     		<input id="userPermission_up_id" class="form-control" type="hidden"  name="sid">
+			<input id="userPermission_up_tid" class="form-control" type="hidden" >
+			<input id="userPermission_up_pId" type="hidden"  name="pId">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input id="userPermission_up_name" type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图标</label>
+            <div class="col-sm-9">
+                <select id="userPermission_up_iconClass" class="form-control" name="iconClass">
+                		<option></option>
+                	  <option value='icon-user'> icon-user</option>
+                	  <option value='icon-group'> icon-group</option>
+                	  <option value='icon-book'> icon-book</option>
+                	  <option value='icon-envelope'> icon-envelope</option>
+                	  <option value='icon-table'> icon-table</option>
+                    <option value='icon-hand-right'>icon-hand-right</option>
+                    <option value='icon-th-large'>icon-th-large</option>
+                    <option value='icon-exchange'>icon-exchange</option>
+                    <option value='icon-angle-right'>icon-angle-right</option>
+                    <option value='icon-road'>icon-road</option>
+                    <option value='icon-retweet'>icon-retweet</option>
+                    <option value='icon-cogs'>icon-cogs</option>
+                    <option value='icon-filter'>icon-filter</option>
+                    <option value='icon-picture'>icon-picture</option>
+                    <option value='icon-desktop'>icon-desktop</option>
+				      <option value='icon-bar-chart'>icon-bar-chart</option>
+				      <option value='icon-dashboard'>icon-dashboard</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">类型</label>
+            <div class="col-sm-9">
+                <select id="userPermission_up_ismenu" class="form-control" name="ismenu">
+                    	<option></option>
+                    	<option value='1'>菜单</option>
+                    	<option value='2'>权限</option>
+                    	<option value='0'>目录</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">权限</label>
+            <div class="col-sm-9">
+                <input id="userPermission_up_value" type="text" class="form-control" name="value" placeholder="必填">
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,92 @@
+<!--Created by lyz-->
+<script src="/public/js/userbehavior/authorisedUsers.min.js"></script>
+<div id="authorisedUser-custom-toolbar">
+    <a id="authorisedUser_add" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 增加</a>
+    <a id="authorisedUser_up" class="btn btn-sm btn-primary" href="#"><i class="icon-edit icon-large"></i> 修改</a>
+    <a id="authorisedUser_del" class="btn btn-sm btn-primary" href="#"><i class="icon-trash icon-large"></i> 删除</a>
+</div>
+
+<div class="bs-example">
+	<table id="authorisedUser-table"></table>
+</div>
+
+<div id="authorisedUser_add_dialog" style="display:none;">
+    <form id="authorisedUser_add_form" class="form-horizontal col-sm-11">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">帐号</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="user" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">密码</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" placeholder="默认为123456" name="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名字</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="userName" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">邮箱</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="email" placeholder="选填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">管理</label>
+            <div class="col-sm-9">
+                <input id="authorisedUser_add_roles_id" type="hidden" class="form-control" name="roles_id">
+                <input id="authorisedUser_add_roles_name" type="text" class="form-control" name="roles_name" placeholder="必选" readonly/>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="authorisedUser_add_roles_panel" class="panel" style="display:none;position: absolute;z-index:5555;">
+	<ul id="authorisedUser_add_roles_tree" class="ztree" style="height:200px;overflow-y:scroll;overflow-x:auto;"></ul>
+</div>
+
+<div id="authorisedUser_up_dialog" style="display:none;">
+    <form id="authorisedUser_up_form" class="form-horizontal col-sm-11">
+        <input id="authorisedUser_id" type="hidden" class="form-control" name="sid">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">帐号</label>
+            <div class="col-sm-9">
+                <input id="authorisedUser_user" type="text" class="form-control" name="user" placeholder="必填" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">密码</label>
+            <div class="col-sm-9">
+                <input id="authorisedUser_password" type="password" class="form-control" placeholder="不填写不更改" name="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名字</label>
+            <div class="col-sm-9">
+                <input id="authorisedUser_userName" type="text" class="form-control" name="userName" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">邮箱</label>
+            <div class="col-sm-9">
+                <input id="authorisedUser_email" type="text" class="form-control" name="email" placeholder="选填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input id="authorisedUser_up_roles_id" type="hidden" class="form-control" name="roles_id">
+                <input id="authorisedUser_up_roles_name" type="text" class="form-control" name="roles_name" placeholder="必选" readonly/>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="authorisedUser_up_roles_panel" class="panel" style="display:none;position: absolute;z-index:5555;">
+	<ul id="authorisedUser_up_roles_tree" class="ztree" style="height:200px;overflow-y:scroll;overflow-x:auto;"></ul>
+</div>
+
+

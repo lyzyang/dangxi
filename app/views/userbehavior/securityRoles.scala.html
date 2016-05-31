@@ -1,0 +1,66 @@
+<!--Created by lyz-->
+<script src="/public/js/userbehavior/securityRoles.min.js"></script>
+<br>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-sm-1">
+        <br>
+        <a href="javascript:;" class="btn btn-sm btn-primary" onclick="securityRole_checkAll()"><i class="icon-reorder"></i>全选</a><br><br>
+        <a href="javascript:;" class="btn btn-sm btn-primary" onclick="securityRole_add_dialog_open()"><i class="icon-file-alt"></i>添加</a><br><br>
+        <a href="javascript:;" class="btn btn-sm btn-primary" onclick="securityRole_changeNodes();"><i class="icon-save"></i>更新</a><br><br>
+    </div>
+    <div class="col-sm-11">
+        <div class="row">
+            <div class="col-sm-3 ztree_left_div">
+            	<div class="row">
+                <div class="col-sm-10" style="padding-top: 30px !important;">
+                    <label class="control-label">管理组：</label>
+                    <ul id="securityRole_tree" class="ztree" ></ul>
+                </div>
+                <div class="col-sm-2 ztree_icon">
+				 	<i class="icon-2x icon-double-angle-right"></i>
+				  </div>
+				</div>
+            </div>
+			 
+            <div class="col-sm-3 ztree_div">
+                <div class="row">
+                    <div class="col-sm-3"><a class="btn btn-sm btn-primary" onclick="dep_permission_expall()"><i class="icon-share-alt"></i> 展折</a></div>
+                    <div class="col-sm-3"><a class="btn btn-sm btn-primary" onclick="dep_permission_chkall()"><i class="icon-check"></i> 全选</a></div>
+                    <div class="col-sm-3"><a class="btn btn-sm btn-primary" onclick="dep_permission_change()"><i class="icon-repeat"></i> 更新</a></div>
+                </div>
+                <div >
+                    <input id="dep_permission_role_id" type="hidden">
+                    <label>主页菜单与权限： </label>
+                    <ul id="dep_permission_tree" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div id="securityRole_add_dialog" style="display:none;">
+    <form id="securityRole_add_form" class="form-horizontal col-sm-11">
+        <input id="securityRole_add_pId" type="hidden" class="form-control" name="pId">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+    </form>
+</div>
+<div id="securityRole_up_dialog" style="display:none;">
+    <form id="securityRole_up_form" class="form-horizontal col-sm-11">
+        <input id="securityRole_up_id" type="hidden"  name="sid">
+     	 <input id="securityRole_up_tid" type="hidden" >
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input id="securityRole_up_name" type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+body,input,button,textarea,h1,h2,h3,h4,h5,h6{
+	font-family: Arial, "微软雅黑", "黑体";
+	hight:100%
+}
+
+.footercopyrights_444 {
+	 text-align:center;
+	 color:#444;
+	 word-spacing:3px;
+	 position:fixed;
+	 bottom:15px; 
+	 left:0; 
+	 width:100%;
+	 _position:absolute;
+	 _top: expression_r(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight); 
+	 overflow:visible; 
+}
+.footercopyrights_444 a {
+	text-decoration:none;
+	color:#444;	
+}
+.footercopyrights_fff {
+	text-align:center;
+	 color:#478fca;
+	 word-spacing:3px;
+	 position:fixed;
+	 bottom:25px; 
+	 left:0; 
+	 width:100%;
+	 _position:absolute;
+	 _top: expression_r(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight); 
+	 overflow:visible; 
+}
+.footercopyrights_fff a {
+	text-decoration:none;
+	color:#478fca;	
+}
+
+.light-login {
+    background: #dfe0e2 url("/public/images/login/login_bg.jpg") no-repeat  0 0;
+}
+
+.blur-login {
+    background: #dfe0e2 url("/public/images/login/login_bg2.jpg") no-repeat  0 0;
+}
+
+.login-container {
+    margin: 175px auto;
+}

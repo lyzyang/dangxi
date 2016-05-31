@@ -1,0 +1,45 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET    /index                          controllers.userbehavior.LoginController.index
+GET     /help                           controllers.help.Application.help()
+
+GET		/portlet_html		controllers.portlet.PortletController.portlet_html
+
+
+
+
+
+
+
+#角色管理####
+GET    /securityRole_html                  controllers.userbehavior.SecurityRoleController.securityRole_html
+GET    /securityRole_json                  controllers.userbehavior.SecurityRoleController.securityRole_json
+GET    /securityRole_permissions_json      controllers.userbehavior.SecurityRoleController.securityRole_permissions_json
+GET    /securityRole_has_permissions         controllers.userbehavior.SecurityRoleController.securityRole_has_permissions
+
+POST   /securityRole_add                   controllers.userbehavior.SecurityRoleController.securityRole_add
+POST   /securityRole_up                    controllers.userbehavior.SecurityRoleController.securityRole_up
+POST   /securityRole_del                   controllers.userbehavior.SecurityRoleController.securityRole_del
+POST   /securityRole_oc_up                 controllers.userbehavior.SecurityRoleController.securityRole_oc_up
+POST   /securityRole_perm_up               controllers.userbehavior.SecurityRoleController.securityRole_perm_up
+###########
+
+
+#权限管理###
+GET    /page_menu                      controllers.userbehavior.UserPermissionController.page_menu
+
+GET    /userPermission_html            controllers.userbehavior.UserPermissionController.userPermission_html
+GET    /userPermission_json            controllers.userbehavior.UserPermissionController.userPermission_json
+POST   /userPermission_add             controllers.userbehavior.UserPermissionController.userPermission_add
+POST   /userPermission_up              controllers.userbehavior.UserPermissionController.userPermission_up
+POST   /userPermission_del             controllers.userbehavior.UserPermissionController.userPermission_del
+POST   /userPermission_oc_up           controllers.userbehavior.UserPermissionController.userPermission_oc_up
+###########
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET    /public/*file                   controllers.Assets.at(path="/public", file)
+HEAD   /pispower_do_not_delete/*file   controllers.Assets.at(path="/public/pispower_do_not_delete", file)

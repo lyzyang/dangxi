@@ -1,0 +1,227 @@
+@(userName: String)
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>衍白公宗亲-后台</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico" media="screen" />
+    <!-- Bootstrap -->
+    <link href="/public/plug/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/public/plug/bootstrap-validator/css/bootstrapValidator.min.css" rel="stylesheet">
+	<link href="/public/plug/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link href="/public/plug/scrollator/fm.scrollator.jquery.css" rel="stylesheet"/>
+	<link href="/public/plug/wdScrollTab/TabPanel.css" rel="stylesheet"/>
+	<link href="/public/plug/jquery-ui/jquery-ui.css" rel="stylesheet"/>
+	<link href="/public/plug/jquery-ui-portlet/jquery.portlet.css" rel="stylesheet"/>
+	<link href="/public/plug/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"/>
+	<link href="/public/css/index.css" rel="stylesheet">
+
+    <script src="/public/plug/jquery/jquery-1.11.1.min.js"></script>
+	<script src="/public/plug/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/public/plug/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+	<script src="/public/plug/bootstrap-validator/js/language/zh_CN.js"></script>
+    <script src="/public/plug/scrollator/fm.scrollator.jquery.js"></script>
+    <script src="/public/plug/wdScrollTab/TabPanel.js"></script>
+    
+	<script src="/public/plug/jquery-ui/jquery-ui-1.11.4.min.js"></script>
+	<script src="/public/plug/jquery-ui-portlet/jquery.portlet.js"></script>
+	
+	<script src="/public/plug/bootstrap-table/bootstrap-table.js"></script>
+	<script src="/public/plug/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	
+	<script src="/public/plug/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+	
+	<script src="/public/plug/zTree/jquery.ztree.all-3.5.min.js"></script>
+	<script src="/public/plug/zTree/jquery.ztree.exhide-3.5.min.js"></script>
+	
+	<script src="/public/js/index.min.js"></script>
+	<script src="/public/js/onecloud.min.js"></script>
+	<script src="/public/js/tool.min.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		setTimeout(function() {//延迟加载额外的javascript css
+			var files = [
+			    '/public/plug/jquery-select2/css/select2.min.css',
+			    {url: '/public/plug/jquery-select2/js/select2.min.js',
+			    children: '/public/plug/jquery-select2/js/i18n/zh-CN.js'},
+			    '/public/plug/zTree/zTreeStyle.css',
+			    {url: '/public/plug/zTree/jquery.ztree.all-3.5.min.js',
+			    children: '/public/plug/zTree/jquery.ztree.exhide-3.5.min.js'},
+			    '/public/plug/jquery-form/jquery.form.js',
+			    '/public/plug/My97DatePicker/WdatePicker.js'
+			];
+			index_loadFile(files);
+		}, 100);
+	});
+	/**
+	  * 动态加载文件
+	  * 字符串直接加载
+	  * 数组表示同步加载
+	  * {url, children}表示依赖加载
+	  */
+	function index_loadFile(urlList, type) {
+		var url, onload;
+		if(typeof(urlList) === 'object') {
+			if(urlList.url == null) {//数组，同步加载
+				$.each(urlList, function(k, v) {
+					index_loadFile(v);
+				});
+				return;
+			} else {//依赖
+				url = urlList.url;
+				onload = function() {
+					if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
+		                n.onload = n.onreadystatechange = null;
+						n = null;
+						index_loadFile(urlList.children);
+		            }
+		        };
+			}
+		} else {
+			url = urlList;
+		}
+		var head = document.head || document.getElementsByTagName('head')[0];
+		var pureurl = url.split('?')[0];
+	    var n, t = type || pureurl.toLowerCase().substring(pureurl.lastIndexOf('.') + 1);
+	    if(t === 'js') {
+	        n = document.createElement('script');
+	        n.type = 'text/javascript';
+	        n.src = url;
+	        n.async = true;
+	        if(onload) {
+	        	n.onload = n.onreadystatechange = onload;
+	        }
+	    } else if(t === 'css') {
+	        n = document.createElement('link');
+	        n.type = 'text/css';
+	        n.rel = 'stylesheet';
+	        n.href = url;
+	    }
+		head.appendChild(n);
+	}
+	</script>
+</head>
+<body class="one-layout-noscroll">
+	<!-- 提示框 -->
+	<div id="onePrompt" class="one-prompt">
+		<span id="onePromptText" class="one-prompt-text"></span>
+		<span id="onePromptBadge" class="one-prompt-badge"></span>
+		<a id="onePromptButton" class="close one-prompt-close">X</a>
+	</div>
+	<!-- north -->
+	<div id="oneLayoutNorth" class="one-layout-panel one-layout-panel-north">
+		<span class="one-head-logo"></span>
+		<div class="pull-right one-head-menu">
+			<ul class="nav navbar-nav">
+				<li id="userPage" class="dropdown one-head-menu-li">
+					<span id="index_user" class="icon-user icon-large dropdown-toggle" data-toggle="dropdown">
+						@userName<span class="caret"></span>
+					</span>
+					<ul class="dropdown-menu" aria-labelledby="index_user" >
+						<li><a href="#" id="user_name"><span class="icon-pencil">&nbsp;修改资料</span></a></li>
+						<li><a href="#" id="user_pass"><span class="icon-key">&nbsp;修改密码</span></a></li>
+					</ul>
+				</li>
+	
+				<li id="adminPage" class="one-head-menu-li one-head-menu-active">
+					<span class="icon-home icon-large">&nbsp;主页</span>
+				</li>
+				<li id="exitPage" class="one-head-menu-li">
+					<span class="icon-signout icon-large">&nbsp;退出</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- west -->
+	<div id="oneLayoutWest" class="one-layout-panel one-layout-panel-west ">
+		<!-- menu head -->
+		<div id="oneMenuHead" class="one-menu-head">
+			<b id="oneMenuText" class="one-menu-head-text">主页菜单</b>
+			<a id="oneMenuClose" type="button" class="close one-menu-close-button">
+			  <span class="icon-double-angle-left"></span>
+			</a>
+			<a id="oneNorthOpenExpand" type="button" class="close one-menu-close-button">
+			  <span class="icon-double-angle-up"></span>
+			</a>
+		</div>
+		<!-- menu body -->
+		<div id="oneMenuPanel" class="one-menu-panel"></div>
+	</div>
+	<!-- west expand -->
+	<div id="oneLayoutWestExpand" class="one-layout-panel one-layout-panel-west-expand">
+		<a id="oneMenuOpen" type="button" class="close one-menu-open-button">
+		  <span class="icon-double-angle-right"></span>
+		</a>
+		<a id="oneNorthCloseExpand" type="button" class="close one-menu-open-button">
+			<span class="icon-double-angle-up"></span>
+		</a>
+	</div>
+	<!-- west resize -->
+	<div id="oneLayoutWestResize" class="one-layout-panel-west-resize"></div>
+	<!-- center -->
+	<div id="oneLayoutCenter" class="one-layout-panel one-layout-panel-center ">
+		<div id="oneContentTab" class="one-content-tab-body"></div>
+		<div id="oneContentSvg" class="one-content-svg-body">
+			<!-- navigation path -->
+			<div class="one-content-head">
+				<div id="oneContendPathMenu" class="pull-left one-contend-path-menu"></div>
+				<a id="oneContentExpand" type="button" class="close one-content-expand-button">
+				  <span class="icon-double-angle-up"></span>
+				</a>
+			</div>
+			<!-- content body -->
+			<div id="oneContainer" class="one-content-container">
+				<div id="oneContentBody" class="one-content-body"></div>
+			</div>
+		</div>
+	</div>
+	<!-- south -->
+	<div id="oneLayoutSouth" class="one-layout-panel one-layout-panel-south">
+		<span style="float:right;color:#2b542c;font-size: 12px;">Copyright&copy;2016 lyz</span>
+	</div>
+	
+<div id="index_user_name_up_dialog"  title="修改名字" style="display:none;">
+	<form id="index_user_name_up_form" class="form-horizontal col-sm-11">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">名字</label>
+			<div class="col-sm-9">
+				<input id="new_username" type="text" class="form-control" name="name">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">邮箱</label>
+			<div class="col-sm-9">
+				<input id="new_email" type="text" class="form-control" name="email">
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="index_user_pass_up_dialog"  title="修改密码" style="display:none;">
+	<form id="index_user_pass_up_form" class="form-horizontal col-sm-11">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">旧密码</label>
+			<div class="col-sm-9">
+				<input type="password" class="form-control" name="oldpass">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">新密码</label>
+			<div class="col-sm-9">
+				<input type="password" class="form-control" name="newpass">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">确认密码</label>
+			<div class="col-sm-9">
+				<input type="password" class="form-control" name="qnewpass">
+			</div>
+		</div>
+	</form>
+</div>
+
+</body>
+</html>
+

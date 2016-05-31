@@ -1,0 +1,304 @@
+<style type="text/css">
+.bs-example-temp {
+    background-color: #fafafa;
+    border-color: #e5e5e5 #eee #eee;
+    border-style: solid;
+    border-width: 1px 0;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05) inset;
+    position: relative;
+    border-left: 2px solid #ddd;
+    padding: 35px 15px 15px;
+}
+.bs-example-temp::after {
+    content: "预警记录";
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: absolute;
+    text-transform: uppercase;
+    left: 10px;
+    top: 5px;
+}
+.bs-temp {
+    background-color: #fafafa;
+    border-color: #e5e5e5 #eee #eee;
+    border-style: solid;
+    border-width: 1px 0;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05) inset;
+    margin: 0 -15px 15px;
+    position: relative;
+}
+</style>
+
+
+<div class="container-fluid">
+	<div class="row" style="padding-top: 5px;">
+		<div class="col-xs-8 bs-temp">
+			<div id="container" style="height:300px;border-left: 2px solid #ddd;"></div>
+		</div>
+		<div class="col-xs-4 bs-temp">
+				<div id="container2" style="height:300px;border-left: 2px solid #ddd;"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 bs-temp">
+			<div id="container3" style="height:200px;border-left: 2px solid #ddd;"></div>
+		</div>
+		<div class="col-xs-6 bs-example-temp">
+				<table id="table-transform">
+				    <thead>
+					    <tr>
+					        <th>电厂</th>
+					        <th>机组</th>
+					        <th>点名</th>
+					        <th>状态</th>
+					        <th>预警时间</th>
+					    </tr>
+					</thead>
+					<tbody>
+					    <tr id="tr_id_1" class="tr-class-1">
+					        <td id="td_id_1" class="td-class-1">宝丽华荷树园</td>
+					        <td>4号机组</td>
+					        <td>低压排汽温度(电机端) 1# 过高</td>
+					        <td>过低</td>
+					        <td id="td_time1"></td>
+					    </tr>
+					    <tr id="tr_id_2" class="tr-class-2">
+					        <td id="td_id_2" class="td-class-2">宝丽华荷树园</td>
+					        <td>3号机组</td>
+					        <td>流化风机A温度异常</td>
+					        <td>过高</td>
+					        <td id="td_time2"></td>
+					    </tr>
+					    <tr id="tr_id_3" class="tr-class-3">
+					        <td id="td_id_3" class="td-class-3">大唐洛和</td>
+					        <td>1号机组</td>
+					        <td>高旁阀电源故障</td>
+					        <td>过高</td>
+					        <td id="td_time3"></td>
+					    </tr>
+					    <tr id="tr_id_4" class="tr-class-4">
+					        <td id="td_id_4" class="td-class-4">大唐洛和</td>
+					        <td>1号机组</td>
+					        <td>皮带给煤机2转速异常</td>
+					        <td>过低</td>
+					        <td id="td_time4"></td>
+					    </tr>
+				    </tbody>
+				</table>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+$(function () {
+	//树状图
+    /*$('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '电厂预警统计',
+            align: 'left'
+        },
+        xAxis: {
+            categories: [
+                '宝丽华荷树园-3#',
+                '宝丽华荷树园-4#',
+                '大唐洛和-1#',
+                '大唐洛和-2#'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '次数'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [  {
+            name: '故障记录',
+            data: [48, 38,43,51],
+				color: '#EA301F'
+        }, {
+            name: '预警记录',
+            data: [62, 46,55,58],
+				color: '#EBD31E'
+        }]
+    });
+    
+    
+    
+       //饼状图
+      $('#container2').highcharts({
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45,
+                beta: 0
+            }
+        },
+        title: {
+            text: '重要设备预警统计',
+            align: 'left'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '百分比',
+            data: [
+              ['炉膛',8],
+              ['给煤机',7],      
+              ['一次风',6],
+              ['二次风',5],
+              ['引风机',7],
+              ['电除尘',13]
+            ]
+        }]
+    });
+    
+    
+    
+    
+    //动态曲线
+       Highcharts.setOptions({                                                     
+            global: {                                                               
+                useUTC: false                                                       
+            }                                                                       
+        });                                                                         
+                                                                                    
+        var chart;                                                                  
+        $('#container3').highcharts({                                                
+            chart: {                                                                
+                type: 'spline',                                                     
+                animation: Highcharts.svg, // don't animate in old IE               
+                marginRight: 10,                                                    
+                events: {                                                           
+                    load: function() {                                              
+                                                                                    
+                        // set up the updating of the chart each second             
+                        var series = this.series[0];                                
+                        setInterval(function() {                                    
+                            var x = (new Date()).getTime(), // current time         
+                                y = Math.random();                                  
+                            series.addPoint([x, y], true, true);                    
+                        }, 1000);                                                   
+                    }                                                               
+                }                                                                   
+            },                                                                      
+            title: {                                                                
+                text: '实时监控',
+                align: 'left'                                            
+            },                                                                      
+            xAxis: {                                                                
+                type: 'datetime',                                                   
+                tickPixelInterval: 150                                              
+            },                                                                      
+            yAxis: {                                                                
+                title: {                                                            
+                    text: 'Value'                                                   
+                },                                                                  
+                plotLines: [{                                                       
+                    value: 0,                                                       
+                    width: 1,                                                       
+                    color: '#808080'                                                
+                }]                                                                  
+            },                                                                      
+            tooltip: {                                                              
+                formatter: function() {                                             
+                        return '<b>'+ this.series.name +'</b><br/>'+                
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);                         
+                }                                                                   
+            },                                                                      
+            legend: {                                                               
+                enabled: false                                                      
+            },                                                                      
+            exporting: {                                                            
+                enabled: false                                                      
+            },                                                                      
+            series: [{                                                              
+                name: '宝丽华荷树园－1＃锅炉温度',                                                
+                data: (function() {                                                 
+                    // generate an array of random data                             
+                    var data = [],                                                  
+                        time = (new Date()).getTime(),                              
+                        i;                                                          
+                                                                                    
+                    for (i = -19; i <= 0; i++) {                                    
+                        data.push({                                                 
+                            x: time + i * 1000,                                     
+                            y: Math.random()                                        
+                        });                                                         
+                    }                                                               
+                    return data;                                                    
+                })()                                                                
+            }]                                                                      
+        });                                                                    
+              
+   var mydate = new Date();
+   var str = "" + mydate.getFullYear() + "-";
+   str += (mydate.getMonth()+1) + "-";
+   str += mydate.getDate() + " ";   
+   str += mydate.getHours() + ":";
+   str += mydate.getMinutes() + ":";   
+   str += mydate.getSeconds() + "";
+
+   var str2 = "" + mydate.getFullYear() + "-";
+   str2 += (mydate.getMonth()+1) + "-";
+   str2 += mydate.getDate() + " ";   
+   str2 += mydate.getHours() + ":";
+   str2 += mydate.getMinutes()-10 + ":";   
+   str2 += mydate.getSeconds()+2 + "";
+   
+   var str3 = "" + mydate.getFullYear() + "-";
+   str3 += (mydate.getMonth()+1) + "-";
+   str3 += mydate.getDate() + " ";   
+   str3 += mydate.getHours()-1 + ":";
+   str3 += mydate.getMinutes() + ":";   
+   str3 += mydate.getSeconds()+10 + "";
+   
+   var str4 = "" + mydate.getFullYear() + "-";
+   str4 += (mydate.getMonth()+1) + "-";
+   str4 += mydate.getDate() + " ";   
+   str4 += mydate.getHours()-2 + ":";
+   str4 += mydate.getMinutes() + ":";   
+   str4 += mydate.getSeconds()-10 + "";
+
+    $("#td_time1").html(str);
+    $("#td_time2").html(str2);
+    $("#td_time3").html(str3);
+    $("#td_time4").html(str4);
+    */
+    $('#table-transform').bootstrapTable();
+                                                           
+});
+</script>
