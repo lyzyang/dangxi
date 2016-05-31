@@ -1,10 +1,9 @@
 
 var one_initEmbed = null;
 
-var menuId,menuPcId;
+var menuId;
 var oneTabPanel;
 $(function() {
-	
 
 	/**
 	 * 退出
@@ -209,58 +208,44 @@ $(function() {
 		var $thisElem = $(this);
 		activeMenu($thisElem);
 		var menu = $thisElem.data("menu");
-		switch(menu.isSvg * 1) {
-			case 1:
-				$.onecloud.warnShow("这是目录，不是为svg图像！");
-				break;
-			case 2:
-			case 3:
-				menuId = menu.id;
-				break;
-			default:
-				//var menuHtml = menu.html;
-				var tabId = "tab" + menu.id;//一定要string类型
-				if(oneTabPanel.exists(tabId)) {
-					$.onecloud.opened();
-					oneTabPanel.show(tabId)
-				} else {
-					$.onecloud.opening();
-					if(menu.html != null && menu.html.length!=0){
+		
+		var tabId = "tab" + menu.id;//一定要string类型
+		if(oneTabPanel.exists(tabId)) {
+			$.onecloud.opened();
+			oneTabPanel.show(tabId)
+		} else {
+			$.onecloud.opening();
+			if(menu.html != null && menu.html.length!=0){
+				$.onecloud.openSucc();
+				oneTabPanel.addTab({
+					id: tabId,
+					title: menu.name,
+					html: menu.html
+				});
+			}else if(menu.url != null && menu.url.length!=0) {
+				$.ajax({
+					url: menu.url,
+					async: false,
+					dataType: "html",
+					success: function(data) {
 						$.onecloud.openSucc();
 						oneTabPanel.addTab({
 							id: tabId,
 							title: menu.name,
-							html: menu.html
+							html: data
 						});
-					}else if(menu.url != null && menu.url.length!=0) {
-						$.ajax({
-							url: menu.url,
-							async: false,
-							dataType: "html",
-							success: function(data) {
-								$.onecloud.openSucc();
-								oneTabPanel.addTab({
-									id: tabId,
-									title: menu.name,
-									html: data
-								});
-							}
-						});
-						
-					}else{
-						$.onecloud.succShow('研发中');
 					}
-				}
-				
+				});
+			}else{
+				$.onecloud.succShow('研发中');
 			}
+		}
 		return false;
 	};
 	
-	var adminMenu, homeMenu, svgMainMenu;
 	$.getJSON("/page_menu", function(adminList){
 		var adminTree = $.onecloud.listToTree(adminList);
-		adminMenu = createTree(adminTree);
-		$menuPanel.append(adminMenu);
+		$menuPanel.append(createTree(adminTree));
 	});
 	
 	

@@ -24,9 +24,6 @@ var setting = {
 var dep_permission_treeObj,dep_permission_zTree
 var dep_permission_zNodes = [];
 
-var dep_pc_treeObj,dep_pc_zTree
-var dep_pc_zNodes = [];
-
 $(function() {
         //获取角色列表并生成树
         $.get("/securityRole_json",function(data) {
@@ -55,18 +52,15 @@ $(function() {
                         id: data.js.id,
                         pId : data.js.pId,
                         sort : data.js.sort,
-                        name: data.js.name,
-                        dropInner: data.js.dropInner,
-                        dropRoot: data.js.dropRoot,
-                        iconSkin: data.js.iconSkin
-                    	};
-                    	if(securityRole_addNode) {
-                        securityRole_treeObj.addNodes(securityRole_addNode, newNode);
-                        securityRole_zNodes.push(newNode);
-                    	} else {
-                        securityRole_treeObj.addNodes(null, newNode);
-                        securityRole_zNodes.push(newNode);
-                    	}
+                        name: data.js.name
+                	};
+                	if(securityRole_addNode) {
+                    	securityRole_treeObj.addNodes(securityRole_addNode, newNode);
+                    	securityRole_zNodes.push(newNode);
+                	} else {
+                    	securityRole_treeObj.addNodes(null, newNode);
+                    	securityRole_zNodes.push(newNode);
+                	}
 
                     $('#securityRole_add_dialog').dialog("close");
                     $.onecloud.succShow(data.mess);
@@ -107,9 +101,6 @@ $(function() {
 	            if (data.status == 0) {
 	                var node = securityRole_treeObj.getNodeByTId(tid);
 	                node.name = data.js.name;
-	                node.dropInner = data.js.dropInner;
-	                node.dropRoot = data.js.dropRoot;
-	                node.iconSkin = data.js.iconSkin;
 	                securityRole_treeObj.updateNode(node);
 	                
 	                $('#securityRole_up_dialog').dialog("close");
@@ -214,9 +205,7 @@ function securityRole_beforeRemove(treeId, treeNode) {
 //点击role树节点，获取该节点role的权限和菜单
 function securityRole_onClick(event, treeId, treeNode) {
     $("#dep_permission_role_id").val(treeNode.id);
-    $("#dep_pc_role_id").val(treeNode.id);
     dep_permission_treeObj.checkAllNodes(false);
-    dep_pc_treeObj.checkAllNodes(false);
     var node = securityRole_findNodeById(treeNode.id);
 
     var params = {"sid": node.id};
@@ -276,10 +265,7 @@ function securityRole_changeNodes() {
             pId: node.pId,
             sort: securityRole_zNodes[key].sort,
             checked: node.checked,
-            name: node.name,
-            dropInner: node.dropInner,
-            dropRoot: node.dropRoot,
-            iconSkin: node.iconSkin
+            name: node.name
         });
     });
     var str = "";

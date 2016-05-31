@@ -116,7 +116,9 @@ public class UserPermission extends Model implements Permission {
 		ArrayNode array = mapper.createArrayNode ();
 
 		for(UserPermission up :up_list){
-			array.add(up.toJson());	
+			ObjectNode appJson = up.toJson();
+			appJson.put("url", up.value);
+			array.add(appJson);
 		}
 
 		return array;
@@ -233,7 +235,7 @@ public class UserPermission extends Model implements Permission {
      * 转换成json
      * @return
      */
-    public JsonNode toJson(){
+    public ObjectNode toJson(){
     	ObjectMapper mapper = new ObjectMapper();
     	ObjectNode appJson = mapper.createObjectNode ();
     	appJson.put("id", this.id);
