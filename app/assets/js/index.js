@@ -367,15 +367,109 @@ $(function() {
 	};
 	
 	
-});
-
-
-
-
-
 
 	
+    $("#user_name").click(function() {
+        $('#index_user_name_up_form')[0].reset();
+        $('#index_user_name_up_dialog').dialog('open');
+        $('#index_user_name_up_form').data('bootstrapValidator').resetForm(false);
+    });
+    $("#user_pass").click(function() {
+        $('#index_user_pass_up_form')[0].reset();
+        $('#index_user_pass_up_dialog').dialog('open');
+        $('#index_user_pass_up_form').data('bootstrapValidator').resetForm(false);
+    });
+    
+    //初始化添加用户对话框
+    $('#index_user_name_up_form').bootstrapValidator({
+		threshold: 1,
+       feedbackIcons: {
+	    	valid: 'glyphicon glyphicon-ok',
+	    	invalid: 'glyphicon glyphicon-remove',
+	    	validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            name: {validators: {notEmpty: {message: '此项不能为空'}}},
+            email: {validators: {
+	          	    	callback: {callback: function(value, validator) {return true;}},
+	          			emailAddress: {message: '请填写合法邮箱'}
+	          }}
+        }
+	 }).on('success.form.bv', function(e) {
+        e.preventDefault();
+        $.post("/user_name_up", $("#index_user_name_up_form").serialize(), function(data) {
+            if (data.status == 0) {
+                $('#index_user_name_up_dialog').dialog("close");
+                $("#index_user").html($("#new_username").val());
+                $.onecloud.succShow(data.mess);
+            } else if(data.status == 1) {
+                $.onecloud.errorShow(data.mess);
+            }else{
+                $.onecloud.warnShow(data.mess);
+               }
+          });
+    });
+    $('#index_user_name_up_dialog').dialog({
+        autoOpen: false,
+        width: 300,
+        buttons: {
+            "修改": function() {
+                $("#index_user_name_up_form").submit();
+            },
+            "关闭": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
 
-
-
+    //初始化添加用户对话框
+    $('#index_user_pass_up_form').bootstrapValidator({
+	   threshold: 1,
+       feedbackIcons: {
+	    	valid: 'glyphicon glyphicon-ok',
+	    	invalid: 'glyphicon glyphicon-remove',
+	    	validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+           oldpass: {validators: {notEmpty: {message: '此项不能为空'}}},
+	       newpass: {
+            	validators: {
+            		notEmpty: {message: '此项不能为空'},
+                	identical: {field: 'qnewpass',message: '两次输入的密码必须相同'}
+            	}
+        	},
+        	qnewpass: {
+            	validators: {
+            		notEmpty: {message: '此项不能为空'},
+                	identical: {field: 'newpass',message: '两次输入的密码必须相同'}
+            	}
+        	}
+        }
+	 }).on('success.form.bv', function(e) {
+        e.preventDefault();
+        $.post("/user_pass_up", $("#index_user_pass_up_form").serialize(), function(data) {
+            if (data.status == 0) {
+                $('#index_user_pass_up_dialog').dialog("close");
+                $.onecloud.succShow(data.mess);
+            } else if(data.status == 1) {
+                $.onecloud.errorShow(data.mess);
+            }else{
+                $.onecloud.warnShow(data.mess);
+              }
+          });
+    });
+    $('#index_user_pass_up_dialog').dialog({
+        autoOpen: false,
+        width: 420,
+        buttons: {
+            "修改": function() {
+                $("#index_user_pass_up_form").submit();
+            },
+            "关闭": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+	
+});
 

@@ -21,8 +21,8 @@ var setting = {
 };
 
 
-var dep_permission_treeObj,dep_permission_zTree
-var dep_permission_zNodes = [];
+var securityRole_permission_treeObj,securityRole_permission_zTree
+var securityRole_permission_zNodes = [];
 
 $(function() {
         //获取角色列表并生成树
@@ -126,18 +126,18 @@ $(function() {
         });
 
         //获取有效的权限列表并生成树
-        var dep_permission_setting = {
+        var securityRole_permission_setting = {
             check : {enable : true,nocheckInherit : true},
             data: {simpleData: {enable: true}},
             callback: {
-		        onClick: dep_permission_onClick
+		        onClick: securityRole_permission_onClick
 		    }
           };
         $.get("/securityRole_permissions_json", function(data) {
-            dep_permission_zNodes = data;
-            dep_permission_treeObj = $.fn.zTree.init($("#dep_permission_tree"), dep_permission_setting, dep_permission_zNodes);
-            dep_permission_zTree = $.fn.zTree.getZTreeObj("dep_permission_tree");
-            dep_permission_treeObj.expandAll(true);
+            securityRole_permission_zNodes = data;
+            securityRole_permission_treeObj = $.fn.zTree.init($("#securityRole_permission_tree"), securityRole_permission_setting, securityRole_permission_zNodes);
+            securityRole_permission_zTree = $.fn.zTree.getZTreeObj("securityRole_permission_tree");
+            securityRole_permission_treeObj.expandAll(true);
           });
 
 });
@@ -204,15 +204,15 @@ function securityRole_beforeRemove(treeId, treeNode) {
 
 //点击role树节点，获取该节点role的权限和菜单
 function securityRole_onClick(event, treeId, treeNode) {
-    $("#dep_permission_role_id").val(treeNode.id);
-    dep_permission_treeObj.checkAllNodes(false);
+    $("#securityRole_permission_role_id").val(treeNode.id);
+    securityRole_permission_treeObj.checkAllNodes(false);
     var node = securityRole_findNodeById(treeNode.id);
 
     var params = {"sid": node.id};
     $.get("/securityRole_has_permissions", params, function(data) {
         $.each(data.permissions, function(k, permission) {
-            dep_permission_treeObj.checkNode(dep_permission_treeObj.getNodeByParam("id", permission.id), true);
-          });
+            securityRole_permission_treeObj.checkNode(securityRole_permission_treeObj.getNodeByParam("id", permission.id), true);
+        });
      });
     
 }
@@ -290,21 +290,21 @@ function securityRole_changeNodes() {
     }
 }
 
-function dep_permission_onClick(e, treeId, treeNode) {
-	dep_permission_zTree.checkNode(treeNode, !treeNode.checked, true, true);
+function securityRole_permission_onClick(e, treeId, treeNode) {
+	securityRole_permission_zTree.checkNode(treeNode, !treeNode.checked, true, true);
 	return false;
 }
 	
 //更改role所拥有的权限
-function dep_permission_change(){
-    var role_id = $("#dep_permission_role_id").val();
+function securityRole_permission_change(){
+    var role_id = $("#securityRole_permission_role_id").val();
     if(role_id == '' || role_id == null || role_id == undefined){
     	$.onecloud.warnShow("请先选择管理组");
     	return;
     }
     var node = securityRole_findNodeById(role_id);
 
-    var nodes = dep_permission_treeObj.transformToArray(dep_permission_treeObj.getNodes());
+    var nodes = securityRole_permission_treeObj.transformToArray(securityRole_permission_treeObj.getNodes());
     var newNodes = new Array();
     $.each(nodes, function(key, node) {
         if(node.checked) {
@@ -328,27 +328,27 @@ function dep_permission_change(){
     });
 }
 
-//折叠或折叠dep_permission_tree
-var dep_permission_exp = true;
-function dep_permission_expall(){
-    if(dep_permission_exp) {
-        dep_permission_treeObj.expandAll(false);
-        dep_permission_exp = false;
+//折叠或折叠securityRole_permission_tree
+var securityRole_permission_exp = true;
+function securityRole_permission_expall(){
+    if(securityRole_permission_exp) {
+        securityRole_permission_treeObj.expandAll(false);
+        securityRole_permission_exp = false;
     } else {
-        dep_permission_treeObj.expandAll(true);
-        dep_permission_exp = true;
+        securityRole_permission_treeObj.expandAll(true);
+        securityRole_permission_exp = true;
     }
 }
 
-//全选或反选dep_permission_tree
-var dep_permission_check = false;
-function dep_permission_chkall(){
-    if(dep_permission_check) {
-        dep_permission_treeObj.checkAllNodes(false);
-        dep_permission_check = false;
+//全选或反选securityRole_permission_tree
+var securityRole_permission_check = false;
+function securityRole_permission_chkall(){
+    if(securityRole_permission_check) {
+        securityRole_permission_treeObj.checkAllNodes(false);
+        securityRole_permission_check = false;
     } else {
-        dep_permission_treeObj.checkAllNodes(true);
-        dep_permission_check = true;
+        securityRole_permission_treeObj.checkAllNodes(true);
+        securityRole_permission_check = true;
     }
 }
 

@@ -3,20 +3,15 @@ package models.userbehavior;
 import be.objectify.deadbolt.core.models.Permission;
 import be.objectify.deadbolt.core.models.Role;
 import be.objectify.deadbolt.core.models.Subject;
-import play.data.DynamicForm;
-import play.data.Form;
 import play.db.ebean.Model;
-import play.mvc.Controller;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 import models.UtilTool;
 
-import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Query;
 import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,53 +81,67 @@ public class AuthorisedUser extends Model implements Subject {
        return userpermissions_list;
     }
 
-	/**
-	 * 获取用户的权限列表
-	 * @return
-	 */
-    @SuppressWarnings("unchecked")
-	public List<UserPermission> getUserPermissionList(){
-    	boolean isadmin = false;
-    	List<UserPermission> userpermissions_list = new ArrayList<UserPermission>();
-    	for(SecurityRole role : roles){
-    		if(role.isadmin == 1) isadmin = true;
-    	}
-    	if(isadmin){
-    		userpermissions_list = UserPermission.finder.where().findList();
-    	}else{
-    		for(SecurityRole role : roles){
-        		userpermissions_list.addAll(role.permissions);
-        		userpermissions_list = UtilTool.removeDuplicate(userpermissions_list);
-        	}
-    	}
-       return userpermissions_list;
-    }
-    
-
-    
-    
-    /**
-     * 根据user的id获取user拥有的角色
-     * @param mould_id
-     * @return
-     */
-	public JsonNode getUserRole_json(long user_id){
-    	AuthorisedUser user = finder.byId(user_id);
-    	List<SecurityRole> roles_list = user.roles;
-    	
-    	ObjectMapper mapper = new ObjectMapper(); 
-		ObjectNode json = mapper.createObjectNode ();  
-		ArrayNode sr_array = mapper.createArrayNode (); 
-    	for(SecurityRole sr : roles_list){
-    		ObjectNode appJson = mapper.createObjectNode ();  
-    		appJson.put("id", sr.id);
-    		sr_array.add(appJson);
-    	}
-    	json.put("roles", sr_array);
-    	return json;
-    }
-    
 	
+
+	 /**
+	  * 获取管理员列表
+	  * @param limit
+	  * @param offset
+	  * @param order
+	  * @param sort
+	  * @param search
+	  * @return
+	  */
+	public static JsonNode getAuthorisedUserPageJson(int limit,int offset,String order,String sort,String search){
+		Query<AuthorisedUser> query = finder.query();
+		if(sort != null && sort.length() != 0){
+			sort = sort.replace("_", ".");
+			query.where().orderBy(sort +" "+ order);
+		}else{
+			query.where().orderBy("id asc");
+		}
+		
+		if(search != null && search.length() != 0) {
+			query.where().disjunction()
+				.like("userName", "%" + search + "%")
+				.like("user", "%" + search + "%")
+				.like("email", "%" + search + "%")
+				.like("roles.name", "%" + search + "%");
+		}
+		query.where().eq("roles.isadmin", 0);
+
+		int authorisedUser_list_size = query.findRowCount();
+		List<AuthorisedUser> authorisedUser_list = query.where().setFirstRow(offset).setMaxRows(limit).findList();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode json = mapper.createObjectNode ();
+		json.put("total", authorisedUser_list_size);
+		ArrayNode array = mapper.createArrayNode ();
+		for(AuthorisedUser au : authorisedUser_list){
+			ObjectNode appJson = mapper.createObjectNode ();
+			appJson.put("id", au.id);
+			appJson.put("userName", au.userName);
+			appJson.put("user", au.authuser);
+			appJson.put("email", au.email);
+			
+			String roleId = "";
+			String roleName = "";
+			for(SecurityRole role : au.roles){
+				roleId = roleId + role.id + ",";
+				roleName = roleName + role.name + ",";
+			}
+			if(roleId.length()!=0) appJson.put("roleId", roleId.substring(0, roleId.length()-1));
+			else appJson.put("roleId", roleId);
+			
+			if(roleName.length()!=0) appJson.put("roleName", roleName.substring(0, roleName.length()-1));
+			else appJson.put("roleName", roleName);
+			
+			array.add(appJson);
+		}
+		json.put("rows", array);
+		return json;
+	}
+  
     
     @Transactional
     public void addAuthorisedUser(){

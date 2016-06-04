@@ -3,15 +3,31 @@
 # ~~~~
 
 # Home page
+
+
+#基本页面#####
+GET    /                               controllers.userbehavior.LoginController.main
+GET    /login	                       controllers.userbehavior.LoginController.login
 GET    /index                          controllers.userbehavior.LoginController.index
-GET     /help                           controllers.help.Application.help()
+POST   /loginer                        controllers.userbehavior.LoginController.loginer
+POST   /exit                           controllers.userbehavior.LoginController.exit
+###########
 
+
+#仪表板####
 GET		/portlet_html		controllers.portlet.PortletController.portlet_html
+###########
 
+#用户管理####
+POST   /user_name_up                 controllers.userbehavior.AuthorisedUserController.user_name_up
+POST   /user_pass_up                  controllers.userbehavior.AuthorisedUserController.user_pass_up
 
-
-
-
+GET    /authorisedUser_html                controllers.userbehavior.AuthorisedUserController.authorisedUser_html
+GET    /authorisedUser_page_json           controllers.userbehavior.AuthorisedUserController.authorisedUser_page_json
+POST   /authorisedUser_add                 controllers.userbehavior.AuthorisedUserController.authorisedUser_add
+POST   /authorisedUser_up                  controllers.userbehavior.AuthorisedUserController.authorisedUser_up
+POST   /authorisedUser_del                 controllers.userbehavior.AuthorisedUserController.authorisedUser_del
+###########
 
 
 #角色管理####
@@ -40,6 +56,11 @@ POST   /userPermission_oc_up           controllers.userbehavior.UserPermissionCo
 ###########
 
 
+#其它页面#####
+GET     /help                           controllers.help.Application.help
+###########
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /public/*file                   controllers.Assets.at(path="/public", file)
 HEAD   /pispower_do_not_delete/*file   controllers.Assets.at(path="/public/pispower_do_not_delete", file)
+

@@ -30,6 +30,7 @@ public class UserPermissionController extends Controller{
 	 * 获取菜单，用于网页显示
 	 * @return
 	 */
+	@SubjectPresent
 	public static Result page_menu(){
 		String id = Controller.session("id");
 		int index_user_id = Integer.valueOf(id);
@@ -42,6 +43,7 @@ public class UserPermissionController extends Controller{
 	 * 获取html页面
 	 * @return
 	 */
+	@Pattern("userPermission_html")
 	public static Result userPermission_html(){
 		return ok(userPermissions.render());
 	}
@@ -50,6 +52,7 @@ public class UserPermissionController extends Controller{
 	 * 获取权限列表
 	 * @return
 	 */
+	@Pattern("userPermission_html")
 	public static Result userPermission_json(){
 		JsonNode json = UserPermission.getUserPermissionJson();
 		return ok(json);
@@ -59,6 +62,7 @@ public class UserPermissionController extends Controller{
 	 * 添加权限
 	 * @return
 	 */
+	@Pattern("userPermission_html")
 	public static Result userPermission_add(){
 		DynamicForm in = Form.form().bindFromRequest();
 		UserPermission up = new UserPermission();
@@ -99,6 +103,7 @@ public class UserPermissionController extends Controller{
 	 * 修改权限
 	 * @return
 	 */
+	@Pattern("userPermission_html")
 	public static Result userPermission_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		UserPermission up = UserPermission.finder.byId(Long.valueOf(in.get("sid")));
@@ -128,6 +133,7 @@ public class UserPermissionController extends Controller{
 	 * 删除权限
 	 * @return
 	 */
+	@Pattern("userPermission_html")
 	public static Result userPermission_del(){
 		DynamicForm in = Form.form().bindFromRequest();
 		long sid = Long.valueOf(in.get("sid"));
@@ -148,6 +154,7 @@ public class UserPermissionController extends Controller{
 	 * 修改权限顺序，从属，是否有效
 	 * @return
 	 */
+	@Pattern("userPermission_html")
 	public static Result userPermission_oc_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String str = in.get("str");

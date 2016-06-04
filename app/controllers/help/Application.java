@@ -1,6 +1,5 @@
 package controllers.help;
 
-import play.*;
 import play.mvc.*;
 
 import views.html.help.helps;

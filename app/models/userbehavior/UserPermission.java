@@ -4,7 +4,9 @@ package models.userbehavior;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import be.objectify.deadbolt.core.models.Permission;
 import play.db.ebean.Model;
@@ -159,35 +161,25 @@ public class UserPermission extends Model implements Permission {
     
 	
 	/**
-     * 获取角色当前有效的权限列表，角色管理
-     * @param index_user_id
+     * 根据id获取role所拥有的权限和菜单列表
+     * @param id
      * @return
      */
-    @SuppressWarnings("unchecked")
-	public static ArrayNode getValidPermissionsJson(long dep_id){
-    	List<UserPermission> UserPermission_list = new ArrayList<UserPermission>();
-    	SecurityRole sr = SecurityRole.finder.byId(dep_id);
-		UserPermission_list.addAll(sr.permissions);
-		UserPermission_list = UtilTool.removeDuplicate(UserPermission_list);
-		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
-		Collections.sort(UserPermission_list, new Comparator<UserPermission>() {  
-			@Override
-			public int compare(UserPermission o1, UserPermission o2) {
-				int id1 = o1.sort;
-				int id2 = o2.sort;
-				if(id1 < id2){
-					return -1;
-				}else{
-					return 1;
-				}
-			}  
-        }); 
-    	ObjectMapper mapper = new ObjectMapper();
-		ArrayNode array = mapper.createArrayNode ();
-		for(UserPermission up : UserPermission_list){
-			array.add(up.toJson());
-		}
-		return array;
+    public static JsonNode getRolePermissions(long id){
+    	SecurityRole sr = SecurityRole.finder.byId(id);
+		List<UserPermission> permissions_list = sr.permissions;
+		
+		ObjectMapper mapper = new ObjectMapper(); 
+		ObjectNode json = mapper.createObjectNode ();  
+		ArrayNode up_array = mapper.createArrayNode (); 
+    	for(UserPermission up : permissions_list){
+			ObjectNode appJson = mapper.createObjectNode ();  
+    		appJson.put("id", up.id);
+    		up_array.add(appJson);
+    	}
+    	json.put("permissions", up_array);
+    	
+    	return json;
     }
 	
 	

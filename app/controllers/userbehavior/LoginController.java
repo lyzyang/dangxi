@@ -12,6 +12,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
 import views.html.login;
+import views.html.main;
 
 
 
@@ -19,6 +20,17 @@ import views.html.login;
  * @author lyz
  */
 public class LoginController extends Controller{
+	
+	
+	/**
+	 * 主页
+	 * @return
+	 */
+	@SubjectPresent
+	public static Result main() {
+		return ok(main.render());
+    }
+	
 	
 	/**
 	 * 登录页面
@@ -51,8 +63,7 @@ public class LoginController extends Controller{
 			long current = System.currentTimeMillis();
 			 if(UtilTool.encoder.matches(password, au.password)){
 				setCacheSession((new Long(current)).toString(),String.valueOf(au.id));
-			   //return redirect(routes.LoginController.index());
-				return ok();
+			   return redirect(routes.LoginController.index());
 			}else{
               return ok(login.render("帐号或密码错误!"));
 			}

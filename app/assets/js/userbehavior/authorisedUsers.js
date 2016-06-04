@@ -1,17 +1,17 @@
 $(function() {
     //定义按钮动作
-    $("#user_admin_add").click(function() {
-        user_admin_add_dialog_open()
+    $("#authorisedUser_add").click(function() {
+        authorisedUser_add_dialog_open()
     });
-    $("#user_admin_up").click(function() {
-        user_admin_up_dialog_open()
+    $("#authorisedUser_up").click(function() {
+        authorisedUser_up_dialog_open()
     });
-    $("#user_admin_del").click(function() {
-        user_admin_del()
+    $("#authorisedUser_del").click(function() {
+        authorisedUser_del()
     });
      
     //初始化添加用户对话框
-    $('#user_admin_add_form').bootstrapValidator({
+    $('#authorisedUser_add_form').bootstrapValidator({
     	threshold: 1,
        feedbackIcons: {
 	    	valid: 'glyphicon glyphicon-ok',
@@ -29,10 +29,10 @@ $(function() {
             roles_name: {validators: {notEmpty: {message: '至少选一个角色'}}}
         }
 	 }).on('success.form.bv', function(e) {
-        $.post("/user_admin_add", $("#user_admin_add_form").serialize(), function(data) {
+        $.post("/authorisedUser_add", $("#authorisedUser_add_form").serialize(), function(data) {
             if (data.status == 0) {
-                $('#user_admin_add_dialog').dialog("close");
-                $('#user_admin-table').bootstrapTable('refresh', {silent: true});
+                $('#authorisedUser_add_dialog').dialog("close");
+                $('#authorisedUser-table').bootstrapTable('refresh', {silent: true});
                 $.onecloud.succShow(data.mess);
             } else if(data.status == 1) {
                 $.onecloud.errorShow(data.mess);
@@ -41,12 +41,12 @@ $(function() {
                 }
            });
     });
-    $('#user_admin_add_dialog').dialog({
+    $('#authorisedUser_add_dialog').dialog({
         autoOpen: false,
         width: 300,
         buttons: {
             "添加": function() {
-                $("#user_admin_add_form").submit();
+                $("#authorisedUser_add_form").submit();
             },
             "关闭": function() {
                 $(this).dialog("close");
@@ -55,7 +55,7 @@ $(function() {
     });
 
     //初始化修改用户对话框
-    $('#user_admin_up_form').bootstrapValidator({
+    $('#authorisedUser_up_form').bootstrapValidator({
     	threshold: 1,
        feedbackIcons: {
 	    	valid: 'glyphicon glyphicon-ok',
@@ -73,10 +73,10 @@ $(function() {
             roles_name: {validators: {notEmpty: {message: '至少选一个角色'}}}
         }
 	 }).on('success.form.bv', function(e) {
-        $.post("/user_admin_up", $("#user_admin_up_form").serialize(), function(data) {
+        $.post("/authorisedUser_up", $("#authorisedUser_up_form").serialize(), function(data) {
                 if (data.status == 0) {
-                    $('#user_admin_up_dialog').dialog("close");
-                    $('#user_admin-table').bootstrapTable('refresh', {silent: true});
+                    $('#authorisedUser_up_dialog').dialog("close");
+                    $('#authorisedUser-table').bootstrapTable('refresh', {silent: true});
                     $.onecloud.succShow(data.mess);
                 } else if(data.status == 1) {
                     $.onecloud.errorShow(data.mess);
@@ -85,12 +85,12 @@ $(function() {
                   }
            });
     });
-    $('#user_admin_up_dialog').dialog({
+    $('#authorisedUser_up_dialog').dialog({
         autoOpen: false,
         width: 300,
         buttons: {
             "修改": function() {
-                $("#user_admin_up_form").submit();
+                $("#authorisedUser_up_form").submit();
             },
             "关闭": function() {
                 $(this).dialog("close");
@@ -100,86 +100,85 @@ $(function() {
 
 
     //初始化用户表格
-    $('#user_admin-table').bootstrapTable({
+    $('#authorisedUser-table').bootstrapTable({
         method: 'get',
-        url: '/user_admin_page_json',
+        url: '/authorisedUser_page_json',
         cache: false,
         striped: true,
         pagination: true,
-        sidePagination: 'client',
+        sidePagination: 'server',
+        pageNumber: '1',
         pageSize: '10',
         pageList: '[10, 25, 50, 100]',
-        search: true,
-        showColumns: true,
+        search: false,
+        showColumns: false,
         showRefresh: true,
         clickToSelect: true,
-        toolbar: '#user_admin-custom-toolbar',
+        toolbar: '#authorisedUser-custom-toolbar',
         queryParams: function(params) {
            return params;
         },
         columns: [{field: 'state',checkbox: true},
-            {field: 'userName',title: '名字',align: 'left',width:'20%',sortable: true},
-            {field: 'user',title: '帐号',align: 'left',width:'20%',sortable: true},
-            {field: 'email',title: '邮箱',align: 'left',width:'20%',sortable: true},
-            {field: 'roleName',title: '管理',align: 'left',width:'40%',sortable: true},
+            {field: 'user',title: '帐号',align: 'left',width:'20%',sortable: false},
+            {field: 'userName',title: '名字',align: 'left',width:'20%',sortable: false},
+            {field: 'email',title: '邮箱',align: 'left',width:'20%',sortable: false},
+            {field: 'roleName',title: '管理',align: 'left',width:'40%',sortable: false},
         ]
     });
 });
 
 
 //打开添加哟用户对话框
-function user_admin_add_dialog_open() {
-    $('#user_admin_add_form')[0].reset();
-    $('#user_admin_add_roles_id').val("");
+function authorisedUser_add_dialog_open() {
+    $('#authorisedUser_add_form')[0].reset();
+    $('#authorisedUser_add_roles_id').val("");
     
-    role_tree.Init('user_admin_role_json','user_admin_add_roles_id','user_admin_add_roles_name',
-    	'user_admin_add_roles_panel','user_admin_add_roles_tree');
+    role_tree.Init('securityRole_json','authorisedUser_add_roles_id','authorisedUser_add_roles_name',
+    	'authorisedUser_add_roles_panel','authorisedUser_add_roles_tree');
     	
-    $('#user_admin_add_dialog').dialog( "option", "title", "添加用户");
-    $('#user_admin_add_dialog').dialog('open');
-    $('#user_admin_add_form').data('bootstrapValidator').resetForm(false);
+    $('#authorisedUser_add_dialog').dialog( "option", "title", "添加用户");
+    $('#authorisedUser_add_dialog').dialog('open');
+    $('#authorisedUser_add_form').data('bootstrapValidator').resetForm(false);
 };
 
 //打开修改用户对话框
-function user_admin_up_dialog_open() {
-    //$('#user_admin_up_form')[0].reset();
-    $('#user_admin_up_roles_id').val("");
-    var selection = $('#user_admin-table').bootstrapTable('getSelections');
+function authorisedUser_up_dialog_open() {
+    //$('#authorisedUser_up_form')[0].reset();
+    $('#authorisedUser_up_roles_id').val("");
+    var selection = $('#authorisedUser-table').bootstrapTable('getSelections');
     if (selection.length === 1) {
         $.each(selection, function(key, row) {
-            $("#user_admin_id").val(row.id);
-            $("#user_admin_userName").val(row.userName);
-            $("#user_admin_email").val(row.email);
-            $("#user_admin_user").val(row.user);
-            $("#user_admin_password").val("");
+            $("#authorisedUser_id").val(row.id);
+            $("#authorisedUser_userName").val(row.userName);
+            $("#authorisedUser_email").val(row.email);
+            $("#authorisedUser_user").val(row.user);
+            $("#authorisedUser_password").val("");
             
-			  role_tree.Init('user_admin_role_json','user_admin_up_roles_id','user_admin_up_roles_name',
-    				'user_admin_up_roles_panel','user_admin_up_roles_tree');
+			role_tree.Init('securityRole_json','authorisedUser_up_roles_id','authorisedUser_up_roles_name',
+    				'authorisedUser_up_roles_panel','authorisedUser_up_roles_tree');
 
-			 var treeObj = $.fn.zTree.getZTreeObj("user_admin_up_roles_tree");
-            var params = {"user_id": row.id}
-            $.get("/UserRole_json", params , function(data) {
-                var roles_id = "";
-                $.each(data.roles, function(k, role) {
-                    roles_id = roles_id + role.id +',';
-                    treeObj.checkNode(treeObj.getNodeByParam("id", role.id), true);
-                  });
-                roles_id = roles_id.substring(0,roles_id.length-1);
-                $("#user_admin_up_roles_id").val(roles_id);
-                $("#user_admin_up_roles_name").val(row.roleName);
+			var treeObj = $.fn.zTree.getZTreeObj("authorisedUser_up_roles_tree");
+        
+        	var role = row.roleId.split(",");
+            $.each(role, function(k, v) {
+                treeObj.checkNode(treeObj.getNodeByParam("id", v), true);
             });
-            $('#user_admin_up_dialog').dialog( "option", "title", "修改用户<"+row.userName+">");
+          
+            $("#authorisedUser_up_roles_id").val(row.roleId);
+            $("#authorisedUser_up_roles_name").val(row.roleName);
+            
+            $('#authorisedUser_up_dialog').dialog( "option", "title", "修改用户<"+row.userName+">");
         });
-        $('#user_admin_up_dialog').dialog('open');
-        $('#user_admin_up_form').data('bootstrapValidator').resetForm(false);
+        $('#authorisedUser_up_dialog').dialog('open');
+        $('#authorisedUser_up_form').data('bootstrapValidator').resetForm(false);
     } else {
         $.onecloud.warnShow("修改只能选一个项！");
     }
 };
 
 //删除用户
-function user_admin_del() {
-    var selection = $('#user_admin-table').bootstrapTable('getSelections');
+function authorisedUser_del() {
+    var selection = $('#authorisedUser-table').bootstrapTable('getSelections');
     if (selection.length === 0) {
         $.onecloud.warnShow("至少选一个！");
     } else {
@@ -192,9 +191,9 @@ function user_admin_del() {
             params = {
                 "id_array": id_array.toString()
               };
-            $.post("/user_admin_del", params, function(data) {
+            $.post("/authorisedUser_del", params, function(data) {
                 if (data.status == 0) {
-                    $('#user_admin-table').bootstrapTable('refresh', {silent: true});
+                    $('#authorisedUser-table').bootstrapTable('refresh', {silent: true});
                     $.onecloud.succShow(data.mess);
                 } else if(data.status == 1) {
                     $.onecloud.errorShow(data.mess);

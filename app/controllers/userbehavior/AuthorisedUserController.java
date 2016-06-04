@@ -13,10 +13,10 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import be.objectify.deadbolt.core.PatternType;
 import be.objectify.deadbolt.java.actions.Pattern;
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import views.html.userbehavior.authorisedUsers;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 /**
@@ -100,8 +100,8 @@ public class AuthorisedUserController extends Controller{
 	 * 获取html页面
 	 * @return
 	 */
-	@Pattern("user_admin_html")
-	public static Result user_admin_html(){
+	@Pattern("authorisedUser_html")
+	public static Result authorisedUser_html(){
 		return ok(authorisedUsers.render());
 	}
 	
@@ -109,101 +109,39 @@ public class AuthorisedUserController extends Controller{
 	 * 分页显示admin
 	 * @return
 	 */
-	@Pattern("user_admin_html")
-	public static Result user_admin_page_json(){
-		AuthorisedUser user = new AuthorisedUser();
-		JsonNode useradmin_page_json = null;
+	@Pattern("authorisedUser_html")
+	public static Result authorisedUser_page_json(){
+		DynamicForm in = Form.form().bindFromRequest();
+		int limit = Integer.valueOf(in.get("limit"));
+		int offset = Integer.valueOf(in.get("offset"));
+		String order = in.get("order");
+		String sort = in.get("sort");
+		String search = in.get("search");
+		JsonNode useradmin_page_json = AuthorisedUser.getAuthorisedUserPageJson(limit, offset, order, sort, search);
 		return ok(useradmin_page_json);
 	}
 	
-	/**
-	 * 获取部门列表
-	 * @return
-	 */
-	@Pattern("user_admin_html")
-	public static Result user_admin_role_json(){
-		//String id = Controller.session("id");
-		//int index_user_id = Integer.valueOf(id);
-		AuthorisedUser user = new AuthorisedUser();
-		JsonNode user_admin_role_json = null;
-		return ok(user_admin_role_json);
-	}
-	
-	
-	
 
-	/**
-	 * 根据user的id获取user拥有的角色
-	 * @return
-	 */
-	@Pattern(value="(user_admin_html|user_common_html)", patternType=PatternType.REGEX)
-	public static Result UserRole_json(){
-		DynamicForm in = Form.form().bindFromRequest();
-		int user_id = Integer.valueOf(in.get("user_id"));
-		AuthorisedUser user = new AuthorisedUser();
-		JsonNode userrole_json = user.getUserRole_json(user_id);
-		return ok(userrole_json);
-	}
-	
-	
-	
-	
 	/**
 	 * 添加管理员
 	 * @return
 	 */
-	@Pattern("user_admin_add")
-	public static Result user_admin_add(){
+	@Pattern("authorisedUser_html")
+	public static Result authorisedUser_add(){
 		DynamicForm in = Form.form().bindFromRequest();
-		JsonNode js = AuthorisedUser_add(in);
-		return ok(js);
-	}
-	
-	/**
-	 * 修改管理员
-	 * @return
-	 */
-	@Pattern("user_admin_up")
-	public static Result user_admin_up(){
-		DynamicForm in = Form.form().bindFromRequest();
-		JsonNode js = AuthorisedUser_up(in);
-		return ok(js);
-	}
-	
-	/**
-	 * 删除管理员
-	 * @return
-	 */
-	@Pattern("user_admin_del")
-	public static Result user_admin_del(){
-		DynamicForm in = Form.form().bindFromRequest();
-		JsonNode js = AuthorisedUser_del(in);
-		return ok(js);
-	}
-	
-	
-	
-	
-	
-	
-	
-	private static JsonNode AuthorisedUser_add(DynamicForm in){
 		String userName = in.get("userName");
 		String user = in.get("user");
 		String email = in.get("email");
 		String password = in.get("password");
 		String roles = in.get("roles_id");
 		
-		JsonNode json;
 		if(userName.length()==0||user.length()==0||roles.length()==0){
-			json = UtilTool.message(1, "请将用户信息填写完整！");
-			return json;
+			return ok(UtilTool.message(1, "请将用户信息填写完整！"));
 		}
 		
 		AuthorisedUser au = AuthorisedUser.finder.where().eq("authuser", user).findUnique();
 		if(au != null){
-			json = UtilTool.message(1, "已存在用户"+user+"!");
-			return json;
+			return ok(UtilTool.message(1, "已存在用户"+user+"!"));
 		}
 		
 		AuthorisedUser authorisedUser = new AuthorisedUser();
@@ -226,6 +164,7 @@ public class AuthorisedUserController extends Controller{
 		}
 		authorisedUser.roles = roles_list;
 		
+		JsonNode json;
 		try {
 			authorisedUser.addAuthorisedUser();
 			json = UtilTool.message(0, "添加成功!");
@@ -234,20 +173,25 @@ public class AuthorisedUserController extends Controller{
 			json = UtilTool.message(1, "添加失败!");
 		}
 		
-		return json;
+		return ok(json);
 	}
 	
-	private static JsonNode AuthorisedUser_up(DynamicForm in){
+	/**
+	 * 修改管理员
+	 * @return
+	 */
+	@Pattern("authorisedUser_html")
+	public static Result authorisedUser_up(){
+		DynamicForm in = Form.form().bindFromRequest();
 		String id = in.get("sid");
 		String userName = in.get("userName");
 		String user = in.get("user");
 		String email = in.get("email");
 		String password = in.get("password");
 		String roles = in.get("roles_id");
-		JsonNode json;
+		
 		if(id.length()==0 || userName.length()==0||user.length()==0||roles.length()==0){
-			json = UtilTool.message(1, "请将用户信息填写完整！");
-			return json;
+			return ok(UtilTool.message(1, "请将用户信息填写完整！"));
 		}
 	
 		AuthorisedUser au = new AuthorisedUser();
@@ -270,6 +214,7 @@ public class AuthorisedUserController extends Controller{
 		}
 		au.roles = roles_list;
 		
+		JsonNode json;
 		try {
 			au.upAuthorisedUser();
 			json = UtilTool.message(0, "修改成功!");
@@ -277,10 +222,16 @@ public class AuthorisedUserController extends Controller{
 			logger.error("false",e);
 			json = UtilTool.message(1, "修改失败!");
 		}
-		return json;
+		return ok(json);
 	}
-
-	private static JsonNode AuthorisedUser_del(DynamicForm in){
+	
+	/**
+	 * 删除管理员
+	 * @return
+	 */
+	@Pattern("authorisedUser_html")
+	public static Result authorisedUser_del(){
+		DynamicForm in = Form.form().bindFromRequest();
 		String id_array = in.get("id_array");
 		JsonNode json;
 		try {
@@ -290,6 +241,6 @@ public class AuthorisedUserController extends Controller{
 			logger.error("false",e);
 			json = UtilTool.message(1, "删除失败!");
 		}
-		return json;
+		return ok(json);
 	}
 }

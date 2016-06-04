@@ -148,7 +148,7 @@ input::-ms-reveal {
 	left: 0;
 	right: 0;
 	top: 0;
-	background: #fff url(/public/images/top-bg.png) no-repeat right top;
+	background: #fff url(/public/images/index/top-bg.png) no-repeat right top;
 }
 .one-layout-panel-west,
 .one-layout-panel-west-expand {
@@ -198,7 +198,7 @@ input::-ms-reveal {
 	height: 45px;
 	width: 450px;
 	margin:0px 0 0 6px;
-	background: url(/public/images/top-logo.png) no-repeat left top;
+	background: url(/public/images/index/top-logo.png) no-repeat left top;
 	
 	/*position:relative;
     display: inline-block;
@@ -225,7 +225,7 @@ input::-ms-reveal {
 	top: 30px;
 	display: block;
 	width: 196px;
-	background:#fff url(/public/images/left-bg.png) no-repeat left 80%;
+	background:#fff url(/public/images/index/left-bg.png) no-repeat left 80%;
 	border-top:solid 1px #ccd3d6;
 	border-right:solid 1px #ccd3d6;
 	left: 0;
@@ -802,7 +802,7 @@ span.ui-slider-handle:focus{
 
 /*begin--重写tab样式*/
 .tabpanel_content,.html_content{
-	background: #fff url(/public/images/body-bg.png) no-repeat right bottom;
+	background: #fff url(/public/images/index/body-bg.png) no-repeat right bottom;
 	padding: 0 5px 15px !important;
 }
 

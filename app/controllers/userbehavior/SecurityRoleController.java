@@ -10,6 +10,8 @@ import models.UtilTool;
 import models.userbehavior.AuthorisedUser;
 import models.userbehavior.SecurityRole;
 import models.userbehavior.UserPermission;
+import be.objectify.deadbolt.java.actions.Pattern;
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -26,27 +28,33 @@ public class SecurityRoleController extends Controller{
 	
 	private final static Logger logger = LoggerFactory.getLogger(SecurityRoleController.class); 
 	
-	/**
-	 * 获取html页面
-	 * @return
-	 */
-	public static Result securityRole_html(){
-		return ok(securityRoles.render());
-	}
 	
 	/**
 	 * 获取部门列表
 	 * @return
 	 */
+	@SubjectPresent
 	public static Result securityRole_json(){
 		JsonNode json = SecurityRole.getSecurityRoleJson();
 		return ok(json);
 	}
+	
+	
+	/**
+	 * 获取html页面
+	 * @return
+	 */
+	@Pattern("securityRole_html")
+	public static Result securityRole_html(){
+		return ok(securityRoles.render());
+	}
+	
 
 	/**
 	 * 获取全部有效的权限列表
 	 * @return
 	 */
+	@Pattern("securityRole_html")
 	public static Result securityRole_permissions_json(){
 		JsonNode RolePermissions_json = UserPermission.getAllValidPermissionsJson();
 		return ok(RolePermissions_json);
@@ -57,13 +65,13 @@ public class SecurityRoleController extends Controller{
 	 * 根据role_id获取role所拥有的权限和菜单列表
 	 * @return
 	 */
+	@Pattern("securityRole_html")
 	public static Result securityRole_has_permissions(){
 		DynamicForm in = Form.form().bindFromRequest();
 		long sid = Long.valueOf(in.get("sid"));
-		JsonNode Role_Permissions_Menus_PCs_json = UserPermission.getValidPermissionsJson(sid);
-		return ok(Role_Permissions_Menus_PCs_json);
+		JsonNode json = UserPermission.getRolePermissions(sid);
+		return ok(json);
 	}
-	
 	
 	
 	
@@ -72,6 +80,7 @@ public class SecurityRoleController extends Controller{
 	 * 添加管理组
 	 * @return
 	 */
+	@Pattern("securityRole_html")
 	public static Result securityRole_add(){
 		DynamicForm in = Form.form().bindFromRequest();
 		
@@ -100,6 +109,7 @@ public class SecurityRoleController extends Controller{
 	 * 修改管理组
 	 * @return
 	 */
+	@Pattern("securityRole_html")
 	public static Result securityRole_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		
@@ -130,6 +140,7 @@ public class SecurityRoleController extends Controller{
 	 * 删除管理组
 	 * @return
 	 */
+	@Pattern("securityRole_html")
 	public static Result securityRole_del(){
 		DynamicForm in = Form.form().bindFromRequest();
 		
@@ -161,6 +172,7 @@ public class SecurityRoleController extends Controller{
 	 * 更新管理组属性,是否有效
 	 * @return
 	 */
+	@Pattern("securityRole_html")
 	public static Result securityRole_oc_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String str = in.get("str");
@@ -190,6 +202,7 @@ public class SecurityRoleController extends Controller{
 	 * 更新管理组权限
 	 * @return
 	 */
+	@Pattern("securityRole_html")
 	public static Result securityRole_perm_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		long sid = Long.valueOf(in.get("sid"));
