@@ -1,0 +1,36 @@
+
+<!--Created by lyz-->
+<script src="/public/js/information/infoTypes.min.js"></script>
+
+<div id="infoType-custom-toolbar">
+    <a id="infoType_add" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 增加</a>
+    <a id="infoType_up" class="btn btn-sm btn-primary" href="#"><i class="icon-edit icon-large"></i> 修改</a>
+    <a id="infoType_del" class="btn btn-sm btn-primary" href="#"><i class="icon-trash icon-large"></i> 删除</a>
+</div>
+
+<div class="bs-example">
+	<table id="infoType-table"></table>
+</div>
+
+<div id="infoType_add_dialog" style="display:none;">
+    <form id="infoType_add_form" class="form-horizontal col-sm-11">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="infoType_up_dialog" style="display:none;">
+    <form id="infoType_up_form" class="form-horizontal col-sm-11">
+        <input id="infoType_id" class="form-control" type="hidden"  name="sid">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input id="infoType_name" type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+    </form>
+</div>

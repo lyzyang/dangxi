@@ -18,6 +18,13 @@ POST   /exit                           controllers.userbehavior.LoginController.
 GET		/portlet_html		controllers.portlet.PortletController.portlet_html
 ###########
 
+
+#信息发布####
+GET		/info_html		controllers.information.InfoController.info_html
+GET		/info_page_json		controllers.information.InfoController.info_page_json
+###########
+
+
 #用户管理####
 POST   /user_name_up                 controllers.userbehavior.AuthorisedUserController.user_name_up
 POST   /user_pass_up                  controllers.userbehavior.AuthorisedUserController.user_pass_up
@@ -56,9 +63,6 @@ POST   /userPermission_oc_up           controllers.userbehavior.UserPermissionCo
 ###########
 
 
-#其它页面#####
-GET     /help                           controllers.help.Application.help
-###########
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /public/*file                   controllers.Assets.at(path="/public", file)
