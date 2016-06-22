@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -69,7 +68,6 @@ public class SecurityRole extends Model implements Role {
      * @param sr
      * @return
      */
-	@Transactional
     public JsonNode addSecurityRole(){
     	this.save();
     	return this.toJson();
@@ -80,7 +78,6 @@ public class SecurityRole extends Model implements Role {
      * @param sr
      * @return
      */
-	@Transactional
     public JsonNode upSecurityRole(){
     	this.update();
     	return this.toJson();
@@ -90,7 +87,6 @@ public class SecurityRole extends Model implements Role {
      * 根据id删除权限，以及其它相关信息
      * @param id
      */
-	@Transactional
     public void delSecurityRole(){
     	List<UserPermission> p_list = new ArrayList<UserPermission>();
     	this.permissions = p_list;

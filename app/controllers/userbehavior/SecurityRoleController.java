@@ -3,9 +3,6 @@ package controllers.userbehavior;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import models.UtilTool;
 import models.userbehavior.AuthorisedUser;
 import models.userbehavior.SecurityRole;
@@ -17,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import play.data.DynamicForm;
 import play.data.Form;
+import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.userbehavior.securityRoles;
@@ -25,8 +23,6 @@ import views.html.userbehavior.securityRoles;
  * @author lyz
  */
 public class SecurityRoleController extends Controller{
-	
-	private final static Logger logger = LoggerFactory.getLogger(SecurityRoleController.class); 
 	
 	
 	/**
@@ -81,6 +77,7 @@ public class SecurityRoleController extends Controller{
 	 * @return
 	 */
 	@Pattern("securityRole_html")
+	@Transactional
 	public static Result securityRole_add(){
 		DynamicForm in = Form.form().bindFromRequest();
 		
@@ -95,13 +92,10 @@ public class SecurityRoleController extends Controller{
 		sr.isadmin = 0;
 		
 		JsonNode json;
-		try {
-			JsonNode js = sr.addSecurityRole();
-			json = UtilTool.message(0, "执行成功!",js);
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "执行失败!");
-		}
+
+		JsonNode js = sr.addSecurityRole();
+		json = UtilTool.message(0, "添加成功!",js);
+	
 		return ok(json);
 	}
 	
@@ -110,6 +104,7 @@ public class SecurityRoleController extends Controller{
 	 * @return
 	 */
 	@Pattern("securityRole_html")
+	@Transactional
 	public static Result securityRole_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		
@@ -125,14 +120,9 @@ public class SecurityRoleController extends Controller{
 		sr.name = name;
 		
 		JsonNode json;
-		try {
-			JsonNode js = sr.upSecurityRole();
-			json = UtilTool.message(0, "执行成功!",js);
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "执行失败!");
-		}
-		
+		JsonNode js = sr.upSecurityRole();
+		json = UtilTool.message(0, "修改成功!",js);
+
 		return ok(json);
 	}
 	
@@ -141,6 +131,7 @@ public class SecurityRoleController extends Controller{
 	 * @return
 	 */
 	@Pattern("securityRole_html")
+	@Transactional
 	public static Result securityRole_del(){
 		DynamicForm in = Form.form().bindFromRequest();
 		
@@ -158,13 +149,10 @@ public class SecurityRoleController extends Controller{
     	}
 		
 		JsonNode json;
-		try {
-			role.delSecurityRole();
-			json = UtilTool.message(0, "执行成功!");
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "执行失败!");
-		}
+
+		role.delSecurityRole();
+		json = UtilTool.message(0, "删除成功!");
+	
 		return ok(json);
 	}
 	
@@ -173,28 +161,26 @@ public class SecurityRoleController extends Controller{
 	 * @return
 	 */
 	@Pattern("securityRole_html")
+	@Transactional
 	public static Result securityRole_oc_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String str = in.get("str");
 		String[] spm = str.split("&");
 		
 		JsonNode json;
-		try {
-			for(String smc : spm){
-				String[] mc = smc.split("_");
-				long id = Long.valueOf(mc[0]);
-				//long pId = Long.valueOf(mc[1]);
-				//int checked = Integer.valueOf(mc[2]);
-				int sort = Integer.valueOf(mc[3]);
-				SecurityRole securityRole = SecurityRole.finder.byId(id);
-				if(sort != -1) securityRole.sort = sort;
-				securityRole.update();
-			}
-			json = UtilTool.message(0, "执行成功!");
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "执行失败!");
+
+		for(String smc : spm){
+			String[] mc = smc.split("_");
+			long id = Long.valueOf(mc[0]);
+			//long pId = Long.valueOf(mc[1]);
+			//int checked = Integer.valueOf(mc[2]);
+			int sort = Integer.valueOf(mc[3]);
+			SecurityRole securityRole = SecurityRole.finder.byId(id);
+			if(sort != -1) securityRole.sort = sort;
+			securityRole.update();
 		}
+		json = UtilTool.message(0, "更新成功!");
+		
 		return ok(json);
 	}
 	
@@ -203,6 +189,7 @@ public class SecurityRoleController extends Controller{
 	 * @return
 	 */
 	@Pattern("securityRole_html")
+	@Transactional
 	public static Result securityRole_perm_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		long sid = Long.valueOf(in.get("sid"));
@@ -222,13 +209,10 @@ public class SecurityRoleController extends Controller{
 		srole.permissions = permissions_list;
 		
 		JsonNode json;
-		try {
-			srole.upSecurityRole();
-			json = UtilTool.message(0, "执行成功!");
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "执行失败!");
-		}
+
+		srole.update();
+		json = UtilTool.message(0, "更新成功!");
+	
 		return ok(json);
 	}
 	

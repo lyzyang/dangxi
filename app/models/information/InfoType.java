@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import com.avaje.ebean.Query;
-import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -64,17 +63,14 @@ public class InfoType extends Model{
 		return json;
 	}
 	
-	@Transactional
 	public void addInfoType(){
 		this.save();
 	}
 	
-	@Transactional
 	public void updateInfoType(){
 		this.update();
 	}
 	
-	@Transactional
 	public void delInfoType(String id_array){
 		String[] array = id_array.split(",");
 		for(String id: array){

@@ -4,9 +4,7 @@ package models.userbehavior;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import be.objectify.deadbolt.core.models.Permission;
 import play.db.ebean.Model;
@@ -19,7 +17,6 @@ import javax.persistence.OneToOne;
 
 import models.UtilTool;
 
-import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -183,16 +180,11 @@ public class UserPermission extends Model implements Permission {
     }
 	
 	
-    
-    
-	
-	
     /**
      * 添加权限并返回添加的权限的JSON
      * @param up
      * @return
      */
-    @Transactional
     public JsonNode addUserPermission(){
     	this.save();
     	return this.toJson();
@@ -203,7 +195,6 @@ public class UserPermission extends Model implements Permission {
      * @param up
      * @return
      */
-    @Transactional
     public JsonNode upUserPermission(){
     	this.update();
     	return this.toJson();
@@ -213,7 +204,6 @@ public class UserPermission extends Model implements Permission {
      * 删除权限，以及相关联的信息
      * @param id
      */
-    @Transactional
     public void delUserPermission(){
     	List<SecurityRole> sl = SecurityRole.finder.where().eq("permissions", this).findList();
     	for(SecurityRole role: sl){

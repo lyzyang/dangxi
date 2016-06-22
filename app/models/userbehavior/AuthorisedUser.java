@@ -12,7 +12,6 @@ import javax.persistence.ManyToMany;
 import models.UtilTool;
 
 import com.avaje.ebean.Query;
-import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -143,17 +142,14 @@ public class AuthorisedUser extends Model implements Subject {
 	}
   
     
-    @Transactional
     public void addAuthorisedUser(){
     	this.save();
     }
     
-    @Transactional
     public void upAuthorisedUser(){
     	this.update();
     }
     
-    @Transactional
     public void delAuthorisedUser(String id_array){
     	String[] array = id_array.split(",");
     	List<SecurityRole> roles_list = new ArrayList<SecurityRole>();

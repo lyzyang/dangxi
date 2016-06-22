@@ -3,14 +3,12 @@ package controllers.userbehavior;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import models.UtilTool;
 import models.userbehavior.AuthorisedUser;
 import models.userbehavior.SecurityRole;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import be.objectify.deadbolt.java.actions.Pattern;
@@ -24,13 +22,13 @@ import com.fasterxml.jackson.databind.JsonNode;
  */
 public class AuthorisedUserController extends Controller{
 
-	private final static Logger logger = LoggerFactory.getLogger(AuthorisedUserController.class); 
 	
 	/**
 	 * 修改用户名
 	 * @return
 	 */
 	@SubjectPresent
+	@Transactional
 	public static Result user_name_up(){
 		String id = Controller.session("id");
 		long index_user_id = Long.valueOf(id);
@@ -43,13 +41,10 @@ public class AuthorisedUserController extends Controller{
 		user.email = email;
 		
 		JsonNode json;
-		try {
-			user.upAuthorisedUser();
-			json = UtilTool.message(0, "修改成功!");
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "修改失败!");
-		}
+
+		user.upAuthorisedUser();
+		json = UtilTool.message(0, "修改成功!");
+
     	return ok(json);
 	}
 	
@@ -58,6 +53,7 @@ public class AuthorisedUserController extends Controller{
 	 * @return
 	 */
 	@SubjectPresent
+	@Transactional
 	public static Result user_pass_up(){
 		String id = Controller.session("id");
 		long index_user_id = Long.valueOf(id);
@@ -85,13 +81,9 @@ public class AuthorisedUserController extends Controller{
 		}
 		user.password = UtilTool.encoder.encode(newpass);;
 		
-		try {
-			user.upAuthorisedUser();
-			json = UtilTool.message(0, "修改成功!");
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "修改失败!");
-		}
+		user.upAuthorisedUser();
+		json = UtilTool.message(0, "修改成功!");
+
     	return ok(json);
 	}
 	
@@ -127,6 +119,7 @@ public class AuthorisedUserController extends Controller{
 	 * @return
 	 */
 	@Pattern("authorisedUser_html")
+	@Transactional
 	public static Result authorisedUser_add(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String userName = in.get("userName");
@@ -165,13 +158,9 @@ public class AuthorisedUserController extends Controller{
 		authorisedUser.roles = roles_list;
 		
 		JsonNode json;
-		try {
-			authorisedUser.addAuthorisedUser();
-			json = UtilTool.message(0, "添加成功!");
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "添加失败!");
-		}
+
+		authorisedUser.addAuthorisedUser();
+		json = UtilTool.message(0, "添加成功!");
 		
 		return ok(json);
 	}
@@ -181,6 +170,7 @@ public class AuthorisedUserController extends Controller{
 	 * @return
 	 */
 	@Pattern("authorisedUser_html")
+	@Transactional
 	public static Result authorisedUser_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String id = in.get("sid");
@@ -215,13 +205,10 @@ public class AuthorisedUserController extends Controller{
 		au.roles = roles_list;
 		
 		JsonNode json;
-		try {
-			au.upAuthorisedUser();
-			json = UtilTool.message(0, "修改成功!");
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "修改失败!");
-		}
+
+		au.upAuthorisedUser();
+		json = UtilTool.message(0, "修改成功!");
+
 		return ok(json);
 	}
 	
@@ -230,17 +217,15 @@ public class AuthorisedUserController extends Controller{
 	 * @return
 	 */
 	@Pattern("authorisedUser_html")
+	@Transactional
 	public static Result authorisedUser_del(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String id_array = in.get("id_array");
 		JsonNode json;
-		try {
-			new AuthorisedUser().delAuthorisedUser(id_array);
-			json = UtilTool.message(0, "删除成功!");
-		} catch (Exception e) {
-			logger.error("false",e);
-			json = UtilTool.message(1, "删除失败!");
-		}
+
+		new AuthorisedUser().delAuthorisedUser(id_array);
+		json = UtilTool.message(0, "删除成功!");
+
 		return ok(json);
 	}
 }

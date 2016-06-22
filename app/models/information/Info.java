@@ -9,7 +9,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import com.avaje.ebean.Query;
-import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -93,17 +92,14 @@ public class Info extends Model{
 		}
 		
 		
-		@Transactional
 		public void addInfo(){
 			this.save();
 		}
 		
-		@Transactional
 		public void updateInfo(){
 			this.update();
 		}
 		
-		@Transactional
 		public void delInfo(String id_array){
 			String[] array = id_array.split(",");
 			for(String id: array){

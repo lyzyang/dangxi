@@ -106,8 +106,8 @@
             },
             columns: [
                 {field: 'state',checkbox: true},
-                {field: 'name',title: '名称',align: 'left',width:'30%',sortable: false},
-                {field: 'method',title: '方法',align: 'left',width:'70%',sortable: false}
+                {field: 'id',title: '编号',align: 'left',width:'30%',sortable: false},
+                {field: 'name',title: '名称',align: 'left',width:'70%',sortable: false}
             ]
         });
     });

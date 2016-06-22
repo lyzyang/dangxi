@@ -24,6 +24,14 @@ GET		/info_html		controllers.information.InfoController.info_html
 GET		/info_page_json		controllers.information.InfoController.info_page_json
 ###########
 
+#信息类型####
+GET 		/infoType_html		controllers.information.InfoTypeController.infoType_html
+GET 		/infoType_page_json		controllers.information.InfoTypeController.infoType_page_json
+POST		/infoType_add		controllers.information.InfoTypeController.infoType_add
+POST		/infoType_up		controllers.information.InfoTypeController.infoType_up
+POST		/infoType_del		controllers.information.InfoTypeController.infoType_del
+###########
+
 
 #用户管理####
 POST   /user_name_up                 controllers.userbehavior.AuthorisedUserController.user_name_up
