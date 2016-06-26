@@ -3,6 +3,7 @@ package models.information;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -41,22 +42,50 @@ public class Info extends Model{
 		@Lob
 		public String content;
 		
+		@Lob
+		public String picture;
+		
 		@ManyToOne
 		public AuthorisedUser user;
 		
 		public Date createTime;
 		public Date lastUpdateTime;
 		
+		@Column(columnDefinition="int4 default 1")
+		public int type; //0隐藏 1显示
+		
 		public static final Finder<Long, Info> finder = new Finder<Long, Info>(Long.class, Info.class);
 		
 		
-		public static JsonNode getInfoPageJson(int limit,int offset,String order,String sort,String search,String type){
+		public static JsonNode getInfo(long id){
+			Info info = finder.byId(id);
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode appJson = mapper.createObjectNode();
+			appJson.put("id", info.id);
+			appJson.put("title", info.title);
+			appJson.put("remark", info.remark);
+			appJson.put("infoType_id", info.infoType.id);
+			appJson.put("infoType_name", info.infoType.name);
+			appJson.put("user_userName", info.user.userName);
+			appJson.put("createTime",  UtilTool.DateToString(info.createTime));
+			appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
+			return appJson;
+		}
+		
+		
+		public static JsonNode getInfoPageJson(int limit,int offset,String order,String sort,String search,String infoType_id){
 			Query<Info> query = finder.query();
 			if(sort != null && sort.length() != 0){
 				sort = sort.replace("_", ".");
 				query.where().orderBy(sort +" "+ order);
 			}else{
 				query.where().orderBy("createTime asc");
+			}
+			
+			if(infoType_id !=null && infoType_id.length() != 0){
+				InfoType it = new InfoType();
+				it.id = Integer.valueOf(infoType_id);
+				query.where().eq("infoType", it);
 			}
 			
 			if(search != null && search.length() != 0) {

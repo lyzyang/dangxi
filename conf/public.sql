@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90408
 File Encoding         : 65001
 
-Date: 2016-06-22 22:52:41
+Date: 2016-06-26 22:09:46
 */
 
 
@@ -70,9 +70,9 @@ CREATE SEQUENCE "public"."user_permission_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1068
+ START 1088
  CACHE 1;
-SELECT setval('"public"."user_permission_seq"', 1068, true);
+SELECT setval('"public"."user_permission_seq"', 1088, true);
 
 -- ----------------------------
 -- Table structure for authorised_user
@@ -125,9 +125,11 @@ CREATE TABLE "public"."info" (
 "remark" varchar(255) COLLATE "default",
 "info_type_id" int8,
 "content" text COLLATE "default",
+"picture" text COLLATE "default",
 "user_id" int8,
 "create_time" timestamp(6),
-"last_update_time" timestamp(6)
+"last_update_time" timestamp(6),
+"type" int4 DEFAULT 1
 )
 WITH (OIDS=FALSE)
 
@@ -216,11 +218,12 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of user_permission
 -- ----------------------------
-INSERT INTO "public"."user_permission" VALUES ('70', null, '1', '0', 'icon-user', '用户管理', 'authorisedUser_html', '1');
-INSERT INTO "public"."user_permission" VALUES ('111', '131', '0', '3', 'icon-hand-right', '菜单权限', 'userPermission_html', '1');
-INSERT INTO "public"."user_permission" VALUES ('131', null, '0', '2', 'icon-desktop', '系统设置', '', '1');
-INSERT INTO "public"."user_permission" VALUES ('1029', null, '1', '1', 'icon-hand-right', '角色管理', 'securityRole_html', '1');
-INSERT INTO "public"."user_permission" VALUES ('1049', '131', '0', '4', 'icon-hand-right', '信息类型', 'infoType_html', '1');
+INSERT INTO "public"."user_permission" VALUES ('70', null, '1', '1', 'icon-user', '用户管理', 'authorisedUser_html', '1');
+INSERT INTO "public"."user_permission" VALUES ('111', '131', '0', '4', 'icon-hand-right', '菜单权限', 'userPermission_html', '1');
+INSERT INTO "public"."user_permission" VALUES ('131', null, '0', '3', 'icon-desktop', '系统设置', '', '1');
+INSERT INTO "public"."user_permission" VALUES ('1029', null, '1', '2', 'icon-hand-right', '角色管理', 'securityRole_html', '1');
+INSERT INTO "public"."user_permission" VALUES ('1049', '131', '0', '5', 'icon-hand-right', '信息类型', 'infoType_html', '1');
+INSERT INTO "public"."user_permission" VALUES ('1069', null, '1', '0', 'icon-hand-right', '信息发布', 'info_html', '1');
 
 -- ----------------------------
 -- Alter Sequences Owned By 
@@ -276,8 +279,8 @@ ALTER TABLE "public"."user_permission" ADD PRIMARY KEY ("id");
 -- ----------------------------
 -- Foreign Key structure for table "public"."authorised_user_security_role"
 -- ----------------------------
-ALTER TABLE "public"."authorised_user_security_role" ADD FOREIGN KEY ("authorised_user_id") REFERENCES "public"."authorised_user" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "public"."authorised_user_security_role" ADD FOREIGN KEY ("security_role_id") REFERENCES "public"."security_role" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."authorised_user_security_role" ADD FOREIGN KEY ("authorised_user_id") REFERENCES "public"."authorised_user" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Foreign Key structure for table "public"."info"

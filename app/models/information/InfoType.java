@@ -32,6 +32,20 @@ public class InfoType extends Model{
 	public static final Finder<Long, InfoType> finder = new Finder<Long, InfoType>(Long.class, InfoType.class);
 	
 	
+	public static JsonNode getInfoTypeJson(){
+		List<InfoType> infoType_list = finder.findList();
+		ObjectMapper mapper = new ObjectMapper();
+		ArrayNode array = mapper.createArrayNode ();
+		for(InfoType it : infoType_list){
+			ObjectNode appJson = mapper.createObjectNode ();
+			appJson.put("id", it.id);
+			appJson.put("text", it.name);
+			array.add(appJson);
+		}
+		return array;
+	}
+	
+	
 	public static JsonNode getInfoTypePageJson(int limit,int offset,String order,String sort,String search){
 		Query<InfoType> query = finder.query();
 		if(sort != null && sort.length() != 0){

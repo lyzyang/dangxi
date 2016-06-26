@@ -20,11 +20,18 @@ GET		/portlet_html		controllers.portlet.PortletController.portlet_html
 
 
 #信息发布####
+GET		/infoAdd_html		controllers.information.InfoController.infoAdd_html
+GET		/info_get		controllers.information.InfoController.info_get
 GET		/info_html		controllers.information.InfoController.info_html
 GET		/info_page_json		controllers.information.InfoController.info_page_json
+POST	/info_add		controllers.information.InfoController.info_add
+POST	/info_up		controllers.information.InfoController.info_up
+POST	/info_del		controllers.information.InfoController.info_del
 ###########
 
 #信息类型####
+GET 		/infoType_json		controllers.information.InfoTypeController.infoType_json
+
 GET 		/infoType_html		controllers.information.InfoTypeController.infoType_html
 GET 		/infoType_page_json		controllers.information.InfoTypeController.infoType_page_json
 POST		/infoType_add		controllers.information.InfoTypeController.infoType_add
@@ -70,7 +77,9 @@ POST   /userPermission_del             controllers.userbehavior.UserPermissionCo
 POST   /userPermission_oc_up           controllers.userbehavior.UserPermissionController.userPermission_oc_up
 ###########
 
-
+#其它页面#####
+GET     /help                           controllers.help.HelpController.help
+###########
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /public/*file                   controllers.Assets.at(path="/public", file)

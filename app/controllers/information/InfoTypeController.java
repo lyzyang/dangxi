@@ -20,6 +20,12 @@ public class InfoTypeController extends Controller {
 	
 	
 	
+	public static Result infoType_json() {
+		JsonNode json = InfoType.getInfoTypeJson();
+		return ok(json);
+	}
+	
+	
 	/**
 	 * 获取html页面
 	 */

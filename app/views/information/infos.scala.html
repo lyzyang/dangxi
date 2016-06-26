@@ -1,5 +1,5 @@
 <!--Created by lyz-->
-<script src="/public/js/info/infos.min.js"></script>
+<script src="/public/js/information/infos.min.js"></script>
 
 <div class="bs-example">
 	<div id="info-custom-toolbar">
@@ -7,11 +7,17 @@
 		    <a id="info_add" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 增加</a>
 		    <a id="info_up" class="btn btn-sm btn-primary" href="#"><i class="icon-edit icon-large"></i> 修改</a>
 		    <a id="info_del" class="btn btn-sm btn-primary" href="#"><i class="icon-trash icon-large"></i> 删除</a>
-		    <a id="info_open" class="btn btn-sm btn-primary" href="#"><i class="icon-unlock icon-large"></i> 开放</a>
-		    <a id="info_close" class="btn btn-sm btn-primary" href="#"><i class="icon-lock icon-large"></i> 关闭</a>
+		    <a id="info_open" class="btn btn-sm btn-primary" href="#"><i class="icon-unlock icon-large"></i> 显示</a>
+		    <a id="info_close" class="btn btn-sm btn-primary" href="#"><i class="icon-lock icon-large"></i> 隐藏</a>
 		</div>
 	    <div>
 	        <form class="form-inline">
+	        	<div class="form-group">
+		            <label class="control-label">类型</label>
+					  <select id="info_search_infoType" class="form-control" name="infoType_id">
+					  		<option></option>
+				     </select>
+		        </div>
 	            <div class="form-group">
 	                <label for="info_search_sel" class="control-label">关键字</label>
 	                <input id="info_search_sel" type="text" class="form-control" name="search"/>
@@ -21,5 +27,6 @@
 	        </form>
     	</div>
 	</div>
+	<input id="info_tool_id" type="hidden" value="1">
 	<table id="info-table" ></table>
 </div>
