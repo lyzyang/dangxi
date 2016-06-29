@@ -1,0 +1,157 @@
+<!--Created by lyz-->
+<script src="/public/js/fundmanagement/funds.min.js"></script>
+
+<div class="bs-example">
+	<div id="fund-custom-toolbar">
+		<div>
+		    <a id="fund_add" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 增加</a>
+		    <a id="fund_up" class="btn btn-sm btn-primary" href="#"><i class="icon-edit icon-large"></i> 修改</a>
+		    <a id="fund_del" class="btn btn-sm btn-primary" href="#"><i class="icon-trash icon-large"></i> 删除</a>
+		</div>
+	    <div>
+	        <form class="form-inline">
+	        	<div class="form-group">
+		            <label class="control-label">类型</label>
+					  <select id="fund_search_fundType" class="form-control" name="fundType_id">
+				     </select>
+		        </div>
+	        	<div class="form-group">
+		            <label class="control-label">状态</label>
+					  <select id="fund_search_type" class="form-control" name="type">
+					  		<option></option>
+					  		<option value='1'>收入</option>
+                	  		<option value='0'>支出</option>
+				     </select>
+		        </div>
+	            <div class="form-group">
+	                <label for="fund_search_sel" class="control-label">关键字</label>
+	                <input id="fund_search_sel" type="text" class="form-control" name="search"/>
+	            </div>
+	            <a id="fund_sel" class="btn btn-sm btn-primary" href="#"><i class="icon-search icon-large"></i> 查找</a>
+	            <a id="fund_clear" class="btn btn-sm btn-primary" href="#"><i class="icon-book icon-large"></i> 清除</a>
+	        </form>
+    	</div>
+	</div>
+	<table id="fund-table" ></table>
+</div>
+
+<!--添加特征dialog-->
+<div id="fund_add_dialog" style="display:none;">
+    <form id="fund_add_form" class="form-horizontal col-sm-11">
+    	<div class="form-group"> 
+        	<label class="col-sm-3 control-label">分类</label> 
+            <div class="col-sm-9"> 
+            	<select id="fund_add_fundType" class="form-control" name="fundType_id"> 
+            		<option></option>
+                </select>
+            </div> 
+        </div>
+        <div class="form-group"> 
+        	<label class="col-sm-3 control-label">状态</label> 
+            <div class="col-sm-9"> 
+            	<select id="fund_add_type" class="form-control" name="type"> 
+            		<option></option>
+            		<option value='1'>收入</option>
+                	<option value='0'>支出</option>
+                </select>
+            </div> 
+        </div>
+    	 <div class="form-group">
+            <label class="col-sm-3 control-label">金额</label>
+            <div class="col-sm-9">
+            	<input  type="text" class="form-control" name="amount" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">描述</label>
+            <div class="col-sm-9">
+            	<textarea class="form-control" name="remark" placeholder="选填" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">关联</label>
+            <div class="col-sm-6">
+            	<input id="fund_add_info_id" type="hidden" name="info_id" >
+            	<input id="fund_add_info_title" type="text" class="form-control" name="info_title" placeholder="选填">
+            </div>
+            <div class="col-sm-3">
+            	<a id="fund_add_info" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 选择</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--修改特征dialog-->
+<div id="fund_up_dialog"  style="display:none;">
+    <form id="fund_up_form" class="form-horizontal col-sm-11">
+        <input id="fund_up_id" type="hidden" name="sid" >
+        <div class="form-group"> 
+        	<label class="col-sm-3 control-label">分类</label> 
+            <div class="col-sm-9"> 
+            	<select id="fund_up_fundType" class="form-control" name="fundType_id"> 
+            		<option></option>
+                </select>
+            </div> 
+        </div>
+        <div class="form-group"> 
+        	<label class="col-sm-3 control-label">状态</label> 
+            <div class="col-sm-9"> 
+            	<select id="fund_up_type" class="form-control" name="type"> 
+            		<option></option>
+            		<option value='1'>收入</option>
+                	<option value='0'>支出</option>
+                </select>
+            </div> 
+        </div>
+    	 <div class="form-group">
+            <label class="col-sm-3 control-label">金额</label>
+            <div class="col-sm-9">
+            	<input id="fund_up_amount" type="text" class="form-control" name="amount" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">描述</label>
+            <div class="col-sm-9">
+            	<textarea id="fund_up_remark" class="form-control" name="remark" placeholder="选填" rows="3"></textarea>
+            </div>
+        </div>
+         <div class="form-group">
+            <label class="col-sm-3 control-label">关联</label>
+            <div class="col-sm-6">
+            	<input id="fund_up_info_id" type="hidden" name="info_id" >
+            	<input id="fund_up_info_title" type="text" class="form-control" name="info_title" placeholder="选填">
+            </div>
+            <div class="col-sm-3">
+            	<a id="fund_up_info" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 选择</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="fund_add_info_dialog" style="display:none;">
+	<div id="fund-add-info-custom-toolbar">
+        <form class="form-inline">
+        	<div class="form-group">
+	            <label class="control-label">类型</label>
+				  <select id="fund_add_info_search_infoType" class="form-control" name="infoType_id">
+				  		<option></option>
+			     </select>
+	        </div>
+        </form>
+	</div>
+	<table id="fund-add-info-table" ></table>
+</div>
+
+<div id="fund_up_info_dialog" style="display:none;">
+	<div id="fund-up-info-custom-toolbar">
+        <form class="form-inline">
+        	<div class="form-group">
+	            <label class="control-label">类型</label>
+				  <select id="fund_up_info_search_infoType" class="form-control" name="infoType_id">
+				  		<option></option>
+			     </select>
+	        </div>
+        </form>
+	</div>
+	<table id="fund-up-info-table" ></table>
+</div>

@@ -18,6 +18,37 @@ POST   /exit                           controllers.userbehavior.LoginController.
 GET		/portlet_html		controllers.portlet.PortletController.portlet_html
 ###########
 
+#设置广告####
+GET 		/advertSet_html		controllers.admanage.AdvertController.advertSet_html
+GET 		/advertSet_page_json		controllers.admanage.AdvertController.advertSet_page_json
+POST		/advertSet_up		controllers.admanage.AdvertController.advertSet_up
+###########
+
+#广告类型####
+GET 		/advertType_html		controllers.admanage.AdvertTypeController.advertType_html
+GET 		/advertType_page_json		controllers.admanage.AdvertTypeController.advertType_page_json
+POST		/advertType_add		controllers.admanage.AdvertTypeController.advertType_add
+POST		/advertType_up		controllers.admanage.AdvertTypeController.advertType_up
+POST		/advertType_del		controllers.admanage.AdvertTypeController.advertType_del
+###########
+
+#基金管理####
+GET		/fund_html		controllers.fundmanagement.FundController.fund_html
+GET		/fund_page_json		controllers.fundmanagement.FundController.fund_page_json
+POST	/fund_add		controllers.fundmanagement.FundController.fund_add
+POST	/fund_up		controllers.fundmanagement.FundController.fund_up
+POST	/fund_del		controllers.fundmanagement.FundController.fund_del
+###########
+
+#基金类型####
+GET 		/fundType_json		controllers.fundmanagement.FundTypeController.fundType_json
+
+GET 		/fundType_html		controllers.fundmanagement.FundTypeController.fundType_html
+GET 		/fundType_page_json		controllers.fundmanagement.FundTypeController.fundType_page_json
+POST		/fundType_add		controllers.fundmanagement.FundTypeController.fundType_add
+POST		/fundType_up		controllers.fundmanagement.FundTypeController.fundType_up
+POST		/fundType_del		controllers.fundmanagement.FundTypeController.fundType_del
+###########
 
 #信息发布####
 GET		/infoAdd_html		controllers.information.InfoController.infoAdd_html
@@ -27,6 +58,8 @@ GET		/info_page_json		controllers.information.InfoController.info_page_json
 POST	/info_add		controllers.information.InfoController.info_add
 POST	/info_up		controllers.information.InfoController.info_up
 POST	/info_del		controllers.information.InfoController.info_del
+POST	/info_open		controllers.information.InfoController.info_open
+POST	/info_close		controllers.information.InfoController.info_close
 ###########
 
 #信息类型####

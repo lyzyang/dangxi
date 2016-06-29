@@ -9,13 +9,12 @@ var info_tool = {
         	});
         });
     	
-    	
 	 	$("#info_add").click(function() {
 			openInfoAddHtml();
         });
         
         $("#info_up").click(function() {
-            var selection = $('#infoType-table').bootstrapTable('getSelections');
+            var selection = $('#info-table').bootstrapTable('getSelections');
 	        if (selection.length === 1) {
 	            $.each(selection, function(key, row) {
 	                openInfoAddHtml(row.id,row.title);
@@ -55,28 +54,58 @@ var info_tool = {
         
         $("#info_open").click(function() {
 	    	var selection = $('#info-table').bootstrapTable('getSelections');
-	    	var id_array = [];
-	    	if (selection.length > 0) {
-	           $.each(selection, function(key, item) {
-	              id_array.push(item.id);
-	            });
-	           info_open("info_open",id_array.toString(),1);
-	    	} else {
-		        $.onecloud.warnShow("至少选一个！");
-		    }
+            if (selection.length === 0) {
+                $.onecloud.warnShow("至少选一个！");
+            } else {
+                if(confirm("是否显示？")) {
+                    var id_array, params;
+                    id_array = [];
+                    $.each(selection, function(key, item) {
+                        id_array.push(item.id);
+                    });
+                    params = {
+                        "id_array": id_array.toString()
+                    };
+                    $.post("/info_open", params, function(data) {
+                        if (data.status == 0) {
+                            $('#info-table').bootstrapTable('refresh', {silent: true});
+                            $.onecloud.succShow(data.mess);
+                        } else if(data.status == 1) {
+                            $.onecloud.errorShow(data.mess);
+                        }else{
+                            $.onecloud.warnShow(data.mess);
+                        }
+                    });
+                }
+            }
 	    });
 	    
 	    $("#info_close").click(function() {
 	    	var selection = $('#info-table').bootstrapTable('getSelections');
-	    	var id_array = [];
-	    	if (selection.length > 0) {
-	           $.each(selection, function(key, item) {
-	              id_array.push(item.id);
-	            });
-	           info_open("info_open",id_array.toString(),0);
-	    	} else {
-		        $.onecloud.warnShow("至少选一个！");
-		    }
+            if (selection.length === 0) {
+                $.onecloud.warnShow("至少选一个！");
+            } else {
+                if(confirm("是否隐藏？")) {
+                    var id_array, params;
+                    id_array = [];
+                    $.each(selection, function(key, item) {
+                        id_array.push(item.id);
+                    });
+                    params = {
+                        "id_array": id_array.toString()
+                    };
+                    $.post("/info_close", params, function(data) {
+                        if (data.status == 0) {
+                            $('#info-table').bootstrapTable('refresh', {silent: true});
+                            $.onecloud.succShow(data.mess);
+                        } else if(data.status == 1) {
+                            $.onecloud.errorShow(data.mess);
+                        }else{
+                            $.onecloud.warnShow(data.mess);
+                        }
+                    });
+                }
+            }
 	    });
 			 	
         //查找info方法
@@ -118,25 +147,14 @@ var info_table = {
 	        columns: [
 	        	{field: 'state',checkbox: true},
 	        	{field: 'title',title: '主题',align: 'left',width:'15%',sortable: false},
-	          	{field: 'remark',title: '描述',align: 'left',width:'35%',sortable: false,cellStyle:bootstrap_table_cellStyle},
-	          	{field: 'infoType_type',title: '分类',align: 'left',width:'10%',sortable: false},
-	          	{field: 'user_userName',title: '创建人',align: 'left',width:'10%',sortable: false},
-	        	{field: 'createTime',title: '创建时间',align: 'left',width:'15%',sortable: false,cellStyle:bootstrap_table_cellStyle},
-	            {field: 'opete',title: '操作',align: 'left',width:'15%',sortable: false,
-			    	formatter: info_table.formatter,events: info_table.events}
+	          	{field: 'remark',title: '描述',align: 'left',width:'40%',sortable: false},
+	          	{field: 'infoType_name',title: '分类',align: 'left',width:'10%',sortable: false},
+	        	{field: 'createTime',title: '创建时间',align: 'left',width:'15%',sortable: false},
+	        	{field: 'lastUpdateTime',title: '最后修改时间',align: 'left',width:'15%',sortable: false},
+	        	{field: 'type_name',title: '状态',align: 'left',width:'5%',sortable: false}
 	        ]
 	    });
-    },
-    formatter: function(value, row, index) {
-    	return [
-	        '<a class="see btn btn-xs btn-primary" title="详细"><i class="icon-search"></i></a>'
-	    ].join('');
-	},
-	events : {
-	    'click .see': function (e, value, row, index) {
-	    	info_see_dialog_open(row);
-	    }
-	}
+    }
 };
   
 

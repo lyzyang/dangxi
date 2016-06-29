@@ -25,7 +25,7 @@ import play.db.ebean.Model;
 @Entity
 public class Info extends Model{
 
-	 /**
+	 	/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
@@ -66,6 +66,8 @@ public class Info extends Model{
 			appJson.put("remark", info.remark);
 			appJson.put("infoType_id", info.infoType.id);
 			appJson.put("infoType_name", info.infoType.name);
+			appJson.put("content", info.content);
+			appJson.put("picture", info.picture);
 			appJson.put("user_userName", info.user.userName);
 			appJson.put("createTime",  UtilTool.DateToString(info.createTime));
 			appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
@@ -114,6 +116,9 @@ public class Info extends Model{
 				appJson.put("user_userName", info.user.userName);
 				appJson.put("createTime",  UtilTool.DateToString(info.createTime));
 				appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
+				appJson.put("type", info.type);
+				if(info.type == 1) appJson.put("type_name", "显示");
+				else appJson.put("type_name", "隐藏");
 				array.add(appJson);
 			}
 			json.put("rows", array);
@@ -134,6 +139,24 @@ public class Info extends Model{
 			for(String id: array){
 				Info info = finder.byId(Long.valueOf(id));
 				info.delete();
+			}
+		}
+		
+		public void openInfo(String id_array){
+			String[] array = id_array.split(",");
+			for(String id: array){
+				Info info = finder.byId(Long.valueOf(id));
+				info.type = 1;
+				info.update();
+			}
+		}
+		
+		public void closeInfo(String id_array){
+			String[] array = id_array.split(",");
+			for(String id: array){
+				Info info = finder.byId(Long.valueOf(id));
+				info.type = 0;
+				info.update();
 			}
 		}
 }

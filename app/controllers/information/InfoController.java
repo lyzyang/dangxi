@@ -53,8 +53,6 @@ public class InfoController extends Controller {
 	}
 	
 	
-	
-	
 	/**
 	 * 获取html页面
 	 */
@@ -106,6 +104,8 @@ public class InfoController extends Controller {
 	    	return ok(json);
 		}
 		
+		
+		String pic = "";
 		if (picture != null) {
 			File file = picture.getFile();
 			if(!UtilTool.isImage(file)){
@@ -116,6 +116,7 @@ public class InfoController extends Controller {
 				json = UtilTool.message(1, "图片不能大于10M！");
 		    	return ok(json);
 			}
+			pic = UtilTool.fileToString(file);
 		}
 		
 		Info info = new Info();
@@ -123,9 +124,11 @@ public class InfoController extends Controller {
 		info.remark = remark;
 		
 		InfoType infoType = new InfoType();
+		infoType.id = Long.valueOf(type_id);
 		info.infoType = infoType;
 		
 		info.content = content;
+		info.picture = pic;
 		
 		AuthorisedUser user = new AuthorisedUser();
 		user.id = Integer.valueOf(user_id);
@@ -172,6 +175,7 @@ public class InfoController extends Controller {
 	    	return ok(json);
 		}
 		
+		String pic = "";
 		if (picture != null) {
 			File file = picture.getFile();
 			if(!UtilTool.isImage(file)){
@@ -182,6 +186,7 @@ public class InfoController extends Controller {
 				json = UtilTool.message(1, "图片不能大于10M！");
 		    	return ok(json);
 			}
+			pic = UtilTool.fileToString(file);
 		}
 		
 		Info info = new Info();
@@ -190,9 +195,12 @@ public class InfoController extends Controller {
 		info.remark = remark;
 		
 		InfoType infoType = new InfoType();
+		infoType.id = Long.valueOf(type_id);
 		info.infoType = infoType;
 		
 		info.content = content;
+		
+		if(pic.length() > 0) info.picture = pic;
 		
 		if(picture != null){
 			File file = picture.getFile();
@@ -223,4 +231,35 @@ public class InfoController extends Controller {
 		return ok(json);
 	}
 	
+	/**
+	 * 显示
+	 * @return
+	 */
+	@Transactional
+	public static Result info_open(){
+		DynamicForm in = Form.form().bindFromRequest();
+		String id_array =in.get("id_array");
+		
+		JsonNode json;
+		new Info().openInfo(id_array);
+		json = UtilTool.message(0, "显示成功!");
+		
+		return ok(json);
+	}
+	
+	/**
+	 * 隐藏
+	 * @return
+	 */
+	@Transactional
+	public static Result info_close(){
+		DynamicForm in = Form.form().bindFromRequest();
+		String id_array =in.get("id_array");
+		
+		JsonNode json;
+		new Info().closeInfo(id_array);
+		json = UtilTool.message(0, "隐藏成功!");
+		
+		return ok(json);
+	}
 }

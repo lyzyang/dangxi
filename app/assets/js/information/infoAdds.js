@@ -13,14 +13,19 @@ $(function() {
     	});
     });
     
+   
+	$("#info_add_picture").uploadPreview({ Img: "info_add_picture_preview", Width: 240, Height: 120 });
+
     var sid = $("#info_add_id").val();
     if(sid != undefined && sid != null && sid.length > 0){
     	$.get("/info_get",{"id":sid}, function(data) {
-    		$('#info_add_title').val(row.title);
-    		$('#info_add_remark').val(row.remark);
-    		$("#info_add_type").select2("val", row.type);
-    		$('#info_add_content').val(row.content);
-    		$('#info_add_picture').val(row.picture);
+    		$('#info_add_title').val(data.title);
+    		$('#info_add_remark').val(data.remark);
+    		$("#info_add_type").select2("val", data.infoType_id);
+    		editor.appendHtml(data.content);
+    		if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
+    			$('#info_add_picture_preview').attr('src', 'data:image/png;base64,' + data.picture);
+    		}
     	});
     }
     
@@ -33,19 +38,23 @@ $(function() {
     		url = "info_up";
     	}
     	
-		$("#info_add_form").ajaxSubmit({
+    	var params = {
+    		"content":  editor.html()
+    	};
+    	$("#info_add_form").ajaxSubmit({
+    	 	url: url,
             type:"post",  //提交方式
             dataType:"json", //数据类型
-            url: url,
+            data: params,
             success:function(data){ //提交成功的回调函数
-                if (data.status == 0) {
-	                $.onecloud.succShow(data.mess);
-	            } else if(data.status == 1) {
-	                $.onecloud.errorShow(data.mess);
-	            }else{
-	                $.onecloud.warnShow(data.mess);
-	              }
-              }
+                 if (data.status == 0) {
+            		alert(data.mess)
+	             } else if(data.status == 1) {
+	             	alert(data.mess)
+	             } else{
+	             	alert(data.mess)
+	             }
+            }
          });
 	 });
 });

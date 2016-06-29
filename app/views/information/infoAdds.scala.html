@@ -13,6 +13,7 @@
 <script src="/public/plug/jquery-select2/js/i18n/zh-CN.js"></script>
 <script src="/public/plug/kindeditor/editor/kindeditor.js"></script>
 <script src="/public/plug/jquery-form/jquery.form.js"></script>
+<script src="/public/plug/jquery-uploadPreview/jquery.uploadPreview.js"></script>
 <script src="/public/js/onecloud.min.js"></script>
 <script src="/public/js/information/infoAdds.js"></script>
 </head>
@@ -50,7 +51,7 @@
 	                                <div class="form-group">
 	                                    <label class="col-sm-2 control-label">内容编排</label>
 	                                    <div class="col-sm-8">
-	                                        <textarea id="info_add_content" name="content" style="width:100%;height:400px;padding:0px;"></textarea>
+	                                        <textarea id="info_add_content" style="width:100%;height:400px;padding:0px;"></textarea>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
@@ -59,9 +60,15 @@
 	                                        <input id="info_add_picture" type="file" multiple="true" placeholder="选填" class="form-control" name="picture" />
 	                                    </div>
 	                                </div>
+	                                <div class="form-group">
+	                                    <label class="col-sm-2 control-label">图片预览</label>
+	                                    <div class="col-sm-8">
+	                                         <img id="info_add_picture_preview"  src="/public/images/index/thumb.png" width="240" height="120" /></div>
+	                                    </div>
+	                                </div>
 	                            </div>
 	                            <footer class="panel-footer text-right bg-light">
-	                                <a id="info_add_submit" href="" class="btn btn-primary btn-s-xs">确认提交</a>
+	                                <a id="info_add_submit" href="#" class="btn btn-primary btn-s-xs">确认提交</a>
 	                            </footer>
 	                    	</section>
 	                    </form>

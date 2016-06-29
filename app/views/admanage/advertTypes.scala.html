@@ -1,0 +1,47 @@
+<!--Created by lyz-->
+<script src="/public/js/admanage/advertTypes.min.js"></script>
+
+<div id="advertType-custom-toolbar">
+    <a id="advertType_add" class="btn btn-sm btn-primary" href="#"><i class="icon-plus icon-large"></i> 增加</a>
+    <a id="advertType_up" class="btn btn-sm btn-primary" href="#"><i class="icon-edit icon-large"></i> 修改</a>
+    <a id="advertType_del" class="btn btn-sm btn-primary" href="#"><i class="icon-trash icon-large"></i> 删除</a>
+</div>
+
+<div class="bs-example">
+	<table id="advertType-table"></table>
+</div>
+
+<div id="advertType_add_dialog" style="display:none;">
+    <form id="advertType_add_form" class="form-horizontal col-sm-11">
+    	<div class="form-group">
+            <label class="col-sm-3 control-label">编码</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="code" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="advertType_up_dialog" style="display:none;">
+    <form id="advertType_up_form" class="form-horizontal col-sm-11">
+        <input id="advertType_id" class="form-control" type="hidden"  name="sid">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">编码</label>
+            <div class="col-sm-9">
+                <input id="advertType_code" type="text" class="form-control" name="code" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">名称</label>
+            <div class="col-sm-9">
+                <input id="advertType_name" type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+    </form>
+</div>
