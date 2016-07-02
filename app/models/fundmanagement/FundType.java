@@ -33,7 +33,7 @@ public class FundType extends Model{
 	
 	
 	public static JsonNode getFundTypeJson(){
-		List<FundType> fundType_list = finder.findList();
+		List<FundType> fundType_list = finder.orderBy("id asc").findList();
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayNode array = mapper.createArrayNode ();
 		for(FundType it : fundType_list){

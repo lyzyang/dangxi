@@ -22,6 +22,32 @@ import views.html.fundmanagement.funds;
  */
 public class FundController extends Controller {
 	
+	public static Result fund_get(){
+		DynamicForm in = Form.form().bindFromRequest();
+		String sid = in.get("id");
+		
+		if(sid == null || sid.length()==0){
+	    	return ok();
+		}
+		
+		JsonNode json = Fund.getFund(Long.valueOf(sid));
+		return ok(json);
+	}
+	
+	public static Result fund_getByType() {
+		DynamicForm in = Form.form().bindFromRequest();
+		String typeId = in.get("typeId");
+		String limit = in.get("limit");
+		
+		if(typeId == null || typeId.length()==0
+				||limit == null || limit.length()==0){
+	    	return ok();
+		}
+		
+		JsonNode json = Fund.getFundByType(Long.valueOf(typeId),Integer.valueOf(limit));
+		return ok(json);
+	}
+	
 	
 	/**
 	 * 获取html页面

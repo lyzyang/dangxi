@@ -19,6 +19,10 @@
     			validating: 'glyphicon glyphicon-refresh'
 	        },
 	        fields: {
+	        	sid: {validators: {
+          	    	notEmpty: {message: '此项不能为空'},
+          			numeric: {message: '请填写数字'}
+          		}},
 	        	name: {validators: {notEmpty: {message: '此项不能为空'}}}
 	        }
    		}).on('success.form.bv', function(e) {

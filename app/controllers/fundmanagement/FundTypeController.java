@@ -53,15 +53,18 @@ public class FundTypeController extends Controller {
 	@Transactional
 	public static Result fundType_add(){  
 		DynamicForm in = Form.form().bindFromRequest();
+		String sid = in.get("sid");
 		String name = in.get("name");
 		
 		JsonNode json;
-		if(name == null || name.length()==0){
+		if(sid == null || sid.length()==0
+				||name == null || name.length()==0){
 			json = UtilTool.message(1, "请将信息填写完整！");
 	    	return ok(json);
 		}
 		
 		FundType fundType = new FundType();
+		fundType.id = Long.valueOf(sid);
 		fundType.name = name;
 
 		fundType.addFundType();

@@ -2,7 +2,6 @@ package models.admanage;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -29,9 +28,6 @@ public class Advert extends Model{
 	@Id
 	public long id;
 	
-	@Column(unique=true)
-	public String code;
-	
 	public String name;
 	
 	@Lob
@@ -40,7 +36,6 @@ public class Advert extends Model{
 	public String url;
 	
 	public static final Finder<Long, Advert> finder = new Finder<Long, Advert>(Long.class, Advert.class);
-	
 	
 	
 	
@@ -68,7 +63,6 @@ public class Advert extends Model{
 		for(Advert advertType : advertType_list){
 			ObjectNode appJson = mapper.createObjectNode();
 			appJson.put("id", advertType.id);
-			appJson.put("code", advertType.code);
 			appJson.put("name", advertType.name);
 			appJson.put("picture", advertType.picture);
 			appJson.put("url", advertType.url);

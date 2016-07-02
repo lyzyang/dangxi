@@ -45,6 +45,9 @@ public class Info extends Model{
 		@Lob
 		public String picture;
 		
+		@Column(columnDefinition="int4 default 0")
+		public int pictureType; //0隐藏 1置顶
+		
 		@ManyToOne
 		public AuthorisedUser user;
 		
@@ -72,6 +75,25 @@ public class Info extends Model{
 			appJson.put("createTime",  UtilTool.DateToString(info.createTime));
 			appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
 			return appJson;
+		}
+		
+		
+		public static JsonNode getInfoByType(long typeId,int limit){
+			InfoType infoType = new InfoType();
+			infoType.id = typeId;
+			List<Info> info_list = finder.where().eq("infoType", infoType).eq("type", 1)
+					.orderBy("createTime asc").setFirstRow(0).setMaxRows(limit).findList();
+			ObjectMapper mapper = new ObjectMapper();
+			ArrayNode array = mapper.createArrayNode ();
+			for(Info info : info_list){
+				ObjectNode appJson = mapper.createObjectNode();
+				appJson.put("id", info.id);
+				appJson.put("title", info.title);
+				appJson.put("remark", info.remark);
+				appJson.put("picture", info.picture);
+				array.add(appJson);
+			}
+			return array;
 		}
 		
 		

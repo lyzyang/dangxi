@@ -140,7 +140,7 @@ a {
 
 /*container*/
 .container{ width:1140px; margin:0 auto; position:relative; overflow:hidden;}
-.base-top{ width:100%; position:relative; padding:20px 0 25px;}
+.base-top{ width:100%; position:relative; padding:0 0 20px;}
 .base-top .base-top-l{ float:left; margin-left:6px; height:30px; line-height:30px;margin-right:20px;}
 .base-top .base-top-l .bt-title{ margin-right:5px;display:inline-block;}
 .base-top .base-top-l .bt-txt{ display:inline-block; font-size:14px; position:relative; top:3px; color:#535353;}

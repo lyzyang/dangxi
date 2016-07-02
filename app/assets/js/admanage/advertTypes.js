@@ -19,7 +19,10 @@
     			validating: 'glyphicon glyphicon-refresh'
 	        },
 	        fields: {
-	       	 	code: {validators: {notEmpty: {message: '此项不能为空'}}},
+	       	 	sid: {validators: {
+          	    	notEmpty: {message: '此项不能为空'},
+          			numeric: {message: '请填写数字'}
+          		}},
 	        	name: {validators: {notEmpty: {message: '此项不能为空'}}}
 	        }
    		}).on('success.form.bv', function(e) {
@@ -57,7 +60,6 @@
     			validating: 'glyphicon glyphicon-refresh'
 	        },
 	        fields: {
-	        	code: {validators: {notEmpty: {message: '此项不能为空'}}},
 	        	name: {validators: {notEmpty: {message: '此项不能为空'}}}
 	        }
    		}).on('success.form.bv', function(e) {
@@ -108,9 +110,8 @@
             },
             columns: [
                 {field: 'state',checkbox: true},
-                {field: 'id',title: '编号',align: 'left',width:'20%',sortable: false},
-                {field: 'code',title: '编码',align: 'left',width:'40%',sortable: false},
-                {field: 'name',title: '名称',align: 'left',width:'40%',sortable: false}
+                {field: 'id',title: '编号',align: 'left',width:'30%',sortable: false},
+                {field: 'name',title: '名称',align: 'left',width:'70%',sortable: false}
             ]
         });
     });
@@ -129,7 +130,6 @@
         if (selection.length === 1) {
             $.each(selection, function(key, row) {
                 $("#advertType_id").val(row.id);
-                $("#advertType_code").val(row.code);
                 $("#advertType_name").val(row.name);
             });
             $('#advertType_up_dialog').dialog( "option", "title", "修改广告类型");

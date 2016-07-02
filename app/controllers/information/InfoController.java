@@ -26,20 +26,6 @@ import views.html.information.infoAdds;
 public class InfoController extends Controller {
 	
 	
-	/**
-	 * 获取html页面
-	 */
-	public static Result infoAdd_html() {
-		DynamicForm in = Form.form().bindFromRequest();
-		String id = in.get("id");
-		String re_id = "";
-		if(id != null && id.length() != 0){
-			re_id = id;
-		}
-		return ok(infoAdds.render(re_id));
-	}
-	
-	
 	public static Result info_get(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String sid = in.get("id");
@@ -51,6 +37,22 @@ public class InfoController extends Controller {
 		JsonNode json = Info.getInfo(Long.valueOf(sid));
 		return ok(json);
 	}
+	
+	
+	public static Result info_getByType(){
+		DynamicForm in = Form.form().bindFromRequest();
+		String typeId = in.get("typeId");
+		String limit = in.get("limit");
+		
+		if(typeId == null || typeId.length()==0
+				||limit == null || limit.length()==0){
+	    	return ok();
+		}
+		
+		JsonNode json = Info.getInfoByType(Long.valueOf(typeId),Integer.valueOf(limit));
+		return ok(json);
+	}
+	
 	
 	
 	/**
@@ -74,6 +76,19 @@ public class InfoController extends Controller {
 		return ok(json);
 	}
 	
+	
+	/**
+	 * 获取html页面
+	 */
+	public static Result infoAdd_html() {
+		DynamicForm in = Form.form().bindFromRequest();
+		String id = in.get("id");
+		String re_id = "";
+		if(id != null && id.length() != 0){
+			re_id = id;
+		}
+		return ok(infoAdds.render(re_id));
+	}
 	
 	/**
 	 * 添加

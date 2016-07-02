@@ -56,6 +56,48 @@ public class Fund extends Model{
 	public static final Finder<Long, Fund> finder = new Finder<Long, Fund>(Long.class, Fund.class);
 	
 	
+	public static JsonNode getFund(long id){
+		Fund fund = finder.byId(id);
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode appJson = mapper.createObjectNode();
+		appJson.put("id", fund.id);
+		
+		appJson.put("fundType_id", fund.fundType.id);
+		appJson.put("fundType_name", fund.fundType.name);
+		
+		appJson.put("type", fund.type);
+		if(fund.type == 1) appJson.put("type_name", "收入");
+		else appJson.put("type_name", "支出");
+		
+		appJson.put("amount", fund.amount);
+		appJson.put("remark", fund.remark);
+		
+		if(fund.info != null){
+			appJson.put("info_id", fund.info.id);
+			appJson.put("info_tile", fund.info.title);
+		}
+		
+		appJson.put("user_userName", fund.user.userName);
+		appJson.put("createTime",  UtilTool.DateToString(fund.createTime));
+		return appJson;
+	}
+	
+	public static JsonNode getFundByType(long typeId,int limit){
+		FundType fundType = new FundType();
+		fundType.id = typeId;
+		List<Fund> fund_list = finder.where().eq("fundType", fundType)
+				.orderBy("createTime asc").setFirstRow(0).setMaxRows(limit).findList();
+		ObjectMapper mapper = new ObjectMapper();
+		ArrayNode array = mapper.createArrayNode ();
+		for(Fund fund : fund_list){
+			ObjectNode appJson = mapper.createObjectNode();
+			appJson.put("id", fund.id);
+			appJson.put("title", fund.remark);
+			array.add(appJson);
+		}
+		return array;
+	}
+	
 	public static JsonNode getFundPageJson(int limit,int offset,String order,String sort,String search,String type,String fundType_id){
 		Query<Fund> query = finder.query();
 		if(sort != null && sort.length() != 0){

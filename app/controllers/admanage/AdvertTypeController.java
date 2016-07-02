@@ -46,18 +46,18 @@ public class AdvertTypeController extends Controller {
 	@Transactional
 	public static Result advertType_add(){  
 		DynamicForm in = Form.form().bindFromRequest();
-		String code = in.get("code");
+		String sid = in.get("sid");
 		String name = in.get("name");
 		
 		JsonNode json;
-		if(code == null || code.length()==0
+		if(sid == null || sid.length()==0
 				||name == null || name.length()==0){
 			json = UtilTool.message(1, "请将信息填写完整！");
 	    	return ok(json);
 		}
 		
 		Advert advertType = new Advert();
-		advertType.code = code;
+		advertType.id = Long.valueOf(sid);
 		advertType.name = name;
 
 		advertType.addAdvert();
@@ -74,19 +74,16 @@ public class AdvertTypeController extends Controller {
 	public static Result advertType_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String sid = in.get("sid");
-		String code = in.get("code");
 		String name = in.get("name");
 		
 		JsonNode json;
 		if(sid == null || sid.length()==0
-				||code == null || code.length()==0
 				|| name == null || name.length()==0){
 			json = UtilTool.message(1, "请将信息填写完整！");
 	    	return ok(json);
 		}
 		
 		Advert advertType = Advert.finder.byId(Long.valueOf(sid));
-		advertType.code = code;
 		advertType.name = name;
 		
 		advertType.updateAdvert();

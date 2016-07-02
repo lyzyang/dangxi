@@ -11,6 +11,7 @@
 <link href="/public/plug/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
 <script src="/public/plug/jquery/jquery-1.11.1.min.js"></script>
+<script src="/public/plug/echarts/echarts.min.js"></script>
 <script src="/public/js/main.min.js"></script>
 
 <script type="text/javascript">
@@ -64,7 +65,7 @@ function AddFavorite(title, url) {
   
 	<!-- header -->
     <div class="header">
-		<div class="hd-wrap"><a href="#" class="logo"><img src="/public/zeros/images/logo.png" alt="logo"/></a></div>
+		<div class="hd-wrap"><a href="#" class="logo"><img src="/public/images/main/logo.png" alt="logo"/></a></div>
     </div>
   
 	<!-- menu -->
@@ -72,33 +73,25 @@ function AddFavorite(title, url) {
         <ul class="nav-box">
             <li id="main"><a href="#" class="pdr"><i class="icon tb-home"></i>首页</a></li>
             <li id="news"><a href="#"><i class="icon tb-news"></i>活动风采</a></li>
-            <li id="polices"><a href="#"><i class="icon tb-rule"></i>家乡风貌</a></li>
-            <li id="analysis"><a href="#"><i class="icon tb-analysis"></i>会议纪要</a></li>
-            <li id="datas"><a href="#"><i class="icon tb-data"></i>公王祭祀</a></li>
-            <li id="technical"><a href="#"><i class="icon tb-tech"></i>祭祖祭祀</a></li>
-            <li id="product"><a href="#"><i class="icon tb-prodcuct"></i>公王基金</a></li>
+            <li id="polices"><a href="#"><i class="icon tb-data"></i>家乡风貌</a></li>
+            <li id="analysis"><a href="#"><i class="icon tb-forum"></i>会议纪要</a></li>
+            <li id="datas"><a href="#"><i class="icon tb-energy"></i>公王祭祀</a></li>
+            <li id="technical"><a href="#"><i class="icon tb-prodcuct"></i>祭祖祭祀</a></li>
+            <li id="product"><a href="#"><i class="icon tb-activity"></i>公王基金</a></li>
             <li id="electric"><a href="#"><i class="icon tb-electric"></i>祭祖基金</a></li>
-            <li id="saving"><a href="#"><i class="icon tb-energy"></i>组织结构</a></li>
-            <li id="activity"><a href="#"><i class="icon tb-activity"></i>族谱</a></li>
+            <li id="saving"><a href="#"><i class="icon tb-analysis"></i>组织结构</a></li>
+            <li id="activity"><a href="#"><i class="icon tb-rule"></i>族谱</a></li>
         </ul>
     </div>
   
 	<!-- container -->
 	<div class="container">
-        <div class="base-top"> 
-        	
-        </div>
+        <div class="base-top"></div>
 		<!-- content01 -->
         <div class="content"> 
         	<!-- 焦点图 -->
             <div class="Slide fl" id="slide">
-                <ul class="slide-cont">
-                    <li class="slide-item"> <a href="#" target="blank"> <img src="" alt=""> </a>
-                    	<div class="slide-txt">
-                    		<div class="txt_bg"></div>
-                    		<a href="#" target="_blank"></a>
-                        </div>
-                    </li>
+                <ul id="focus_getByNum_1" class="slide-cont">
                 </ul>
             	<div class="slide-nav"></div>
             </div>
@@ -106,77 +99,57 @@ function AddFavorite(title, url) {
             <div class="box h-news fr">
                 <h3><a href="#">活动风采</a></h3>
             	<div class="more"><a href="#">更多></a></div>
-                <ul class="news-wrap">
-                    <li></li>
+                <ul id="info_getByType_1" class="news-wrap">
                 </ul>
             </div>
         </div>
     
 		<!-- content02 -->
         <div class="content">
-            <div class="box ays-wrap fl">
+            <div id="info_getByType_2" class="box ays-wrap fl">
                 <h3><a href="#" class="abab">家乡风貌</a></h3>
                 <div class="more"><a href="#">更多></a></div>
-                <div class="ays-item">
-                    <a href="#">
-                    	<div class="ays-item-pic fl"><img src="" alt=""/></div>
-                        <div class="ays-item-txt fl">
-                            <h4><b>：</b><strong></strong></h4>
-                            <span></span> 
-                        </div>
-                    </a>
-                </div>
             </div>
             <div class="box law-wrap fr">
             	<h3><a href="#" class="abab">会议纪要</a></h3>
             	<div class="more"><a href="#">更多></a></div>
-                <ul class="law-con">
-                    <li></li>
+                <ul id="info_getByType_3" class="law-con">
                 </ul>
             </div>
         </div>
     
 		<!-- 广告图 -->
-		<div class="content"><img src="" /></a></div>
+		<div class="content"><img src="/public/images/main/ad_pic01.jpg"/></a></div>
     
 		<!-- content03 -->
         <div class="content">
             <div class="box data-wrap fl">
-            	<h3><a href="#" class="abab">公王祭祀</a></h3>
-            	<div class="more"><a href="#">更多></a></div>
-                <ul class="data-list">
-
-                    <li></li>
-                </ul>
-            </div>
-            <div class="box data-wrap fl">
             	<h3><a href="#" class="abab">公王基金</a></h3>
             	<div class="more"><a href="#">更多></a></div>
-                <ul class="data-list">
-
-                    <li></li>
-                </ul>
+            	<div id="fund_getByType_1" style="width:100%;height:400px;"></div>
+            </div>
+            <div class="box data-wrap fl">
+            	<h3><a href="#" class="abab">祭祖基金</a></h3>
+            	<div class="more"><a href="#">更多></a></div>
+            	<div id="fund_getByType_2" style="width:100%;height:400px;"></div>
             </div>
         </div>
     
         <!-- content04 -->
         <div class="content">
+            <div class="box electric-wrap fr">
+                <h3><a href="#" class="abab">公王祭祀</a></h3>
+                <div class="more"><a href="#">更多></a></div>
+                <ul id="info_getByType_4" class="data-list">
+                </ul>
+            </div>
             <div class="box tech-wrap fl">
                 <h3><a href="#" class="abab">祭祖祭祀</a></h3>
                 <div class="more"><a href="#">更多></a></div>
-                <ul class="tech-con">
-                    <li></li>
-                </ul>
-            </div>
-            <div class="box electric-wrap fr">
-                <h3><a href="#" class="abab">祭祖基金</a></h3>
-                <div class="more"><a href="#">更多></a></div>
-                <ul class="energy-con">
-                    <li></li>
+                <ul id="info_getByType_5" class="tech-con">
                 </ul>
             </div>
         </div>
-
 	</div>
   	<!-- footer -->
     <div class="footer">
@@ -191,14 +164,6 @@ function AddFavorite(title, url) {
             </div>
         </div>
     </div>
-  
 </div>
-<script type="text/javascript">
-//导航相关
-$(document).ready(function(){
-	//$("#<?php echo $this->uri->segment(1,"main");?>").addClass("cur");
-});
-</script>
-
 </body>
 </html>

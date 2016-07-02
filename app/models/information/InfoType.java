@@ -33,7 +33,7 @@ public class InfoType extends Model{
 	
 	
 	public static JsonNode getInfoTypeJson(){
-		List<InfoType> infoType_list = finder.findList();
+		List<InfoType> infoType_list = finder.orderBy("id asc").findList();
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayNode array = mapper.createArrayNode ();
 		for(InfoType it : infoType_list){

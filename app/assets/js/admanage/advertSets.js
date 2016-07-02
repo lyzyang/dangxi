@@ -54,7 +54,6 @@ var advertSet_table = {
 			    	 	url: 'advertSet_up',
 			            type:"post",  //提交方式
 			            dataType:"json", //数据类型
-			            data: params,
 			            success:function(data){ //提交成功的回调函数
 			                if (data.status == 0) {
 			                    $('#advertSet_up_dialog').dialog("close");
