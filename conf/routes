@@ -7,6 +7,8 @@
 
 #基本页面#####
 GET    /                               controllers.userbehavior.LoginController.main
+GET    /more                               controllers.userbehavior.LoginController.more
+
 GET    /login	                       controllers.userbehavior.LoginController.login
 GET    /index                          controllers.userbehavior.LoginController.index
 POST   /loginer                        controllers.userbehavior.LoginController.loginer
@@ -29,6 +31,8 @@ POST		/focus_up		controllers.focusmap.FocusController.focus_up
 
 
 #设置广告####
+GET 		/advertSet_get		controllers.admanage.AdvertController.advertSet_get
+
 GET 		/advertSet_html		controllers.admanage.AdvertController.advertSet_html
 GET 		/advertSet_page_json		controllers.admanage.AdvertController.advertSet_page_json
 POST		/advertSet_up		controllers.admanage.AdvertController.advertSet_up

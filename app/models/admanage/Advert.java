@@ -38,6 +38,19 @@ public class Advert extends Model{
 	public static final Finder<Long, Advert> finder = new Finder<Long, Advert>(Long.class, Advert.class);
 	
 	
+	public static JsonNode getAdvertGet(long id){
+		Advert advertType = finder.byId(id);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode appJson = mapper.createObjectNode();
+		appJson.put("id", advertType.id);
+		appJson.put("name", advertType.name);
+		appJson.put("picture", advertType.picture);
+		appJson.put("url", advertType.url);
+		
+		return appJson;
+	}
+	
 	
 	public static JsonNode getAdvertPageJson(int limit,int offset,String order,String sort,String search){
 		Query<Advert> query = finder.query();

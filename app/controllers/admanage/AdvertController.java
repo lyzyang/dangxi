@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import models.UtilTool;
 import models.admanage.Advert;
+import models.focusmap.Focus;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.db.ebean.Transactional;
@@ -21,6 +22,18 @@ import views.html.admanage.advertSets;
  */
 public class AdvertController extends Controller {
 	
+	
+	public static Result advertSet_get() {
+		DynamicForm in = Form.form().bindFromRequest();
+		String sid = in.get("sid");
+		
+		if(sid == null || sid.length()==0){
+	    	return ok();
+		}
+		
+		JsonNode json = Advert.getAdvertGet(Long.valueOf(sid));
+		return ok(json);
+	}
 	
 	/**
 	 * 获取html页面

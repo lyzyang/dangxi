@@ -13,6 +13,7 @@ import play.mvc.Result;
 import views.html.index;
 import views.html.login;
 import views.html.main;
+import views.html.more;
 
 
 
@@ -26,9 +27,16 @@ public class LoginController extends Controller{
 	 * 主页
 	 * @return
 	 */
-	@SubjectPresent
 	public static Result main() {
 		return ok(main.render());
+    }
+	
+	/**
+	 * 主页
+	 * @return
+	 */
+	public static Result more() {
+		return ok(more.render());
     }
 	
 	

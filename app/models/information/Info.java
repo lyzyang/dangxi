@@ -91,6 +91,7 @@ public class Info extends Model{
 				appJson.put("title", info.title);
 				appJson.put("remark", info.remark);
 				appJson.put("picture", info.picture);
+				appJson.put("createTime",  UtilTool.DateToString(info.createTime));
 				array.add(appJson);
 			}
 			return array;

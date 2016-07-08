@@ -1,5 +1,7 @@
 
 $(function() {
+
+	//焦点图--begin
 	$.ajax({
        url : "/focus_getByNum",
        async : false,
@@ -15,7 +17,6 @@ $(function() {
 		   });
        }
     });
-     
 	(function($) {
 		$.fn.extend({
 			"slideUp":function(value){
@@ -184,7 +185,14 @@ $(function() {
         };
     })(jQuery);
     $("#slide").Slide();
+    //焦点图--end
     
+    //点击更多
+    $(".more").click(function() {
+		$.get("/more", function(data) {
+		   $(".container").html(data);
+	    });
+    });
     
     $.get("/info_getByType",{"typeId":1,"limit":10}, function(data) {
 	    $.each(data, function(k, v) {

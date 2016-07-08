@@ -1,30 +1,48 @@
-		<!-- crumbs -->
-        <div class="content"> 
-        	<!-- breadcrumb -->
-            <ul class="breadcrumb" id="product-bread">
-            	<li><b>您当前的位置：</b></li>
-            	<li><a href="<?php echo site_url(); ?>">首页</a></li>
-            	<span class="fa fa-angle-right"></span>
-            	<li class="current">x</li>
-            </ul>
-        </div> 
-    
-		<!-- contents -->
-        <div class="content box pgNews">
-        	<h3><a>x</a></h3>
-            <div class="news-box">
-                <div class="news-list fl" style="width:98%;">
-                    <ul>
-                        <li><a href="#" target="_blank"><i class="square"></i><strong>x</strong><span>x</span></a></li>
-                    </ul>
-                </div>
+	<!-- crumbs -->
+    <div class="content"> 
+    	<!-- breadcrumb -->
+        <ul class="breadcrumb" id="product-bread">
+        	<li><b>您当前的位置：</b></li>
+        	<li><a href="<?php echo site_url(); ?>">首页</a></li>
+        	<span class="fa fa-angle-right"></span>
+        	<li class="current">x</li>
+        </ul>
+    </div> 
+
+	<!-- contents -->
+    <div class="content box pgNews">
+    	<h3><a>x</a></h3>
+        <div class="news-box">
+            <div class="news-list fl">
+                <ul id="info_more"></ul>
             </div>
-            <div class="pages">
-            	
-            </div>
+             <div id="advertSet_get" class="news-img fl">
+             	
+             </div>  
         </div>
-        
-	</div>
+        <div class="pages">
+        	<?php if($page > 1){?>
+                <div class="page">
+                	<div class="page-prev"><a href="<?php if($id_c!=1){$prev=$id_c-1;echo site_url($id_a."/index/".$prev);}else{echo "javscript:";} ?>">上一页</a></div>
+                    <?php echo $page_links; ?>
+                	<div class="page-next"><a href="<?php if($id_c!=$page){$next=$id_c+1;echo site_url($id_a."/index/".$next);}else{echo "javscript:";} ?>">下一页</a></div>
+                	<div class="txt-input">跳转到第<input pageall="<?php echo $page; ?>" type="text" name="_page" id="_page" placeholder="<?php echo $id_c; ?>">页 <button type="button" >确定</button></div>
+                </div> 
+            <?php } ?>
+        </div>
+    </div>
     <script type="text/javascript">
-	
+    	
+		$.get("/info_getByType",{"typeId":1,"limit":10}, function(data) {
+		    $.each(data, function(k, v) {
+		     	$("#info_more").append($('<li><a href="/info_get?id='+v.id+'" target="_blank"><i class="square"></i><strong>'+
+		     		v.title+'</strong><span>'+v.createTime+'</span></a></li>'));
+		    });
+	    });
+	    
+	    $.get("/advertSet_get",{"sid":1}, function(data) {
+		    $("#advertSet_get").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'"></a>'));
+	    });
 	</script>
+	
+	
