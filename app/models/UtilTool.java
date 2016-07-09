@@ -36,6 +36,7 @@ public class UtilTool {
 	private static final String SITE_WIDE_SECRET = "9cdb1c265a0258d";  
 	public static final PasswordEncoder encoder = new StandardPasswordEncoder(SITE_WIDE_SECRET); 
 	
+	public static final SimpleDateFormat year_mouth_dd = new SimpleDateFormat("yyyy-MM-dd");
 	public static final SimpleDateFormat year_mouth_dd_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	/**
@@ -183,6 +184,14 @@ public class UtilTool {
 			}
 		}
     }  
+	
+    /**
+	 * 将时间转换为2015-06-19格式
+	 */
+	public static String DateToYNRString(Date date) {
+		if(date == null) return null;
+		return year_mouth_dd.format(date);
+	}
 	
 	/**
 	 * 将时间转换为2015-06-19 11:38:13格式

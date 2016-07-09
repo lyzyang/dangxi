@@ -78,23 +78,32 @@ public class Info extends Model{
 		}
 		
 		
-		public static JsonNode getInfoByType(long typeId,int limit){
+		public static JsonNode getInfoByType(long typeId,int limit,int offset,String isPicture){
+			Query<Info> query = finder.query();
+			
 			InfoType infoType = new InfoType();
 			infoType.id = typeId;
-			List<Info> info_list = finder.where().eq("infoType", infoType).eq("type", 1)
-					.orderBy("createTime asc").setFirstRow(0).setMaxRows(limit).findList();
+			
+			query.where().eq("infoType", infoType).eq("type", 1).orderBy("createTime asc");
+			
+			int info_list_size = query.findRowCount();
+			List<Info> info_list = query.setFirstRow(offset).setMaxRows(limit).findList();
+			
 			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode json = mapper.createObjectNode ();
+			json.put("total", info_list_size);
 			ArrayNode array = mapper.createArrayNode ();
 			for(Info info : info_list){
 				ObjectNode appJson = mapper.createObjectNode();
 				appJson.put("id", info.id);
 				appJson.put("title", info.title);
 				appJson.put("remark", info.remark);
-				appJson.put("picture", info.picture);
-				appJson.put("createTime",  UtilTool.DateToString(info.createTime));
+				if(isPicture !=null && isPicture.equals("1")) appJson.put("picture", info.picture);
+				appJson.put("createTime",  UtilTool.DateToYNRString(info.createTime));
 				array.add(appJson);
 			}
-			return array;
+			json.put("rows", array);
+			return json;
 		}
 		
 		

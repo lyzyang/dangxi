@@ -42,14 +42,15 @@ public class InfoController extends Controller {
 	public static Result info_getByType(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String typeId = in.get("typeId");
-		String limit = in.get("limit");
+		int limit = Integer.valueOf(in.get("limit"));
+		int offset = Integer.valueOf(in.get("offset"));
+		String isPicture = in.get("isPicture");
 		
-		if(typeId == null || typeId.length()==0
-				||limit == null || limit.length()==0){
+		if(typeId == null || typeId.length()==0){
 	    	return ok();
 		}
 		
-		JsonNode json = Info.getInfoByType(Long.valueOf(typeId),Integer.valueOf(limit));
+		JsonNode json = Info.getInfoByType(Long.valueOf(typeId),limit,offset,isPicture);
 		return ok(json);
 	}
 	

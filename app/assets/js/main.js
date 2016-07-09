@@ -27,13 +27,13 @@ $(function() {
 					 "li_h":"30",
 					 "time":2000,
 					 "movetime":1000
-				},value)
+				},value);
 				
 				//向上滑动动画
 				function autoani(){
 					$("li:first",docthis).animate({"margin-top":-value.li_h},value.movetime,function(){
 						$(this).css("margin-top",0).appendTo(".line");
-					})
+					});
 				}
 				
 				//自动间隔时间向上滑动
@@ -44,9 +44,9 @@ $(function() {
 					clearInterval(anifun);			//清除自动滑动动画
 				},function(){
 					anifun = setInterval(autoani,value.time);	//继续执行动画
-				})
+				});
 			}	
-		})
+		});
 	
         $.fn.Slide = function(options) {
             var defaults = {
@@ -189,20 +189,24 @@ $(function() {
     
     //点击更多
     $(".more").click(function() {
-		$.get("/more", function(data) {
+    	var params = {
+    		"offset":0,
+    		"limit":10
+    	};
+		$.get("/more",params, function(data) {
 		   $(".container").html(data);
 	    });
     });
     
-    $.get("/info_getByType",{"typeId":1,"limit":10}, function(data) {
-	    $.each(data, function(k, v) {
+    $.get("/info_getByType",{"typeId":1,"limit":10,"offset":0}, function(data) {
+	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_1").append($('<li><a href="/info_get?id='+v.id+'"><i class="square"></i><strong>'+
 	     		v.title+'</strong></a></li>'));
 	    });
     });
     
-    $.get("/info_getByType",{"typeId":2,"limit":2}, function(data) {
-	    $.each(data, function(k, v) {
+    $.get("/info_getByType",{"typeId":2,"limit":2,"offset":0,"isPicture":1}, function(data) {
+	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_2").append($('<div class="ays-item"><a href="/info_get?id='+v.id+
 	     	'"><div class="ays-item-pic fl"><img src="data:image/png;base64,'+v.picture+'" alt="'+v.title+
 	     	'"/></div><div class="ays-item-txt fl"><h4><b>'+v.title+
@@ -210,22 +214,22 @@ $(function() {
 	    });
     });
     
-    $.get("/info_getByType",{"typeId":3,"limit":5}, function(data) {
-	    $.each(data, function(k, v) {
+    $.get("/info_getByType",{"typeId":3,"limit":5,"offset":0}, function(data) {
+	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_3").append($('<li><a href="/info_get?id='+v.id+'"><i class="square"></i><strong>'+
 	     		v.title+'</strong></a></li>'));
 	    });
     });
     
-    $.get("/info_getByType",{"typeId":4,"limit":5}, function(data) {
-	    $.each(data, function(k, v) {
+    $.get("/info_getByType",{"typeId":4,"limit":5,"offset":0}, function(data) {
+	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_4").append($('<li><a href="/info_get?id='+v.id+'"><i class="square"></i><strong>'+
 	     		v.title+'</strong></a></li>'));
 	    });
     });
     
-    $.get("/info_getByType",{"typeId":5,"limit":5}, function(data) {
-	    $.each(data, function(k, v) {
+    $.get("/info_getByType",{"typeId":5,"limit":5,"offset":0}, function(data) {
+	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_5").append($('<li><a href="/info_get?id='+v.id+'"><i class="square"></i><strong>'+
 	     		v.title+'</strong></a></li>'));
 	    });
