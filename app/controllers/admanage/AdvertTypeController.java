@@ -1,6 +1,8 @@
 package controllers.admanage;
 
 
+import be.objectify.deadbolt.java.actions.Pattern;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.UtilTool;
@@ -22,11 +24,16 @@ public class AdvertTypeController extends Controller {
 	/**
 	 * 获取html页面
 	 */
+	@Pattern("advertType_html")
 	public static Result advertType_html() {
 		return ok(advertTypes.render());
 	}
 	
-	
+	/**
+	 * 分页列表
+	 * @return
+	 */
+	@Pattern("advertType_html")
 	public static Result advertType_page_json() {
 		DynamicForm in = Form.form().bindFromRequest();
 		int limit = Integer.valueOf(in.get("limit"));
@@ -43,6 +50,7 @@ public class AdvertTypeController extends Controller {
 	/**
 	 * 添加
 	 */
+	@Pattern("advertType_html")
 	@Transactional
 	public static Result advertType_add(){  
 		DynamicForm in = Form.form().bindFromRequest();
@@ -70,6 +78,7 @@ public class AdvertTypeController extends Controller {
 	 * 修改
 	 * @return
 	 */
+	@Pattern("advertType_html")
 	@Transactional
 	public static Result advertType_up(){
 		DynamicForm in = Form.form().bindFromRequest();
@@ -96,6 +105,7 @@ public class AdvertTypeController extends Controller {
 	 * 删除
 	 * @return
 	 */
+	@Pattern("advertType_html")
 	@Transactional
 	public static Result advertType_del(){
 		DynamicForm in = Form.form().bindFromRequest();

@@ -1,0 +1,85 @@
+@(re_id:String)
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/public/plug/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/public/plug/jquery-select2/css/select2.min.css" rel="stylesheet"/>
+<link href="/public/plug/kindeditor/editor/common.css" rel="stylesheet"/>
+
+<script src="/public/plug/jquery/jquery-1.11.1.min.js"></script>
+<script src="/public/plug/bootstrap/js/bootstrap.min.js"></script>
+<script src="/public/plug/My97DatePicker/WdatePicker.js"></script>
+<script src="/public/plug/jquery-select2/js/select2.min.js"></script>
+<script src="/public/plug/jquery-select2/js/i18n/zh-CN.js"></script>
+<script src="/public/plug/kindeditor/editor/kindeditor.js"></script>
+<script src="/public/plug/jquery-form/jquery.form.js"></script>
+<script src="/public/js/onecloud.min.js"></script>
+<script src="/public/js/fundmanagement/fundAdds.min.js"></script>
+</head>
+<body>
+	<section id="content">
+		<section class="vbox">
+	    	<section class="scrollable">
+	            <div class="row" style="animation-delay:0.3s;-webkit-animation-delay:0.3s;margin-right: 0px!important;">
+	            	<div class="col-md-12">
+	                    <form id="fund_add_form" class="form-horizontal">
+	                        <section class="panel panel-default">
+	                        	<header class="panel-heading"><span>基金详单</span></header>
+	                            <div class="panel-body">
+	                            	<input id="fund_add_id" type="hidden" name="sid" value=@re_id>
+	                                <div class="form-group"> 
+	                                    <label class="col-sm-2 control-label">主标题</label> 
+	                                    <div class="col-sm-8">
+	                                    	<input id="fund_add_title" type="text" name="title" placeholder="请填写主标题..." class="form-control"> 
+	                                    </div>
+	                                </div>
+	                                <div class="form-group"> 
+							        	<label class="col-sm-2 control-label">分类</label> 
+							            <div class="col-sm-8"> 
+							            	<select id="fund_add_fundType" class="form-control" name="fundType_id"> 
+							            		<option></option>
+							                </select>
+							            </div> 
+							        </div>
+							        <div class="form-group"> 
+							        	<label class="col-sm-2 control-label">状态</label> 
+							            <div class="col-sm-8"> 
+							            	<select id="fund_add_type" class="form-control" name="type"> 
+							            		<option></option>
+							            		<option value='1'>收入</option>
+							                	<option value='0'>支出</option>
+							                </select>
+							            </div> 
+							        </div>
+	                               <div class="form-group">
+							            <label class="col-sm-2 control-label">总金额</label>
+							            <div class="col-sm-8">
+							            	<input id="fund_add_amount" type="text" class="form-control" name="amount" placeholder="元">
+							            </div>
+							        </div>
+							        <div class="form-group">
+								        <label class="col-sm-2 control-label">时间</label>
+								        <div class="col-sm-8">
+								            <input id="fund_add_useTime" type="text" class="form-control Wdate" name="useTime" placeholder="必填" class="form-control Wdate" onfocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" style="height:30px!important;"/>
+								        </div>
+								    </div>
+	                                <div class="form-group">
+	                                    <label class="col-sm-2 control-label">详细情况</label>
+	                                    <div class="col-sm-8">
+	                                        <textarea id="fund_add_content" style="width:100%;height:400px;padding:0px;"></textarea>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <footer class="panel-footer text-right bg-light">
+	                                <a id="fund_add_submit" href="#" class="btn btn-primary btn-s-xs">确认提交</a>
+	                            </footer>
+	                    	</section>
+	                    </form>
+	                </div>
+	            </div>
+			</section>
+		</section>
+	</section>
+</body>
+</html>

@@ -3,6 +3,8 @@ package controllers.information;
 import java.io.File;
 import java.util.Date;
 
+import be.objectify.deadbolt.java.actions.Pattern;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.UtilTool;
@@ -25,7 +27,10 @@ import views.html.information.infoAdds;
  */
 public class InfoController extends Controller {
 	
-	
+	/**
+	 * 获取详细信息
+	 * @return
+	 */
 	public static Result info_get(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String sid = in.get("id");
@@ -38,7 +43,10 @@ public class InfoController extends Controller {
 		return ok(json);
 	}
 	
-	
+	/**
+	 * 根据类型获取分页信息列表
+	 * @return
+	 */
 	public static Result info_getByType(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String typeId = in.get("typeId");
@@ -54,16 +62,33 @@ public class InfoController extends Controller {
 		return ok(json);
 	}
 	
+	/**
+	 * 获取焦点信息
+	 * @return
+	 */
+	public static Result info_getByFocus() {
+		JsonNode json = Info.getInfoByFocus();
+		return ok(json);
+	}
+	
+	///////////////////////////////////////////////////////////////
+	
+	
 	
 	
 	/**
 	 * 获取html页面
 	 */
+	@Pattern("info_html")
 	public static Result info_html() {
 		return ok(infos.render());
 	}
 	
-	
+	/**
+	 * 获取分页列表
+	 * @return
+	 */
+	@Pattern("info_html")
 	public static Result info_page_json() {
 		DynamicForm in = Form.form().bindFromRequest();
 		int limit = Integer.valueOf(in.get("limit"));
@@ -79,8 +104,9 @@ public class InfoController extends Controller {
 	
 	
 	/**
-	 * 获取html页面
+	 * 获取添加页面
 	 */
+	@Pattern("info_html")
 	public static Result infoAdd_html() {
 		DynamicForm in = Form.form().bindFromRequest();
 		String id = in.get("id");
@@ -94,6 +120,7 @@ public class InfoController extends Controller {
 	/**
 	 * 添加
 	 */
+	@Pattern("info_html")
 	@Transactional
 	public static Result info_add(){  
 		String user_id = Controller.session("id");
@@ -119,7 +146,6 @@ public class InfoController extends Controller {
 			json = UtilTool.message(1, "请将信息填写完整！");
 	    	return ok(json);
 		}
-		
 		
 		String pic = "";
 		if (picture != null) {
@@ -165,6 +191,7 @@ public class InfoController extends Controller {
 	 * 修改
 	 * @return
 	 */
+	@Pattern("info_html")
 	@Transactional
 	public static Result info_up(){
 		DynamicForm in = Form.form().bindFromRequest();
@@ -173,6 +200,7 @@ public class InfoController extends Controller {
 		String remark = in.get("remark");
 		String type_id = in.get("type_id");
 		String content = in.get("content");
+		String isexit = in.get("isexit");
 		
 		MultipartFormData body = request().body().asMultipartFormData();
 		FilePart picture = null;
@@ -216,11 +244,10 @@ public class InfoController extends Controller {
 		
 		info.content = content;
 		
-		if(pic.length() > 0) info.picture = pic;
-		
-		if(picture != null){
-			File file = picture.getFile();
-			info.picture = UtilTool.fileToString(file);
+		if(pic.length() > 0){
+			info.picture = pic;
+		}else if(isexit != null && isexit.equals("1")){
+			info.picture = "";
 		}
 		
 		info.lastUpdateTime = new Date();
@@ -235,6 +262,7 @@ public class InfoController extends Controller {
 	 * 删除
 	 * @return
 	 */
+	@Pattern("info_html")
 	@Transactional
 	public static Result info_del(){
 		DynamicForm in = Form.form().bindFromRequest();
@@ -251,6 +279,7 @@ public class InfoController extends Controller {
 	 * 显示
 	 * @return
 	 */
+	@Pattern("info_html")
 	@Transactional
 	public static Result info_open(){
 		DynamicForm in = Form.form().bindFromRequest();
@@ -267,6 +296,7 @@ public class InfoController extends Controller {
 	 * 隐藏
 	 * @return
 	 */
+	@Pattern("info_html")
 	@Transactional
 	public static Result info_close(){
 		DynamicForm in = Form.form().bindFromRequest();

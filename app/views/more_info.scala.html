@@ -1,0 +1,103 @@
+@(infoTypeId: Long, infoTypeName: String, advertSetId: String)
+<style>
+	*{ margin:0; padding:0; list-style:none;}
+	a{ text-decoration:none;}
+	a:hover{ text-decoration:none;}
+	.tcdPageCode{padding: 15px 20px;text-align: left;color: #ccc;}
+	.tcdPageCode a{display: inline-block;color: #428bca;display: inline-block;height: 25px;	line-height: 25px;	padding: 0 10px;border: 1px solid #ddd;	margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+	.tcdPageCode a:hover{text-decoration: none;border: 1px solid #428bca;}
+	.tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: #fff;background-color: #428bca;	border: 1px solid #428bca;border-radius: 4px;vertical-align: middle;}
+	.tcdPageCode span.disabled{	display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;	color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
+</style>
+
+<!-- crumbs -->
+<div class="content"> 
+	<!-- breadcrumb -->
+    <ul class="breadcrumb" id="product-bread">
+    	<li><b>您当前的位置：</b></li>
+    	<li><a href="#" onclick="get_main()">首页</a></li>
+    	<span class="icon icon-angle-right"></span>
+    	<li id="more_info_title_li" class="current"></li>
+    </ul>
+</div> 
+
+<!-- contents -->
+<div class="content box pgNews">
+	<h3><a id="more_info_title_a"></a></h3>
+    <div class="news-box">
+        <div class="news-list fl">
+            <ul id="more_info_list"></ul>
+        </div>
+         <div id="more_info_advert_set" class="news-img fl"></div>  
+    </div>
+    <div>
+    	<div id="more_info_page" class="tcdPageCode"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$("#more_info_title_li").html("@infoTypeName");
+		$("#more_info_title_a").html("@infoTypeName");
+		
+		var params = {
+    		"typeId":@infoTypeId,
+    		"offset":0,
+    		"limit":10
+    	};
+		$.get("/info_getByType",params, function(data) {
+			 $("#more_info_list > li").each(function(k, v) {
+				 $(v).remove();
+			  });
+			
+		    $.each(data.rows, function(k, v) {
+		     	$("#more_info_list").append($('<li><a href="#" onclick="get_item_info('+v.id+')"><i class="square"></i><strong>'+
+		     		v.title+'</strong><span>'+v.createTime+'</span></a></li>'));
+		    });
+		    
+		    var pages = data.total/10;
+		    var surplus = data.total%10;
+		    if(surplus > 0){
+		    	pages = pages +1;
+		    }
+		    $("#more_info_page").createPage({
+		        pageCount:pages,
+		        current:1,
+		        backFn:function(page_index){
+		            more_info_page(@infoTypeId,page_index);
+		        }
+		    });
+	    });
+	    
+	    $.get("/advertSet_get",{"sid":@advertSetId}, function(data) {
+	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
+				$("#more_info_advert_set").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'"></a>'));
+			}else{
+				$("#more_info_advert_set").append($('<a href="#"><img src="/public/images/index/thumb.png"></a>'));
+			}
+	    });
+    });
+    
+    
+    function more_info_page(typeId,page_index){
+    	var offset = (page_index-1)*10;
+    	var params = {
+    		"typeId":typeId,
+    		"offset":offset,
+    		"limit":10
+    	};
+    	$.get("/info_getByType",params, function(data) {
+    		$("#more_info_list > li").each(function(k, v) {
+				$(v).remove();
+			 });
+			 
+		    $.each(data.rows, function(k, v) {
+		     	$("#more_info_list").append($('<li><a href="#" onclick="get_item_info('+v.id+')"><i class="square"></i><strong>'+
+		     		v.title+'</strong><span>'+v.createTime+'</span></a></li>'));
+		    });
+	    });
+    }
+   
+</script>
+	
+	

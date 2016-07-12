@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta charset="utf-8">
+<title>衍白公裔孙</title>
+
+<link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico" media="screen" />
+
+<link href="/public/css/main.css" rel="stylesheet">
+<link href="/public/plug/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="/public/plug/jquery/jquery-1.11.1.min.js"></script>
+<script src="/public/plug/jquery-page/jquery.page.js"></script>
+<script src="/public/plug/echarts/echarts.min.js"></script>
+<script src="/public/js/header.min.js"></script>
+
+</head>
+<body>
+<div id="sitePage">
+    <div class="site-top">
+        <div class="top-wrap">
+        	<p class="setHome"><a href="javascript:" onclick="SetHome(this,'#');">设为首页</a><span>|</span><a href="javascript:" onclick="AddFavorite('智慧售电网！',location.href)">收藏本站</a></p>
+        	<div class="quick-menu"><a href="/login" target="_blank">登录</a><span></div>
+        </div>
+    </div>
+  
+	<!-- header -->
+    <div class="header">
+		<div class="hd-wrap"><a href="#" class="logo"><img src="/public/images/main/logo.png" alt="logo"/></a></div>
+    </div>
+  
+	<!-- menu -->
+    <div class="nav">
+        <ul class="nav-box">
+            <li><a href="#" onclick="get_main()" class="pdr"><i class="icon tb-home"></i>首页</a></li>
+            <li><a href="#" onclick="get_more_info('1','1')"><i class="icon tb-news"></i>活动风采</a></li>
+            <li><a href="#" onclick="get_more_info('2','2')"><i class="icon tb-data"></i>美丽乡村</a></li>
+            <li><a href="#" onclick="get_more_info('3','3')"><i class="icon tb-forum"></i>会议纪要</a></li>
+            <li><a href="#" onclick="get_more_info('4','4')"><i class="icon tb-energy"></i>祭祀祝文</a></li>
+            <li><a href="#" onclick="get_more_info('5','5')"><i class="icon tb-prodcuct"></i>人文轶事</a></li>
+            <li><a href="#" onclick="get_more_fund('1','6')"><i class="icon tb-activity"></i>祭祖基金</a></li>
+            <li><a href="#" onclick="get_more_fund('2','7')"><i class="icon tb-electric"></i>公王基金</a></li>
+            <li><a href="#"><i class="icon tb-analysis"></i>组织结构</a></li>
+            <li><a href="#"><i class="icon tb-rule"></i>族谱</a></li>
+        </ul>
+    </div>
+  
+	<!-- container -->
+	<div id="main_container" class="container"></div>
+	
+  	<!-- footer -->
+    <div class="footer">
+        <div class="ft-con">
+            <div class="copyRight">
+            	<p>未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。<br/>CopyRight © 2016 智慧售电网 All rights reserved. 粤ICP备13074501号-4站长统计</p>
+            	<div class="ft-nav">
+                	<a href="about">关于我们</a><span>|</span>
+                    <a href="about/index/3">免责声明</a><span>|</span>
+                    <a href="contact">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

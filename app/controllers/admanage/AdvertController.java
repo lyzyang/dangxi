@@ -2,11 +2,12 @@ package controllers.admanage;
 
 import java.io.File;
 
+import be.objectify.deadbolt.java.actions.Pattern;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.UtilTool;
 import models.admanage.Advert;
-import models.focusmap.Focus;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.db.ebean.Transactional;
@@ -22,27 +23,40 @@ import views.html.admanage.advertSets;
  */
 public class AdvertController extends Controller {
 	
-	
+	/**
+	 * 获取广告信息
+	 * @return
+	 */
 	public static Result advertSet_get() {
 		DynamicForm in = Form.form().bindFromRequest();
 		String sid = in.get("sid");
 		
-		if(sid == null || sid.length()==0){
-	    	return ok();
+		if(sid == null || sid.length()==0 || sid.equals("0")){
+			sid = "0";
 		}
 		
 		JsonNode json = Advert.getAdvertGet(Long.valueOf(sid));
 		return ok(json);
 	}
 	
+	
+	///////////////////////////////////////////
+	
+	
+	
 	/**
 	 * 获取html页面
 	 */
+	@Pattern("advertSet_html")
 	public static Result advertSet_html() {
 		return ok(advertSets.render());
 	}
 	
-	
+	/**
+	 * 广告列表
+	 * @return
+	 */
+	@Pattern("advertSet_html")
 	public static Result advertSet_page_json() {
 		DynamicForm in = Form.form().bindFromRequest();
 		int limit = Integer.valueOf(in.get("limit"));
@@ -59,11 +73,13 @@ public class AdvertController extends Controller {
 	 * 修改
 	 * @return
 	 */
+	@Pattern("advertSet_html")
 	@Transactional
 	public static Result advertSet_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String sid = in.get("sid");
 		String url = in.get("url");
+		String isexit = in.get("isexit");
 		
 		JsonNode json;
 		if(sid == null || sid.length()==0
@@ -86,7 +102,7 @@ public class AdvertController extends Controller {
 				json = UtilTool.message(1, "只能上传图片！");
 		    	return ok(json);
 			}
-			if(file.length()>1048576){
+			if(file.length()>10485760){
 				json = UtilTool.message(1, "图片不能大于10M！");
 		    	return ok(json);
 			}
@@ -95,14 +111,17 @@ public class AdvertController extends Controller {
 		
 		Advert advert = Advert.finder.byId(Long.valueOf(sid));
 		advert.url = url;
-		advert.picture = pic;
+		
+		if(pic.length() != 0){
+			advert.picture = pic;
+		}else if(isexit != null && isexit.equals("1")){
+			advert.picture = "";
+		}
 		
 		advert.updateAdvert();
 		json = UtilTool.message(0, "设置成功!");
 
 		return ok(json);
 	}
-	
-	
 	
 }

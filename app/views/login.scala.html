@@ -2,153 +2,50 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta charset="utf-8" />
-		<title>智慧电厂远程诊断系统</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>衍白公裔孙管理系统</title>
 		<link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico" media="screen" />
-		<meta name="description" content="User login page" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
-		<!-- bootstrap & fontawesome -->
-		<link href="/public/plug/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/public/plug/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-		<!-- ace styles -->
-		<link rel="stylesheet" href="/public/css/ace/ace.min.css" />
-
-		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="/public/css/ace/ace-part2.min.css" />
-		<![endif]-->
-		<link rel="stylesheet" href="/public/css/ace/ace-rtl.min.css" />
-
-		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="/public/css/ace/ace-ie.min.css" />
-		<![endif]-->
-		<link rel="stylesheet" href="/public/css/ace/ace.onpage-help.css" />
-
 		<link rel="stylesheet" href="/public/css/login.css" />
 	</head>
-
 	<body class="login-layout light-login" onkeydown="keyLogin();">
-		<div class="main-container">
-			<div class="main-content">
-				<div class="row">
-					<div class="col-sm-10 col-sm-offset-1">
-						<div class="login-container">
-							<div class="center">
-								<h1>
-									<i><img src="/public/images/logo.gif" width="35px" height="35px"/></i>
-									<span class="red">智慧电厂</span>
-									<span class="grey" id="id-text2">远程诊断系统</span>
-								</h1>
-							</div>
-
-							<div class="space-6"></div>
-
-							<div class="position-relative">
-								<div id="login-box" class="login-box visible widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header blue lighter bigger">
-												<i class="ace-icon icon-leaf green"></i>
-												系统登录
-											</h4>
-
-											<div class="space-6"></div>
-
-											<form id="form" name="login" class="login-form" action="/loginer" method="post">
-												<fieldset>
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input name="username" type="text" class="form-control" placeholder="帐号" />
-															<i class="ace-icon icon-user"></i>
-														</span>
-													</label>
-
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input name="password" type="password" class="form-control" placeholder="密码" />
-															<i class="ace-icon icon-lock"></i>
-														</span>
-													</label>
-
-													<div class="space"></div>
-
-													<div class="clearfix">
-														<label class="inline">
-															<input type="checkbox" class="ace" />
-															<span class="lbl"> 记住帐号</span>
-														</label>
-
-														<a type="button" class="width-35 pull-right btn btn-sm btn-primary" onclick="$('#form').submit();">
-															<i class="ace-icon icon-key"></i>
-															<span class="bigger-110">登录</span>
-														</a>
-													</div>
-
-													<div class="space-4"></div>
-												</fieldset>
-											</form>
-
-											<div class="social-or-login center">
-												<span class="red bigger-110">@status</span>
-											</div>
-
-											<div class="space-6"></div>
-
-										</div><!-- /.widget-main -->
-									</div><!-- /.widget-body -->
-								</div><!-- /.login-box -->
-								
-								<div class="navbar-fixed-top align-right">
-									<br />
-									&nbsp;
-									<a id="btn-login-light" href="#">白昼</a>
-									&nbsp;
-									<span class="blue">/</span>
-									&nbsp;
-									<a id="btn-login-blur" href="#">黑夜</a>
-									&nbsp; &nbsp; &nbsp;
-								</div>
-
-						</div>
-					</div><!-- /.col -->
-				</div><!-- /.row -->
-			</div><!-- /.main-content -->
-		</div><!-- /.main-container -->
-		
-	<div id="footercopyrights" class="footercopyrights_444">
-		<span id="footercopyrights-chinese">亦云公司版权所有</span> Copyright ©2015 <a href="http://www.onecloud.cn" target="_blank" ;>OneCloud</a> All Rights Reserved.
-	</div>
-
-		<!-- basic scripts -->
-		<script type="text/javascript" src="/public/plug/jquery/jquery-1.11.1.min.js"></script>
+		<div class="framework login-bg">
+		  <div class="login-warp">
+		    <div class="login-input">
+		      <form id="login-form" name="login" action="/loginer" method="post">
+		        <ul class="input-left">
+		          	<li><input type="text" placeholder="用户名" class="form-control"></li>
+		          	<li><input type="text" placeholder="密码" class="form-control"><li>
+		          	<div id="login-error">
+		          	 	<span id="login-error-span" class="icon-error"></span>
+		          	 	<span class="notice-descript">@status</span>
+		          	</div>
+		            <button class="btn btn-login" type="submit" onClick="javascript:void(0);" id="msg1">登录</button>
+		          </li>
+		        </ul>
+		      </form>
+		    </div>
+		    <div class="foot">YBG (c)2016 by Yang LI</div>
+		  </div>
+		</div>
 		<script type="text/javascript">
-			//you don't need this, just used for changing background
-			jQuery(function($) {
-				 $('#btn-login-light').on('click', function(e) {
-					$('body').attr('class', 'login-layout light-login');
-					$('#id-text2').attr('class', 'grey');
-					$('#footercopyrights').attr('class', 'footercopyrights_444');
-					e.preventDefault();
-				 });
-				 $('#btn-login-blur').on('click', function(e) {
-					$('body').attr('class', 'login-layout blur-login');
-					$('#id-text2').attr('class', 'white');
-					$('#footercopyrights').attr('class', 'footercopyrights_fff');
-					e.preventDefault();
-				 });
-			 
-			});
-			
-			$(function(){
-				document.onkeydown = function(e){
+			window.onload=function(){
+				  document.onkeydown = function(e){
 				    var ev = document.all ? window.event : e;
 				    if(ev.keyCode==13) {
-				        $('#form').submit();//处理事件
-				     }
-				}
-			});   
+				        document.getElementById('login-form').submit();//处理事件
+				    }
+				  }
+				  
+				  var error_div = document.getElementById("login-error");
+				  var error_span = document.getElementById("login-error-span");
+				  if(@status.length != 0){
+				  		error_div.setAttribute("class", "form-error"); 
+				  		error_span.setAttribute("class", "icon-error"); 
+				  }else{
+				  		error_div.setAttribute("class", "form-error.hides"); 
+				  		error_span.setAttribute("class", "icon-error.hides"); 
+				  }
+			};   
 		</script>
 	</body>
 </html>

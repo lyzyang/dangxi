@@ -38,8 +38,20 @@ public class Advert extends Model{
 	public static final Finder<Long, Advert> finder = new Finder<Long, Advert>(Long.class, Advert.class);
 	
 	
+	/**
+	 * 详细信息
+	 * @param id
+	 * @return
+	 */
 	public static JsonNode getAdvertGet(long id){
-		Advert advertType = finder.byId(id);
+		Advert advertType;
+		if(id != 0){
+			advertType = finder.byId(id);
+		}else{
+			List<Advert> advert_list = finder.findList();
+			int index=(int)(Math.random()*advert_list.size());
+			advertType = advert_list.get(index);
+		}
 		
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode appJson = mapper.createObjectNode();
@@ -52,6 +64,15 @@ public class Advert extends Model{
 	}
 	
 	
+	/**
+	 * 分页列表
+	 * @param limit
+	 * @param offset
+	 * @param order
+	 * @param sort
+	 * @param search
+	 * @return
+	 */
 	public static JsonNode getAdvertPageJson(int limit,int offset,String order,String sort,String search){
 		Query<Advert> query = finder.query();
 		if(sort != null && sort.length() != 0){
@@ -77,7 +98,13 @@ public class Advert extends Model{
 			ObjectNode appJson = mapper.createObjectNode();
 			appJson.put("id", advertType.id);
 			appJson.put("name", advertType.name);
+			
 			appJson.put("picture", advertType.picture);
+			if(advertType.picture != null && advertType.picture.length()>0)
+				appJson.put("picture_type", "已设置");
+			else
+				appJson.put("picture_type", "未设置");
+			
 			appJson.put("url", advertType.url);
 			array.add(appJson);
 		}

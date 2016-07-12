@@ -1,49 +1,42 @@
-body,input,button,textarea,h1,h2,h3,h4,h5,h6{
-	font-family: Arial, "微软雅黑", "黑体";
-	hight:100%
+@charset "utf-8";
+/*==登录模块==*/
+*{box-sizing: border-box;}
+html,body,div,ul,li,span,em,input,button{ margin:0; padding:0;}
+body{font-size:14px;}
+ul,li{list-style-type: none;}
+a:focus, button:focus {outline: none !important;/*firfox去掉a虚线*/} 
+button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, select::-moz-focus-inner, input[type="file"]>input[type="button"]::-moz-focus-inner {border: 0;outline: 0 !important;/*去掉a虚线*/} 
+.framework{position: absolute;left: 0;top: 0;right: 0;bottom: 0; min-width:1200px; overflow-x:hidden;}
+.framework.login-bg{ overflow:hidden; min-width:0;}
+.login-bg{	background: #fff url(/public/images/login/login-bg.jpg) no-repeat top center;background-size: 100% 100%;}
+.login-warp{position: relative;z-index: 2; margin:0 auto;width:610px; overflow:hidden;}
+.login-input{width: 610px;height: 600px;overflow: hidden;background: url(/public/images/login/login-bg.png) no-repeat center top;}
+.input-left{ margin:240px auto 0;width:360px;}
+.input-left li{ margin-bottom:15px;}
+.input-left .btn-login{ cursor:pointer;width:360px; height:50px; margin-top:10px; font-size:18px; background:url(/public/images/login/login-btn-bg.png) no-repeat left top; color:#fff; border:none 0; border-radius:2px;}
+.input-left .btn-login:active{background:url(/public/images/login/login-btn-bg.png) no-repeat left -50px;}
+.input-left .btn-refresh{ width:90px; margin-right:0; float:right; padding:6px 0;}
+.foot{ text-align:center; color:#333; margin-top:-40px;}
+.form-error{ border:solid 1px #f6c8b5; padding:5px 8px; background:#fceee8; margin:0 0 10px; overflow:hidden;}
+.icon-error{background:url(/public/images/login/error-icon.png) no-repeat center center; display:inline-block; width:14px; height:14px; float:left;margin:3px 5px 0 2px}
+.form-error.hides{ display:none;}
+.icon-error.hides{ display:none;}
+.form-control {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
 }
-
-.footercopyrights_444 {
-	 text-align:center;
-	 color:#444;
-	 word-spacing:3px;
-	 position:fixed;
-	 bottom:15px; 
-	 left:0; 
-	 width:100%;
-	 _position:absolute;
-	 _top: expression_r(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight); 
-	 overflow:visible; 
-}
-.footercopyrights_444 a {
-	text-decoration:none;
-	color:#444;	
-}
-.footercopyrights_fff {
-	text-align:center;
-	 color:#478fca;
-	 word-spacing:3px;
-	 position:fixed;
-	 bottom:25px; 
-	 left:0; 
-	 width:100%;
-	 _position:absolute;
-	 _top: expression_r(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight); 
-	 overflow:visible; 
-}
-.footercopyrights_fff a {
-	text-decoration:none;
-	color:#478fca;	
-}
-
-.light-login {
-    background: #dfe0e2 url("/public/images/login/login_bg.jpg") no-repeat  0 0;
-}
-
-.blur-login {
-    background: #dfe0e2 url("/public/images/login/login_bg2.jpg") no-repeat  0 0;
-}
-
-.login-container {
-    margin: 175px auto;
+.form-control:focus {
+    border-color: #33a5e9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(51, 165, 233, 0.3);
 }

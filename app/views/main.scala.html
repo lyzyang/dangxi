@@ -1,170 +1,125 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta charset="utf-8">
-<title>衍白公裔孙</title>
 
-<link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico" media="screen" />
-
-<link href="/public/css/main.css" rel="stylesheet">
-<link href="/public/plug/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-<script src="/public/plug/jquery/jquery-1.11.1.min.js"></script>
-<script src="/public/plug/jquery-page/jquery.page.js"></script>
-<script src="/public/plug/echarts/echarts.min.js"></script>
 <script src="/public/js/main.min.js"></script>
 
-<script type="text/javascript">
-$(function(){
-	$(".line").slideUp();
-})
-
-//设为首页
-function SetHome(obj,url){
-    try{
-        obj.style.behavior='url(#default#homepage)';
-        obj.setHomePage(url);
-    }catch(e){
-        if(window.netscape){
-            try{
-                netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-            }catch(e){
-                alert("抱歉，此操作被浏览器拒绝！\n\n请在浏览器地址栏输入'about:config'并回车然后将[signed.applets.codebase_principal_support]设置为'true'");
-            }
-        }else{
-            alert("抱歉，您所使用的浏览器无法完成此操作。\n\n您需要手动将【"+url+"】设置为首页。");
-        }
-    }
-}
-                     
-//收藏本站
-function AddFavorite(title, url) {
-    try {
-        window.external.addFavorite(url, title);
-    }
-    catch (e) {
-        try {
-            window.sidebar.addPanel(title, url, "");
-        }
-        catch (e) {
-            alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加");
-        }
-    }
-}
-</script>
-</head>
-
-<body>
-<div id="sitePage">
-    <div class="site-top">
-        <div class="top-wrap">
-        	<p class="setHome"><a href="javascript:" onclick="SetHome(this,'#');">设为首页</a><span>|</span><a href="javascript:" onclick="AddFavorite('智慧售电网！',location.href)">收藏本站</a></p>
-        	<div class="quick-menu"><a href="#">登录</a><span></div>
-        </div>
+<!-- content01 -->
+<div class="content"> 
+	<!-- 焦点图 -->
+    <div class="Slide fl" id="slide">
+        <ul id="focus_getByNum_1" class="slide-cont">
+        </ul>
+    	<div class="slide-nav"></div>
     </div>
-  
-	<!-- header -->
-    <div class="header">
-		<div class="hd-wrap"><a href="#" class="logo"><img src="/public/images/main/logo.png" alt="logo"/></a></div>
-    </div>
-  
-	<!-- menu -->
-    <div class="nav">
-        <ul class="nav-box">
-            <li id="main"><a href="#" class="pdr"><i class="icon tb-home"></i>首页</a></li>
-            <li id="news"><a href="#"><i class="icon tb-news"></i>活动风采</a></li>
-            <li id="polices"><a href="#"><i class="icon tb-data"></i>家乡风貌</a></li>
-            <li id="analysis"><a href="#"><i class="icon tb-forum"></i>会议纪要</a></li>
-            <li id="datas"><a href="#"><i class="icon tb-energy"></i>公王祭祀</a></li>
-            <li id="technical"><a href="#"><i class="icon tb-prodcuct"></i>祭祖祭祀</a></li>
-            <li id="product"><a href="#"><i class="icon tb-activity"></i>公王基金</a></li>
-            <li id="electric"><a href="#"><i class="icon tb-electric"></i>祭祖基金</a></li>
-            <li id="saving"><a href="#"><i class="icon tb-analysis"></i>组织结构</a></li>
-            <li id="activity"><a href="#"><i class="icon tb-rule"></i>族谱</a></li>
+	<!-- 活动风采 -->
+    <div class="box h-news fr">
+        <h3><a href="#">活动风采</a></h3>
+    	<div class="more"><a href="#" onclick="get_more_info('1','1')">更多></a></div>
+        <ul id="info_getByType_1" class="news-wrap">
         </ul>
     </div>
-  
-	<!-- container -->
-	<div class="container">
-        <div class="base-top"></div>
-		<!-- content01 -->
-        <div class="content"> 
-        	<!-- 焦点图 -->
-            <div class="Slide fl" id="slide">
-                <ul id="focus_getByNum_1" class="slide-cont">
-                </ul>
-            	<div class="slide-nav"></div>
-            </div>
-        	<!-- 活动风采 -->
-            <div class="box h-news fr">
-                <h3><a href="#">活动风采</a></h3>
-            	<div class="more"><a href="#">更多></a></div>
-                <ul id="info_getByType_1" class="news-wrap">
-                </ul>
-            </div>
-        </div>
-    
-		<!-- content02 -->
-        <div class="content">
-            <div id="info_getByType_2" class="box ays-wrap fl">
-                <h3><a href="#" class="abab">家乡风貌</a></h3>
-                <div class="more"><a href="#">更多></a></div>
-            </div>
-            <div class="box law-wrap fr">
-            	<h3><a href="#" class="abab">会议纪要</a></h3>
-            	<div class="more"><a href="#">更多></a></div>
-                <ul id="info_getByType_3" class="law-con">
-                </ul>
-            </div>
-        </div>
-    
-		<!-- 广告图 -->
-		<div class="content"><img src="/public/images/main/ad_pic01.jpg"/></a></div>
-    
-		<!-- content03 -->
-        <div class="content">
-            <div class="box data-wrap fl">
-            	<h3><a href="#" class="abab">公王基金</a></h3>
-            	<div class="more"><a href="#">更多></a></div>
-            	<div id="fund_getByType_1" style="width:100%;height:400px;"></div>
-            </div>
-            <div class="box data-wrap fl">
-            	<h3><a href="#" class="abab">祭祖基金</a></h3>
-            	<div class="more"><a href="#">更多></a></div>
-            	<div id="fund_getByType_2" style="width:100%;height:400px;"></div>
-            </div>
-        </div>
-    
-        <!-- content04 -->
-        <div class="content">
-            <div class="box electric-wrap fr">
-                <h3><a href="#" class="abab">公王祭祀</a></h3>
-                <div class="more"><a href="#">更多></a></div>
-                <ul id="info_getByType_4" class="data-list">
-                </ul>
-            </div>
-            <div class="box tech-wrap fl">
-                <h3><a href="#" class="abab">祭祖祭祀</a></h3>
-                <div class="more"><a href="#">更多></a></div>
-                <ul id="info_getByType_5" class="tech-con">
-                </ul>
-            </div>
-        </div>
-	</div>
-  	<!-- footer -->
-    <div class="footer">
-        <div class="ft-con">
-            <div class="copyRight">
-            	<p>未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。<br/>CopyRight © 2016 智慧售电网 All rights reserved. 粤ICP备13074501号-4站长统计</p>
-            	<div class="ft-nav">
-                	<a href="about">关于我们</a><span>|</span>
-                    <a href="about/index/3">免责声明</a><span>|</span>
-                    <a href="contact">联系我们</a>
-                </div>
-            </div>
-        </div>
+</div>
+
+<!-- content02 -->
+<div class="content">
+    <div id="info_getByType_2" class="box ays-wrap fl">
+        <h3><a href="#" class="abab">美丽乡村</a></h3>
+        <div class="more"><a href="#" onclick="get_more_info('2','2')">更多></a></div>
+    </div>
+    <div class="box law-wrap fr">
+    	<h3><a href="#" class="abab">会议纪要</a></h3>
+    	<div class="more"><a href="#" onclick="get_more_info('3','3')">更多></a></div>
+        <ul id="info_getByType_3" class="law-con">
+        </ul>
     </div>
 </div>
-</body>
-</html>
+
+<!-- 广告图 -->
+<div class="content"><img src="/public/images/main/ad_pic01.jpg"/></a></div>
+
+<!-- content03 -->
+<div class="content">
+    <div class="box data-wrap score-wrap fl">
+    	<h3 style="margin-bottom: 5px;!important;"><a href="#" class="abab">祭祖基金</a></h3>
+    	<div class="more"><a href="#" onclick="get_more_fund('1','6')">更多></a></div>
+    	<!--tab标题-->
+        <ul id="fundTabGroup_1" class="sr-tab">
+            <li onclick="fundTabOption('fundTabGroup_1', '1')" class="sr-tab-li selected"><a href="javascript:">基金总览</a></li>
+            <li onclick="fundTabOption('fundTabGroup_1', '2')" class="sr-tab-li"><a href="javascript:">月度总额</a></li>
+            <li onclick="fundTabOption('fundTabGroup_1', '3')" class="sr-tab-li"><a href="javascript:">月度收入</a></li>
+            <li onclick="fundTabOption('fundTabGroup_1', '4')" class="sr-tab-li"><a href="javascript:">月度支出</a></li>
+        </ul>
+    	<!--tab内容-->
+        <div id="fundTabGroup_1_Content">
+            <div id="fundTabGroup_1_Content_1" class="sr-con fl" style="display:block;">
+            	<div class="sr-con-box">
+            		<div id="ftc1_1" style="width:536px;height:340px;"></div>
+            	</div>
+            </div>
+        	<div id="fundTabGroup_1_Content_2" class="sr-con fl" style="display:none;">
+            	<div class="sr-con-box">
+            		<div id="ftc1_2" style="width:536px;height:340px;"></div>
+            	</div>
+            </div>
+        	<div id="fundTabGroup_1_Content_3" class="sr-con fl" style="display:none;">
+            	<div class="sr-con-box">
+            		<div id="ftc1_3" style="width:536px;height:340px;"></div>
+            	</div>
+            </div>
+        	<div id="fundTabGroup_1_Content_4" class="sr-con fl" style="display:none;">
+            	<div class="sr-con-box">
+            		<div id="ftc1_4" style="width:536px;height:340px;"></div>
+            	</div>
+            </div>
+        </div> 
+    </div>
+    <div class="box data-wrap score-wrap fl">
+    	<h3 style="margin-bottom: 5px;!important;"><a href="#" class="abab">公王基金</a></h3>
+    	<div class="more"><a href="#" onclick="get_more_fund('2','7')">更多></a></div>
+    	<!--tab标题-->
+        <ul id="fundTabGroup_2" class="sr-tab">
+            <li onclick="fundTabOption('fundTabGroup_2', '1')" class="sr-tab-li selected"><a href="javascript:">基金总览</a></li>
+            <li onclick="fundTabOption('fundTabGroup_2', '2')" class="sr-tab-li"><a href="javascript:">月度总额</a></li>
+            <li onclick="fundTabOption('fundTabGroup_2', '3')" class="sr-tab-li"><a href="javascript:">月度收入</a></li>
+            <li onclick="fundTabOption('fundTabGroup_2', '4')" class="sr-tab-li"><a href="javascript:">月度支出</a></li>
+        </ul>
+    	<!--tab内容-->
+        <div id="fundTabGroup_2_Content">
+            <div id="fundTabGroup_2_Content_1" class="sr-con fl" style="display:block;">
+            	<div class="sr-con-box">
+            		<div id="ftc2_1" style="width:536px;height:340px;"></div>
+            	</div>
+            </div>
+        	<div id="fundTabGroup_2_Content_2" class="sr-con fl" style="display:none;">
+            	<div class="sr-con-box">
+            		<div id="ftc2_2" style="width:536px;height:340px;"></div>
+            	</div>
+            </div>
+        	<div id="fundTabGroup_2_Content_3" class="sr-con fl" style="display:none;">
+            	<div class="sr-con-box">
+            		<div id="ftc2_3" style="width:536px;height:340px;"></div>
+            	</div>
+            </div>
+        	<div id="fundTabGroup_2_Content_4" class="sr-con fl" style="display:none;">
+            	<div class="sr-con-box">
+            		<div id="ftc2_4" style="width:536px;height:340px;"></div>
+            	</div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<!-- content04 -->
+<div class="content">
+    <div class="box tech-wrap fl">
+        <h3><a href="#" class="abab">祭祀祝文</a></h3>
+        <div class="more"><a href="#" onclick="get_more_info('4','4')">更多></a></div>
+        <ul id="info_getByType_4" class="tech-con">
+        </ul>
+    </div>
+    <div class="box electric-wrap fr">
+        <h3><a href="#" class="abab">人文轶事</a></h3>
+        <div class="more"><a href="#" onclick="get_more_info('5','5')">更多></a></div>
+        <ul id="info_getByType_5" class="data-list">
+        </ul>
+    </div>
+</div>
+	

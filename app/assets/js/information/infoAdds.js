@@ -13,6 +13,11 @@ $(function() {
     	});
     });
     
+    $('#info_add_picture_exit').on('click', function(e) {
+    	$('#info_add_picture').val('');
+    	$('#info_add_picture_isexit').val('1');
+    	$('#info_add_picture_preview').attr('src', '/public/images/index/thumb.png');
+	});
    
 	$("#info_add_picture").uploadPreview({ Img: "info_add_picture_preview", Width: 240, Height: 120 });
 
@@ -53,7 +58,7 @@ $(function() {
 	             	alert(data.mess)
 	             } else{
 	             	alert(data.mess)
-	             }
+	            }
             }
          });
 	 });

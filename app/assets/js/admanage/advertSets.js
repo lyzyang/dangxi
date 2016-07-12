@@ -20,7 +20,8 @@ var advertSet_table = {
             columns: [
                 {field: 'state',checkbox: true},
                 {field: 'name',title: '名称',align: 'left',width:'20%',sortable: false},
-                {field: 'url',title: '链接',align: 'left',width:'70%',sortable: false},
+                {field: 'picture_type',title: '广告图',align: 'left',width:'15%',sortable: false},
+                {field: 'url',title: '链接',align: 'left',width:'55%',sortable: false},
                 {field: 'operate1',title: '操作',align: 'left',width:'10%',clickToSelect: false,
                 			formatter: advertSet_table.formatter1,events: advertSet_table.events1}
             ]
@@ -43,6 +44,12 @@ var advertSet_table = {
         //初始化修改对话框
         advertSet_table.Init();
         
+        $('#advertSet_up_picture_exit').on('click', function(e) {
+	    	$('#advertSet_up_picture').val('');
+	    	$('#advertSet_up_picture_isexit').val('1');
+	    	$('#advertSet_up_picture_preview').attr('src', '/public/images/index/thumb.png');
+		});
+	
         $("#advertSet_up_picture").uploadPreview({ Img: "advertSet_up_picture_preview", Width: 240, Height: 120 });
         
         $('#advertSet_up_dialog').dialog({
@@ -80,6 +87,7 @@ var advertSet_table = {
     function advertSet_up_dialog_open(row) {
         $("#advertSet_up_id").val(row.id);
         $("#advertSet_up_url").val(row.url);
+        $("#advertSet_up_picture").val('');
         
         if(row.picture != undefined && row.picture != null && row.picture.length != 0 ){
 			$('#advertSet_up_picture_preview').attr('src', 'data:image/png;base64,' + row.picture);

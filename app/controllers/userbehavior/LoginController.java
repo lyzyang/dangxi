@@ -2,8 +2,10 @@ package controllers.userbehavior;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import models.UtilTool;
+import models.information.InfoType;
 import models.userbehavior.AuthorisedUser;
 import play.cache.Cache;
 import play.data.DynamicForm;
@@ -12,32 +14,12 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
 import views.html.login;
-import views.html.main;
-import views.html.more;
-
 
 
 /**
  * @author lyz
  */
 public class LoginController extends Controller{
-	
-	
-	/**
-	 * 主页
-	 * @return
-	 */
-	public static Result main() {
-		return ok(main.render());
-    }
-	
-	/**
-	 * 主页
-	 * @return
-	 */
-	public static Result more() {
-		return ok(more.render());
-    }
 	
 	
 	/**

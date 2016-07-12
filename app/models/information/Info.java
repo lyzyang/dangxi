@@ -45,9 +45,6 @@ public class Info extends Model{
 		@Lob
 		public String picture;
 		
-		@Column(columnDefinition="int4 default 0")
-		public int pictureType; //0隐藏 1置顶
-		
 		@ManyToOne
 		public AuthorisedUser user;
 		
@@ -60,6 +57,11 @@ public class Info extends Model{
 		public static final Finder<Long, Info> finder = new Finder<Long, Info>(Long.class, Info.class);
 		
 		
+		/**
+		 * 获取详细
+		 * @param id
+		 * @return
+		 */
 		public static JsonNode getInfo(long id){
 			Info info = finder.byId(id);
 			ObjectMapper mapper = new ObjectMapper();
@@ -77,14 +79,21 @@ public class Info extends Model{
 			return appJson;
 		}
 		
-		
+		/**
+		 * 类型分页
+		 * @param typeId
+		 * @param limit
+		 * @param offset
+		 * @param isPicture
+		 * @return
+		 */
 		public static JsonNode getInfoByType(long typeId,int limit,int offset,String isPicture){
 			Query<Info> query = finder.query();
 			
 			InfoType infoType = new InfoType();
 			infoType.id = typeId;
 			
-			query.where().eq("infoType", infoType).eq("type", 1).orderBy("createTime asc");
+			query.where().eq("infoType", infoType).eq("type", 1).orderBy("createTime desc");
 			
 			int info_list_size = query.findRowCount();
 			List<Info> info_list = query.setFirstRow(offset).setMaxRows(limit).findList();
@@ -106,14 +115,48 @@ public class Info extends Model{
 			return json;
 		}
 		
+		/**
+		 * 焦点图
+		 * @return
+		 */
+		public static JsonNode getInfoByFocus(){
+			List<Info> info_list = Info.finder.where().eq("type", 1).ne("picture", "").isNotNull("picture")
+					.setMaxRows(5).orderBy("createTime desc").findList();
+			ObjectMapper mapper = new ObjectMapper();
+			ArrayNode array = mapper.createArrayNode ();
+			for(Info info : info_list){
+				ObjectNode appJson = mapper.createObjectNode();
+				appJson.put("id", info.id);
+				appJson.put("title", info.title);
+				appJson.put("remark", info.remark);
+				appJson.put("user_userName", info.user.userName);
+				appJson.put("createTime",  UtilTool.DateToString(info.createTime));
+				appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
+				appJson.put("picture", info.picture);
+				array.add(appJson);
+			}
+			return array;
+		}
 		
-		public static JsonNode getInfoPageJson(int limit,int offset,String order,String sort,String search,String infoType_id){
+		
+		/**
+		 * 分页列表
+		 * @param limit
+		 * @param offset
+		 * @param order
+		 * @param sort
+		 * @param search
+		 * @param infoType_id
+		 * @return
+		 */
+		public static JsonNode getInfoPageJson(int limit,int offset,String order,String sort,
+				String search,String infoType_id){
 			Query<Info> query = finder.query();
 			if(sort != null && sort.length() != 0){
 				sort = sort.replace("_", ".");
 				query.where().orderBy(sort +" "+ order);
 			}else{
-				query.where().orderBy("createTime asc");
+				query.where().orderBy("createTime desc");
 			}
 			
 			if(infoType_id !=null && infoType_id.length() != 0){
@@ -151,6 +194,10 @@ public class Info extends Model{
 				appJson.put("type", info.type);
 				if(info.type == 1) appJson.put("type_name", "显示");
 				else appJson.put("type_name", "隐藏");
+				
+				if(info.picture != null && info.picture.length()>0)
+					appJson.put("picture_type", "是");
+				
 				array.add(appJson);
 			}
 			json.put("rows", array);

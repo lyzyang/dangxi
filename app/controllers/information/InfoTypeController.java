@@ -1,6 +1,9 @@
 package controllers.information;
 
 
+import be.objectify.deadbolt.java.actions.Pattern;
+import be.objectify.deadbolt.java.actions.SubjectPresent;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.UtilTool;
@@ -18,8 +21,11 @@ import views.html.information.infoTypes;
  */
 public class InfoTypeController extends Controller {
 	
-	
-	
+	/**
+	 * 信息类型select
+	 * @return
+	 */
+	@SubjectPresent
 	public static Result infoType_json() {
 		JsonNode json = InfoType.getInfoTypeJson();
 		return ok(json);
@@ -29,11 +35,16 @@ public class InfoTypeController extends Controller {
 	/**
 	 * 获取html页面
 	 */
+	@Pattern("infoType_html")
 	public static Result infoType_html() {
 		return ok(infoTypes.render());
 	}
 	
-	
+	/**
+	 * 分页列表
+	 * @return
+	 */
+	@Pattern("infoType_html")
 	public static Result infoType_page_json() {
 		DynamicForm in = Form.form().bindFromRequest();
 		int limit = Integer.valueOf(in.get("limit"));
@@ -50,6 +61,7 @@ public class InfoTypeController extends Controller {
 	/**
 	 * 添加
 	 */
+	@Pattern("infoType_html")
 	@Transactional
 	public static Result infoType_add(){  
 		DynamicForm in = Form.form().bindFromRequest();
@@ -77,6 +89,7 @@ public class InfoTypeController extends Controller {
 	 * 修改
 	 * @return
 	 */
+	@Pattern("infoType_html")
 	@Transactional
 	public static Result infoType_up(){
 		DynamicForm in = Form.form().bindFromRequest();
@@ -103,6 +116,7 @@ public class InfoTypeController extends Controller {
 	 * 删除
 	 * @return
 	 */
+	@Pattern("infoType_html")
 	@Transactional
 	public static Result infoType_del(){
 		DynamicForm in = Form.form().bindFromRequest();

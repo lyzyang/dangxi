@@ -1,6 +1,9 @@
 package controllers.fundmanagement;
 
 
+import be.objectify.deadbolt.java.actions.Pattern;
+import be.objectify.deadbolt.java.actions.SubjectPresent;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.UtilTool;
@@ -18,22 +21,31 @@ import views.html.fundmanagement.fundTypes;
  */
 public class FundTypeController extends Controller {
 	
-	
-	
+	/**
+	 * 基金类型select
+	 * @return
+	 */
+	@SubjectPresent
 	public static Result fundType_json() {
 		JsonNode json = FundType.getFundTypeJson();
 		return ok(json);
 	}
 	
 	
+	
 	/**
 	 * 获取html页面
 	 */
+	@Pattern("fundType_html")
 	public static Result fundType_html() {
 		return ok(fundTypes.render());
 	}
 	
-	
+	/**
+	 * 分页列表
+	 * @return
+	 */
+	@Pattern("fundType_html")
 	public static Result fundType_page_json() {
 		DynamicForm in = Form.form().bindFromRequest();
 		int limit = Integer.valueOf(in.get("limit"));
@@ -50,6 +62,7 @@ public class FundTypeController extends Controller {
 	/**
 	 * 添加
 	 */
+	@Pattern("fundType_html")
 	@Transactional
 	public static Result fundType_add(){  
 		DynamicForm in = Form.form().bindFromRequest();
@@ -77,6 +90,7 @@ public class FundTypeController extends Controller {
 	 * 修改
 	 * @return
 	 */
+	@Pattern("fundType_html")
 	@Transactional
 	public static Result fundType_up(){
 		DynamicForm in = Form.form().bindFromRequest();
@@ -103,6 +117,7 @@ public class FundTypeController extends Controller {
 	 * 删除
 	 * @return
 	 */
+	@Pattern("fundType_html")
 	@Transactional
 	public static Result fundType_del(){
 		DynamicForm in = Form.form().bindFromRequest();

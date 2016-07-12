@@ -4,11 +4,17 @@
 
 # Home page
 
+#前台页面#####
+GET    /                               controllers.Application.header
+GET    /main                               controllers.Application.main
+GET    /more_info                               controllers.Application.more_info
+GET    /item_info                               controllers.Application.item_info
+GET    /more_fund                               controllers.Application.more_fund
+GET    /item_fund                               controllers.Application.item_fund
+###########
 
-#基本页面#####
-GET    /                               controllers.userbehavior.LoginController.main
-GET    /more                               controllers.userbehavior.LoginController.more
 
+#后台页面#####
 GET    /login	                       controllers.userbehavior.LoginController.login
 GET    /index                          controllers.userbehavior.LoginController.index
 POST   /loginer                        controllers.userbehavior.LoginController.loginer
@@ -18,15 +24,6 @@ POST   /exit                           controllers.userbehavior.LoginController.
 
 #仪表板####
 GET		/portlet_html		controllers.portlet.PortletController.portlet_html
-###########
-
-
-#设置焦点图####
-GET 		/focus_getByNum		controllers.focusmap.FocusController.focus_getByNum
-
-GET 		/focus_html		controllers.focusmap.FocusController.focus_html
-GET 		/focus_page_json		controllers.focusmap.FocusController.focus_page_json
-POST		/focus_up		controllers.focusmap.FocusController.focus_up
 ###########
 
 
@@ -48,28 +45,31 @@ POST		/advertType_del		controllers.admanage.AdvertTypeController.advertType_del
 
 #基金管理####
 GET		/fund_get		controllers.fundmanagement.FundController.fund_get
+GET		/fund_getStat		controllers.fundmanagement.FundController.fund_getStat
 GET		/fund_getByType		controllers.fundmanagement.FundController.fund_getByType
 
 GET		/fund_html		controllers.fundmanagement.FundController.fund_html
 GET		/fund_page_json		controllers.fundmanagement.FundController.fund_page_json
+GET		/fundAdd_html		controllers.fundmanagement.FundController.fundAdd_html
 POST	/fund_add		controllers.fundmanagement.FundController.fund_add
 POST	/fund_up		controllers.fundmanagement.FundController.fund_up
 POST	/fund_del		controllers.fundmanagement.FundController.fund_del
 ###########
 
 #基金类型####
-GET 		/fundType_json		controllers.fundmanagement.FundTypeController.fundType_json
+GET 	/fundType_json		controllers.fundmanagement.FundTypeController.fundType_json
 
-GET 		/fundType_html		controllers.fundmanagement.FundTypeController.fundType_html
-GET 		/fundType_page_json		controllers.fundmanagement.FundTypeController.fundType_page_json
-POST		/fundType_add		controllers.fundmanagement.FundTypeController.fundType_add
-POST		/fundType_up		controllers.fundmanagement.FundTypeController.fundType_up
-POST		/fundType_del		controllers.fundmanagement.FundTypeController.fundType_del
+GET 	/fundType_html		controllers.fundmanagement.FundTypeController.fundType_html
+GET 	/fundType_page_json		controllers.fundmanagement.FundTypeController.fundType_page_json
+POST	/fundType_add		controllers.fundmanagement.FundTypeController.fundType_add
+POST	/fundType_up		controllers.fundmanagement.FundTypeController.fundType_up
+POST	/fundType_del		controllers.fundmanagement.FundTypeController.fundType_del
 ###########
 
 #信息发布####
 GET		/info_get		controllers.information.InfoController.info_get
 GET		/info_getByType		controllers.information.InfoController.info_getByType
+GET 	/info_getByFocus		controllers.information.InfoController.info_getByFocus
 
 GET		/info_html		controllers.information.InfoController.info_html
 GET		/info_page_json		controllers.information.InfoController.info_page_json

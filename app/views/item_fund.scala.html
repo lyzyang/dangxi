@@ -1,0 +1,133 @@
+@(infoId: String)
+<!-- crumbs -->
+<div class="content"> 
+	<!-- breadcrumb -->
+    <ul class="breadcrumb" id="product-bread">
+        <li><b>您当前的位置：</b></li>
+        <li><a href="#" onclick="get_main()">首页</a></li>
+        <span class="icon icon-angle-right"></span>
+        <li class="current"><a href="#" id="item_fundType_name_a"></a></li>
+        <span class="icon icon-angle-right"></span>
+        <li class="current" id="item_fund_title_li"></li>
+    </ul>
+    <div class="articles-box">
+        <div class="articles-l fl">
+            <div class="info">
+            	<h1 id="item_fund_title_h"></h1>
+            	<p id="item_fund_createTime_p"></p>
+            </div>
+            <div class="abstract">
+            	<p id="item_fund_remark_p"></p>
+            </div>
+            <div id="item_fund_content" class="articles-content"></div>
+        </div>
+    	<!-- 右边内容块 -->
+        <div class="articles-r fr">
+        	<div id="item_fund_main_advert" class="gd_wy1101"></div>
+            <div class="tj_nr">
+                <ul>
+                    <li id="item_fund_sec_advert1"></li>
+                    <li id="item_fund_sec_advert2"></li>
+                    <li id="item_fund_sec_advert3"></li>
+                    <li id="item_fund_sec_advert4"></li>
+                </ul>
+            </div>
+            <div class="pro-news box pro-rbox">
+            	<h3><a href="#" onclick="get_more_info('1','1')" class="abab">活动风采</a></h3>
+                <ul id="item_fund_info1" class="pro-news-list"></ul>
+            </div>
+            <div class="pro-activity box pro-rbox">
+            	<h3><a href="#" onclick="get_more_info('3','3')" class="abab">会议纪要</a></h3>
+                <ul id="item_fund_info2" class="pro-news-list"></ul>
+            </div>
+             <div class="pro-ays box pro-rbox">
+            	<h3><a href="#" onclick="get_more_info('2','2')" class="abab">家乡风貌</a></h3>
+                <ul id="item_fund_info3" class="pro-news-list"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$.get("/fund_get",{"id":@infoId}, function(data) {
+			$("#item_fundType_name_a").html(data.infoType_name);
+			$("#item_fundType_name_a").click(function(){ 
+				get_more_info(data.infoType_id,0)
+			}); 
+			
+			$("#item_fund_title_li").html(data.title);
+			$("#item_fund_title_h").html(data.title);
+			$("#item_fund_createTime_p").html(data.createTime);
+			$("#item_fund_remark_p").html(data.remark);
+			$("#item_fund_content").html(data.content);
+	    });
+	    
+	    $.get("/advertSet_get",{"sid":'13'}, function(data) {
+	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
+				$("#item_fund_main_advert").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'"></a>'));
+			}else{
+				$("#item_fund_main_advert").append($('<a href="#"><img src="/public/images/index/thumb.png"></a>'));
+			}
+	    });
+	    $.get("/advertSet_get",{"sid":'14'}, function(data) {
+	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
+				$("#item_fund_sec_advert1").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
+			}else{
+				$("#item_fund_sec_advert1").append($('<a href="#"><img src="/public/images/index/thumb.png" width="146" height="102"></a>'));
+			}
+	    });
+	    $.get("/advertSet_get",{"sid":'15'}, function(data) {
+	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
+				$("#item_fund_sec_advert2").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
+			}else{
+				$("#item_fund_sec_advert2").append($('<a href="#"><img src="/public/images/index/thumb.png" width="146" height="102"></a>'));
+			}
+	    });
+	    $.get("/advertSet_get",{"sid":'16'}, function(data) {
+	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
+				$("#item_fund_sec_advert3").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
+			}else{
+				$("#item_fund_sec_advert3").append($('<a href="#"><img src="/public/images/index/thumb.png" width="146" height="102"></a>'));
+			}
+	    });
+	    $.get("/advertSet_get",{"sid":'17'}, function(data) {
+	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
+				$("#item_fund_sec_advert4").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
+			}else{
+				$("#item_fund_sec_advert4").append($('<a href="#"><img src="/public/images/index/thumb.png" width="146" height="102"></a>'));
+			}
+	    });
+	    
+	    
+	    $.get("/info_getByType",{"typeId":1,"limit":10,"offset":0}, function(data) {
+		    $.each(data.rows, function(k, v) {
+		     	$("#item_fund_info1").append($('<li><a href="#" onclick="get_item_info('+v.id+')"><i class="square"></i><strong>'+
+		     		v.title+'</strong></a></li>'));
+		    });
+	    });
+	    $.get("/info_getByType",{"typeId":3,"limit":10,"offset":0}, function(data) {
+		    $.each(data.rows, function(k, v) {
+		     	$("#item_fund_info2").append($('<li><a href="#" onclick="get_item_info('+v.id+')"><i class="square"></i><strong>'+
+		     		v.title+'</strong></a></li>'));
+		    });
+	    });
+	    
+	    $.get("/info_getByType",{"typeId":2,"limit":2,"offset":0,"isPicture":1}, function(data) {
+		    $.each(data.rows, function(k, v) {
+		    	if(v.picture != undefined && v.picture != null && v.picture.length != 0 ){
+		    		$("#item_fund_info3").append($('<div class="ays-item"><a href="#" onclick="get_item_info('+v.id+
+		     		')"><div class="ays-item-pic fl"><img src="data:image/png;base64,'+v.picture+'" alt="'+v.title+
+		     		'"/></div><div class="ays-item-txt fl"><h4><b>'+v.title+
+		     		'：</b><strong>'+v.remark+'</strong></h4></div></a></div>'));
+		    	}else{
+		    		$("#item_fund_info3").append($('<div class="ays-item"><a href="#" onclick="get_item_info('+v.id+
+		     		')"><div class="ays-item-pic fl"><img src="/public/images/main/slide'+k+'.jpg" alt="'+v.title+
+		     		'"/></div><div class="ays-item-txt fl"><h4><b>'+v.title+
+		     		'：</b><strong>'+v.remark+'</strong></h4></div></a></div>'));
+		    	} 
+		    });
+	    });
+	});
+</script>
+
