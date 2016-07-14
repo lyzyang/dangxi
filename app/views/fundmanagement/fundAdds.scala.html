@@ -1,4 +1,4 @@
-@(re_id:String)
+@(reId:String,tabId:String)
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,7 +14,6 @@
 <script src="/public/plug/jquery-select2/js/i18n/zh-CN.js"></script>
 <script src="/public/plug/kindeditor/editor/kindeditor.js"></script>
 <script src="/public/plug/jquery-form/jquery.form.js"></script>
-<script src="/public/js/onecloud.min.js"></script>
 <script src="/public/js/fundmanagement/fundAdds.min.js"></script>
 </head>
 <body>
@@ -27,7 +26,8 @@
 	                        <section class="panel panel-default">
 	                        	<header class="panel-heading"><span>基金详单</span></header>
 	                            <div class="panel-body">
-	                            	<input id="fund_add_id" type="hidden" name="sid" value=@re_id>
+	                            	<input id="fund_add_id" type="hidden" name="sid" value=@reId>
+	                            	<input id="fund_add_tabId" type="hidden" value=@tabId>
 	                                <div class="form-group"> 
 	                                    <label class="col-sm-2 control-label">主标题</label> 
 	                                    <div class="col-sm-8">

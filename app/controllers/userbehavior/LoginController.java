@@ -5,7 +5,6 @@ import java.util.Map;
 
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import models.UtilTool;
-import models.information.InfoType;
 import models.userbehavior.AuthorisedUser;
 import play.cache.Cache;
 import play.data.DynamicForm;
@@ -49,9 +48,11 @@ public class LoginController extends Controller{
 		String user = in.get("username");
 		String password = in.get("password");
 		AuthorisedUser au = AuthorisedUser.finder.where().eq("authuser", user).findUnique();
+		System.out.println(user);
+		System.out.println(au);
 		if(au != null){
 			long current = System.currentTimeMillis();
-			 if(UtilTool.encoder.matches(password, au.password)){
+			if(UtilTool.encoder.matches(password, au.password)){
 				setCacheSession((new Long(current)).toString(),String.valueOf(au.id));
 			   return redirect(routes.LoginController.index());
 			}else{

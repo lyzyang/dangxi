@@ -114,7 +114,7 @@ a {
 .top-wrap span{ padding:0 10px; color:#888;}
 .top-wrap .quick-menu{ position:absolute; top:0; right:0;height:35px; line-height:35px;}
 
-.header{ width:100%; position:relative; background:#fff url(/public/images/main/header_bg.jpg) no-repeat center; height:150px; overflow:hidden;}
+.header{ width:100%; position:relative; background:#fff url(/public/images/main/header_bg.png) no-repeat center; height:150px; overflow:hidden;}
 .hd-wrap{position:relative; width:1140px; margin:0 auto;}
 .hd-wrap .logo{ display:block; height:62px; padding:45px 0px 0px 20px;}
 .nav{ width:100%; position:relative; background:#ec6100;}
@@ -310,19 +310,6 @@ box-sizing: content-box;position: relative;height: 28px;}
 .tj_nr ul li a{width: 150px;padding-bottom: 8px;float: left;text-align: center; overflow:hidden; font-size:12px;}
 .mgr{ margin-right:8px;}
 
-
-/*关于我们*/
-.pgAbout h3{ padding:0;}
-.pgAbout h3 a{ font-size:20px;}
-.pgAbout .news-box{ border-bottom:0;}
-.about-txt{ width:695px; margin-left:30px;}
-.about-txt p{ text-indent:21px; line-height:30px; padding:5px 0; font-size:14px; color:#666;}
-
-/*联系我们*/
-.contact-box{ width:100%; background:url(/public/images/main/contact_map.jpg) center no-repeat; position:relative; min-height:408px;}
-.contact-info{ width:1140px; margin:0 auto; position:relative; overflow:hidden; padding-top:120px;}
-.contact-info h1{ font-size:20px; font-weight:700; line-height:30px; padding-bottom:20px; color:#333;}
-.contact-info li{ font-size:14px; line-height:30px; color:#1b1b1b;}
 
 
 /*详细信息-右侧*/

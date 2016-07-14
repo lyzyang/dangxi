@@ -110,11 +110,12 @@ public class InfoController extends Controller {
 	public static Result infoAdd_html() {
 		DynamicForm in = Form.form().bindFromRequest();
 		String id = in.get("id");
-		String re_id = "";
+		String tabId = in.get("tabId");
+		String reId = "";
 		if(id != null && id.length() != 0){
-			re_id = id;
+			reId = id;
 		}
-		return ok(infoAdds.render(re_id));
+		return ok(infoAdds.render(reId,tabId));
 	}
 	
 	/**
@@ -155,7 +156,7 @@ public class InfoController extends Controller {
 		    	return ok(json);
 			}
 			if(file.length()>1048576){
-				json = UtilTool.message(1, "图片不能大于10M！");
+				json = UtilTool.message(1, "图片不能大于1M！");
 		    	return ok(json);
 			}
 			pic = UtilTool.fileToString(file);
@@ -227,7 +228,7 @@ public class InfoController extends Controller {
 		    	return ok(json);
 			}
 			if(file.length()>1048576){
-				json = UtilTool.message(1, "图片不能大于10M！");
+				json = UtilTool.message(1, "图片不能大于1M！");
 		    	return ok(json);
 			}
 			pic = UtilTool.fileToString(file);

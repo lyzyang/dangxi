@@ -188,9 +188,16 @@ function openInfoAddHtml(info_id,info_title){
 		oneTabPanel.addTab({
 			id: infoAddTabId,
 			title: title,
-			html: '<iframe src="/infoAdd_html?id='+info_id+'"  width="100%" height="100%" frameborder="0";"></iframe>',
+			html: '<iframe src="/infoAdd_html?id='+info_id+'&tabId='+infoAddTabId+'"  width="100%" height="100%" frameborder="0";"></iframe>',
 		});
 		$.onecloud.succShow('打开成功');
 	}
 }
 
+function closeInfoAddHtml(infoAddTabId){
+	if(oneTabPanel.exists(infoAddTabId)) {
+		oneTabPanel.kill(infoAddTabId);
+		$.onecloud.succShow('添加成功');
+		$('#info-table').bootstrapTable('refresh', {silent: true});
+	}
+}

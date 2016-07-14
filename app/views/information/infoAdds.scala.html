@@ -1,4 +1,4 @@
-@(re_id:String)
+@(reId:String,tabId:String)
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,7 +27,8 @@
 	                        <section class="panel panel-default">
 	                        	<header class="panel-heading"><span>文章编辑</span></header>
 	                            <div class="panel-body">
-	                            	<input id="info_add_id" type="hidden" name="sid" value=@re_id>
+	                            	<input id="info_add_id" type="hidden" name="sid" value=@reId>
+	                            	<input id="info_add_tabId" type="hidden" value=@tabId>
 	                                <div class="form-group"> 
 	                                    <label class="col-sm-2 control-label">主标题</label> 
 	                                    <div class="col-sm-8">
@@ -57,7 +58,7 @@
 	                                <div class="form-group">
 	                                    <label class="col-sm-2 control-label">焦点图片</label>
 	                                    <div class="col-sm-6">
-	                                        <input id="info_add_picture" type="file" multiple="true" placeholder="选填" class="form-control" name="picture" />
+	                                        <input id="info_add_picture" type="file" placeholder="选填" class="form-control" name="picture" />
 	                                    </div>
 	                                    <div class="col-sm-2">
 	                                    	<input id="info_add_picture_isexit" type="hidden" name="isexit">
@@ -67,7 +68,7 @@
 	                                <div class="form-group">
 	                                    <label class="col-sm-2 control-label">图片预览</label>
 	                                    <div class="col-sm-8">
-	                                        <img id="info_add_picture_preview"  src="/public/images/index/thumb.png" width="240" height="120" />
+	                                        <img id="info_add_picture_preview"  src="/public/images/index/thumb.png" width="360" height="240" />
 	                                    </div>
 	                                </div>
 	                            </div>

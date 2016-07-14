@@ -156,13 +156,13 @@ public class Fund extends Model{
 			
 			ArrayNode month_stat_out_data = mapper.createArrayNode();
 			month_stat_out_data.add(mo[i][0]);
-			month_stat_out_data.add(out);
+			month_stat_out_data.add(-out);
 			month_stat_out_array.add(month_stat_out_data);
 		}
 		
 		json.put("all_total", total);
 		json.put("all_in", all_in);
-		json.put("all_out", all_out);
+		json.put("all_out", -all_out);
 		
 		json.put("month_stat", month_stat_array);
 		json.put("month_stat_in", month_stat_in_array);
@@ -184,7 +184,7 @@ public class Fund extends Model{
 		FundType fundType = new FundType();
 		fundType.id = typeId;
 		
-		query.where().eq("fundType", fundType).eq("type", 1).orderBy("useTime desc");
+		query.where().eq("fundType", fundType).orderBy("useTime desc");
 		
 		int fund_list_size = query.findRowCount();
 		List<Fund> fund_list = query.setFirstRow(offset).setMaxRows(limit).findList();

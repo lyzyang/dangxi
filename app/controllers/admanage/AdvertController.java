@@ -102,8 +102,8 @@ public class AdvertController extends Controller {
 				json = UtilTool.message(1, "只能上传图片！");
 		    	return ok(json);
 			}
-			if(file.length()>10485760){
-				json = UtilTool.message(1, "图片不能大于10M！");
+			if(file.length()>1048576){
+				json = UtilTool.message(1, "图片不能大于1M！");
 		    	return ok(json);
 			}
 			pic = UtilTool.fileToString(file);

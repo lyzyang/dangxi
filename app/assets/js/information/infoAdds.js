@@ -6,11 +6,18 @@ KindEditor.ready(function(K){
 });
 	
 $(function() {
-	$.get("/infoType_json", function(data) {
-      $('#info_add_type').select2({
-      		placeholder: "请选择",
-            data: data
-    	});
+    
+    $.ajax({
+       url : "/infoType_json",
+       async : false,
+       type : "get",
+       dataType : "json",
+       success : function(data) {
+            $('#info_add_type').select2({
+	      		placeholder: "请选择",
+	            data: data
+	    	});
+       }
     });
     
     $('#info_add_picture_exit').on('click', function(e) {
@@ -53,11 +60,12 @@ $(function() {
             data: params,
             success:function(data){ //提交成功的回调函数
                  if (data.status == 0) {
-            		alert(data.mess)
+                 	var tabId = $("#info_add_tabId").val();
+            		window.parent.closeInfoAddHtml(tabId);
 	             } else if(data.status == 1) {
-	             	alert(data.mess)
+	             	window.parent.$.onecloud.errorShow(data.mess);
 	             } else{
-	             	alert(data.mess)
+	             	window.parent.$.onecloud.warnShow(data.mess);
 	            }
             }
          });

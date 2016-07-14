@@ -119,11 +119,12 @@ public class FundController extends Controller {
 	public static Result fundAdd_html() {
 		DynamicForm in = Form.form().bindFromRequest();
 		String id = in.get("id");
-		String re_id = "";
+		String tabId = in.get("tabId");
+		String reId = "";
 		if(id != null && id.length() != 0){
-			re_id = id;
+			reId = id;
 		}
-		return ok(fundAdds.render(re_id));
+		return ok(fundAdds.render(reId,tabId));
 	}
 	
 	
@@ -154,6 +155,18 @@ public class FundController extends Controller {
 	    	return ok(json);
 		}
 		
+		double damount;
+		try {
+			damount = Double.valueOf(amount);
+		} catch (NumberFormatException e) {
+			json = UtilTool.message(1, "请输入数字！");
+	    	return ok(json);
+		}
+		if(damount < 0){
+			json = UtilTool.message(1, "请输入正数金额！");
+	    	return ok(json);
+		}
+		
 		Fund fund = new Fund();
 		fund.title = title;
 		
@@ -162,7 +175,7 @@ public class FundController extends Controller {
 		fund.fundType = fundType;
 		
 		fund.type = Integer.valueOf(type);
-		fund.amount = Double.valueOf(amount);
+		fund.amount = damount;
 		fund.useTime = useTime;
 		fund.content = content;
 		
@@ -208,6 +221,17 @@ public class FundController extends Controller {
 	    	return ok(json);
 		}
 		
+		double damount;
+		try {
+			damount = Double.valueOf(amount);
+		} catch (NumberFormatException e) {
+			json = UtilTool.message(1, "请输入数字！");
+	    	return ok(json);
+		}
+		if(damount < 0){
+			json = UtilTool.message(1, "请输入正数金额！");
+	    	return ok(json);
+		}
 		
 		Fund fund = new Fund();
 		fund.id = Long.valueOf(sid);
@@ -218,7 +242,7 @@ public class FundController extends Controller {
 		fund.fundType = fundType;
 		
 		fund.type = Integer.valueOf(type);
-		fund.amount = Double.valueOf(amount);
+		fund.amount = damount;
 		fund.content = content;
 		
 		fund.useTime = useTime;

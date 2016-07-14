@@ -109,6 +109,13 @@ function fund_del(id_array) {
 };
 
 
+$(function() {
+	fund_table_tool.Init();
+	fund_table.Init();
+});
+
+
+
 function openFundAddHtml(fund_id,fund_title){
 	var fundAddTabId = "fundAddTabId";//一定要string类型
 	var title = "";
@@ -133,15 +140,17 @@ function openFundAddHtml(fund_id,fund_title){
 		oneTabPanel.addTab({
 			id: fundAddTabId,
 			title: title,
-			html: '<iframe src="/fundAdd_html?id='+fund_id+'"  width="100%" height="100%" frameborder="0";"></iframe>',
+			html: '<iframe src="/fundAdd_html?id='+fund_id+'&tabId='+fundAddTabId+'"  width="100%" height="100%" frameborder="0";"></iframe>',
 		});
 		$.onecloud.succShow('打开成功');
 	}
 }
 
 
-$(function() {
-	fund_table_tool.Init();
-	fund_table.Init();
-});
-
+function closeFundAddHtml(fundAddTabId){
+	if(oneTabPanel.exists(fundAddTabId)) {
+		oneTabPanel.kill(fundAddTabId);
+		$.onecloud.succShow('添加成功');
+		$('#fund-table').bootstrapTable('refresh', {silent: true});
+	}
+}

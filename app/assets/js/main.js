@@ -409,7 +409,6 @@ $(function() {
 
 
 function fundTabOption(tabGroup,n){
-	console.log(tabGroup);
 	var oUl = document.getElementById(tabGroup);
 	var oLi = oUl.getElementsByTagName('li');
 	for(var i = 0; i<oLi.length; i++){

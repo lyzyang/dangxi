@@ -7,18 +7,24 @@ KindEditor.ready(function(K){
 	
 $(function() {
 
-	$.get("/fundType_json", function(data) {
-      $('#fund_add_fundType').select2({
-      		placeholder: "必选",
-            data: data
-    	});
+	$.ajax({
+       url : "/fundType_json",
+       async : false,
+       type : "get",
+       dataType : "json",
+       success : function(data) {
+            $('#fund_add_fundType').select2({
+	      		placeholder: "必选",
+	            data: data
+	    	});
+       }
     });
     
     $('#fund_add_type').select2({
   		placeholder: "必择",
 	});
 	
-	$("#fund_add_useTime").val($.onecloud.dateToString(new Date()));
+	$("#fund_add_useTime").val(window.parent.$.onecloud.dateToString(new Date()));
    
     var sid = $("#fund_add_id").val();
     if(sid != undefined && sid != null && sid.length > 0){
@@ -52,12 +58,13 @@ $(function() {
             data: params,
             success:function(data){ //提交成功的回调函数
                  if (data.status == 0) {
-            		alert(data.mess)
+                 	var tabId = $("#fund_add_tabId").val();
+            		window.parent.closeFundAddHtml(tabId);
 	             } else if(data.status == 1) {
-	             	alert(data.mess)
+	             	window.parent.$.onecloud.errorShow(data.mess);
 	             } else{
-	             	alert(data.mess)
-	             }
+	             	window.parent.$.onecloud.warnShow(data.mess);
+	            }
             }
          });
 	 });

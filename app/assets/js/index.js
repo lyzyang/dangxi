@@ -11,7 +11,7 @@ $(function() {
 	$("#exitPage").click(function() {
 		$.post("/exit", function(data) {
 			if (data.status == 0) {
-				window.location.href = "/";
+				window.location.href = "/login";
 			}
 		});
 	});
