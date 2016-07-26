@@ -5,7 +5,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
 		<Prudent>true</Prudent> 
 	  	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-	   		<FileNamePattern>${application.home}/logs/access.%d{yyyy-MM-dd}.log</FileNamePattern>
+	   		<FileNamePattern>logs/access.%d{yyyy-MM-dd}.log</FileNamePattern>
 	  	</rollingPolicy>
   		<layout class="ch.qos.logback.classic.PatternLayout">
    			<pattern>%date - [%level] - from %logger in %thread %n%message%n%xException%n</pattern>
@@ -17,23 +17,9 @@
         </encoder>
     </appender>
     
-   	<logger name="org.hibernate.validator.internal.util.Version" level="ERROR"/>
-   
-   	<logger name="org.jboss.logging" level="ERROR"/>
 
    	<logger name="com.jolbox" level="ERROR"/>
    
-   	<logger name="org.apache.logging" level="ERROR"/>
-   
-   	<logger name="org.apache.zookeeper" level="WARN"/>
-	<logger name="org.hbase.async" level="WARN"/>
-	<logger name="com.stumbleupon.async" level="WARN"/>
-
-	<!-- Off these ones as they are annoying, and anyway we manage configuration ourself -->
-  	<logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" />
-  	<logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" />
-  	<logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" />
-  
   	<logger name="play" level="INFO" />
    	<logger name="application" level="INFO" />
   

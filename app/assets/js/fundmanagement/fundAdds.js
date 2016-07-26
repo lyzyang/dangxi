@@ -1,6 +1,8 @@
 var editor;
 KindEditor.ready(function(K){
 	editor = K.create('#fund_add_content',{
+		uploadJson : '/post_public/plug/kindeditor/jsp/upload_json.jsp',
+        fileManagerJson : '/post_public/plug/kindeditor/jsp/file_manager_json.jsp',
 		allowFileManager : true
 	});
 });
