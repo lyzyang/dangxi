@@ -135,5 +135,6 @@ GET     /help                           controllers.help.HelpController.help
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /public/*file                   controllers.Assets.at(path="/public", file)
+POST    /post_public/*file                   controllers.Assets.at(path="/public", file)
 HEAD   /pispower_do_not_delete/*file   controllers.Assets.at(path="/public/pispower_do_not_delete", file)
 

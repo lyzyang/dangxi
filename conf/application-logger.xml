@@ -5,7 +5,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
 		<Prudent>true</Prudent> 
 	  	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-	   		<FileNamePattern>${application.home}/logs/access.%d{yyyy-MM-dd}.log</FileNamePattern>
+	   		<FileNamePattern>logs/access.%d{yyyy-MM-dd}.log</FileNamePattern>
 	  	</rollingPolicy>
   		<layout class="ch.qos.logback.classic.PatternLayout">
    			<pattern>%date - [%level] - from %logger in %thread %n%message%n%xException%n</pattern>
@@ -18,7 +18,7 @@
     </appender>
 
    	<logger name="com.jolbox" level="ERROR"/>
-   	
+
   	<logger name="play" level="INFO" />
    	<logger name="application" level="INFO" />
   
