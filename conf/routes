@@ -26,6 +26,9 @@ POST   /exit                           controllers.userbehavior.LoginController.
 GET		/portlet_html		controllers.portlet.PortletController.portlet_html
 ###########
 
+#图片管理####
+POST	/image_upload		controllers.image.ImageController.image_upload
+###########
 
 #设置广告####
 GET 		/advertSet_get		controllers.admanage.AdvertController.advertSet_get
@@ -135,6 +138,6 @@ GET     /help                           controllers.help.HelpController.help
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /public/*file                   controllers.Assets.at(path="/public", file)
-POST    /post_public/*file                   controllers.Assets.at(path="/public", file)
+GET    /upload/*file                   controllers.Assets.at(path="/upload", file)
 HEAD   /pispower_do_not_delete/*file   controllers.Assets.at(path="/public/pispower_do_not_delete", file)
 

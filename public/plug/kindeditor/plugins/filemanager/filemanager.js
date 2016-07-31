@@ -184,6 +184,6 @@ KindEditor.plugin('filemanager', function(K) {
 		viewTypeBox.val(viewType);
 		reloadPage('', orderTypeBox.val(), viewType == 'VIEW' ? createView : createList);
 		return dialog;
-	}
+	};
 
 });
