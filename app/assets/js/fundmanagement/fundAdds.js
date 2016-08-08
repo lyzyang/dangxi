@@ -3,7 +3,7 @@ KindEditor.ready(function(K){
 	editor = K.create('#fund_add_content',{
 		uploadJson : '/image_upload',
         fileManagerJson : '/image_manager',
-		allowFileManager : true
+		allowFileManager : false
 	});
 });
 	

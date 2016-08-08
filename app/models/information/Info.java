@@ -42,7 +42,6 @@ public class Info extends Model{
 		@Lob
 		public String content;
 		
-		@Lob
 		public String picture;
 		
 		@ManyToOne
@@ -72,7 +71,6 @@ public class Info extends Model{
 			appJson.put("infoType_id", info.infoType.id);
 			appJson.put("infoType_name", info.infoType.name);
 			appJson.put("content", info.content);
-			appJson.put("picture", info.picture);
 			appJson.put("user_userName", info.user.userName);
 			appJson.put("createTime",  UtilTool.DateToString(info.createTime));
 			appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
@@ -107,35 +105,11 @@ public class Info extends Model{
 				appJson.put("id", info.id);
 				appJson.put("title", info.title);
 				appJson.put("remark", info.remark);
-				if(isPicture !=null && isPicture.equals("1")) appJson.put("picture", info.picture);
 				appJson.put("createTime",  UtilTool.DateToYNRString(info.createTime));
 				array.add(appJson);
 			}
 			json.put("rows", array);
 			return json;
-		}
-		
-		/**
-		 * 焦点图
-		 * @return
-		 */
-		public static JsonNode getInfoByFocus(){
-			List<Info> info_list = Info.finder.where().eq("type", 1).ne("picture", "").isNotNull("picture")
-					.setMaxRows(5).orderBy("createTime desc").findList();
-			ObjectMapper mapper = new ObjectMapper();
-			ArrayNode array = mapper.createArrayNode ();
-			for(Info info : info_list){
-				ObjectNode appJson = mapper.createObjectNode();
-				appJson.put("id", info.id);
-				appJson.put("title", info.title);
-				appJson.put("remark", info.remark);
-				appJson.put("user_userName", info.user.userName);
-				appJson.put("createTime",  UtilTool.DateToString(info.createTime));
-				appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
-				appJson.put("picture", info.picture);
-				array.add(appJson);
-			}
-			return array;
 		}
 		
 		
@@ -194,9 +168,6 @@ public class Info extends Model{
 				appJson.put("type", info.type);
 				if(info.type == 1) appJson.put("type_name", "显示");
 				else appJson.put("type_name", "隐藏");
-				
-				if(info.picture != null && info.picture.length()>0)
-					appJson.put("picture_type", "是");
 				
 				array.add(appJson);
 			}

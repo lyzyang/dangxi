@@ -3,16 +3,15 @@ $(function() {
 
 	//焦点图--begin
 	$.ajax({
-       url : "/info_getByFocus",
+       url : "/focus_get",
        async : false,
        type : "get",
        dataType : "json",
        success : function(data) {
            $.each(data, function(k, v) {
 		     	$("#focus_getByNum_1").append($('<li class="slide-item"><a href="#" onclick="get_item_info('+v.id+
-		     		')" target="blank"><img src="data:image/png;base64,'+v.picture+'" alt="'+v.title+
-		     		'"></a><div class="slide-txt"><div class="txt_bg"></div><a href="/info_get?id='+
-		     		v.id+'" target="_blank">'+v.title+'</a></div></li>'));
+		     		')"><img src="'+v.picture+'" alt="'+v.title+
+		     		'"></a><div class="slide-txt"><div class="txt_bg"></div><a href="#">'+v.title+'</a></div></li>'));
 		   });
        }
     });

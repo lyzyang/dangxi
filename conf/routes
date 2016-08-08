@@ -28,6 +28,16 @@ GET		/portlet_html		controllers.portlet.PortletController.portlet_html
 
 #图片管理####
 POST	/image_upload		controllers.image.ImageController.image_upload
+GET		/image_manager		controllers.image.ImageController.image_manager
+###########
+
+#设置焦点图####
+GET 		/focus_get		controllers.focusmap.FocusController.focus_get
+
+GET 		/focus_html		controllers.focusmap.FocusController.focus_html
+GET 		/focus_page_json		controllers.focusmap.FocusController.focus_page_json
+POST		/focus_up		controllers.focusmap.FocusController.focus_up
+POST		/focus_del		controllers.focusmap.FocusController.focus_del
 ###########
 
 #设置广告####
@@ -72,7 +82,6 @@ POST	/fundType_del		controllers.fundmanagement.FundTypeController.fundType_del
 #信息发布####
 GET		/info_get		controllers.information.InfoController.info_get
 GET		/info_getByType		controllers.information.InfoController.info_getByType
-GET 	/info_getByFocus		controllers.information.InfoController.info_getByFocus
 
 GET		/info_html		controllers.information.InfoController.info_html
 GET		/info_page_json		controllers.information.InfoController.info_page_json

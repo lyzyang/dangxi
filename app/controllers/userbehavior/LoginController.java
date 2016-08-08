@@ -48,8 +48,6 @@ public class LoginController extends Controller{
 		String user = in.get("username");
 		String password = in.get("password");
 		AuthorisedUser au = AuthorisedUser.finder.where().eq("authuser", user).findUnique();
-		System.out.println(user);
-		System.out.println(au);
 		if(au != null){
 			long current = System.currentTimeMillis();
 			if(UtilTool.encoder.matches(password, au.password)){

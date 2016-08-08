@@ -62,14 +62,6 @@ public class InfoController extends Controller {
 		return ok(json);
 	}
 	
-	/**
-	 * 获取焦点信息
-	 * @return
-	 */
-	public static Result info_getByFocus() {
-		JsonNode json = Info.getInfoByFocus();
-		return ok(json);
-	}
 	
 	///////////////////////////////////////////////////////////////
 	
@@ -132,13 +124,6 @@ public class InfoController extends Controller {
 		String type_id = in.get("type_id");
 		String content = in.get("content");
 		
-		MultipartFormData body = request().body().asMultipartFormData();
-		FilePart picture = null;
-		try {
-			picture = body.getFile("picture");
-		} catch (Exception e1) {
-		}
-		
 		JsonNode json;
 		if(title == null || title.length()==0
 				||remark == null || remark.length()==0
@@ -146,20 +131,6 @@ public class InfoController extends Controller {
 				||content == null || content.length()==0){
 			json = UtilTool.message(1, "请将信息填写完整！");
 	    	return ok(json);
-		}
-		
-		String pic = "";
-		if (picture != null) {
-			File file = picture.getFile();
-			if(!UtilTool.isImage(file)){
-				json = UtilTool.message(1, "只能上传图片！");
-		    	return ok(json);
-			}
-			if(file.length()>1048576){
-				json = UtilTool.message(1, "图片不能大于1M！");
-		    	return ok(json);
-			}
-			pic = UtilTool.fileToString(file);
 		}
 		
 		Info info = new Info();
@@ -171,7 +142,7 @@ public class InfoController extends Controller {
 		info.infoType = infoType;
 		
 		info.content = content;
-		info.picture = pic;
+		info.picture = null;
 		
 		AuthorisedUser user = new AuthorisedUser();
 		user.id = Integer.valueOf(user_id);
@@ -201,14 +172,6 @@ public class InfoController extends Controller {
 		String remark = in.get("remark");
 		String type_id = in.get("type_id");
 		String content = in.get("content");
-		String isexit = in.get("isexit");
-		
-		MultipartFormData body = request().body().asMultipartFormData();
-		FilePart picture = null;
-		try {
-			picture = body.getFile("picture");
-		} catch (Exception e1) {
-		}
 		
 		JsonNode json;
 		if(sid == null || sid.length()==0
@@ -218,20 +181,6 @@ public class InfoController extends Controller {
 				||content == null || content.length()==0){
 			json = UtilTool.message(1, "请将信息填写完整！");
 	    	return ok(json);
-		}
-		
-		String pic = "";
-		if (picture != null) {
-			File file = picture.getFile();
-			if(!UtilTool.isImage(file)){
-				json = UtilTool.message(1, "只能上传图片！");
-		    	return ok(json);
-			}
-			if(file.length()>1048576){
-				json = UtilTool.message(1, "图片不能大于1M！");
-		    	return ok(json);
-			}
-			pic = UtilTool.fileToString(file);
 		}
 		
 		Info info = new Info();
@@ -244,12 +193,6 @@ public class InfoController extends Controller {
 		info.infoType = infoType;
 		
 		info.content = content;
-		
-		if(pic.length() > 0){
-			info.picture = pic;
-		}else if(isexit != null && isexit.equals("1")){
-			info.picture = "";
-		}
 		
 		info.lastUpdateTime = new Date();
 

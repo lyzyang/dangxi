@@ -2,16 +2,10 @@ package controllers.image;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import models.UtilTool;
@@ -56,12 +50,12 @@ public class ImageController extends Controller{
 			int idx = fileName.lastIndexOf(".");
 			fileType = fileName.substring(idx + 1, fileName.length());
 			
-			String filename = fileFolder + (new Date()).getTime()+ "."+ fileType;
-			File storeFile = new File(filename);
+			String new_filename = fileFolder + (new Date()).getTime()+ "."+ fileType;
+			File storeFile = new File(new_filename);
 	        play.api.libs.Files.copyFile(file, storeFile, false, false);
 	       
 			json.put("error", 0);
-			json.put("url", filename);
+			json.put("url", new_filename);
 			json.put("message", "上传成功！");  
 			return ok(json);
 		}else{
@@ -75,7 +69,7 @@ public class ImageController extends Controller{
 	public static Result image_manager() {  
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode json = mapper.createObjectNode();
-       
+ 
        // 检查当前目录  
        File curPathFile = new File(fileFolder);  
        if (!curPathFile.isDirectory()) {  
@@ -84,29 +78,28 @@ public class ImageController extends Controller{
            return ok(json);  
        }  
        //遍历目录取的文件信息  
-       @SuppressWarnings("rawtypes")  
-       List<HashMap> fileList = new ArrayList<HashMap>();  
+       ArrayNode array = mapper.createArrayNode ();
        if (curPathFile.listFiles() != null) {  
            for (File file : curPathFile.listFiles()) {  
-               HashMap<String, Object> hash = new HashMap<String, Object>();  
+        	   ObjectNode appJson = mapper.createObjectNode();
                String fileName = file.getName();  
                if (file.isFile()) {  
                    String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();  
-                   hash.put("is_dir", false);  
-                   hash.put("has_file", false);  
-                   hash.put("filesize", file.length());  
-                   hash.put("is_photo", Arrays.<String>asList(extMap.get("image").split(",")).contains(fileExt));  
-                   hash.put("filetype", fileExt);  
+                   appJson.put("is_dir", false);  
+                   appJson.put("has_file", false);  
+                   appJson.put("filesize", file.length());  
+                   appJson.put("is_photo", "");  
+                   appJson.put("filetype", fileExt);  
                }  
-               hash.put("filename", fileName);  
-               hash.put("datetime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.lastModified()));  
-               fileList.add(hash);  
+               appJson.put("filename", fileName);  
+               appJson.put("datetime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.lastModified()));  
+               array.add(appJson);  
            }  
        }  
        
        // 输出遍历后的文件信息数据  
-       json.put("total_count", fileList.size());  
-       json.put("file_list", fileList);          
+       json.put("total_count", array.size());  
+       json.put("file_list", array);          
        return ok(json);  
    }  
      

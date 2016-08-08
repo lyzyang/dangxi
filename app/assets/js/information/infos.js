@@ -147,11 +147,10 @@ var info_table = {
 	        columns: [
 	        	{field: 'state',checkbox: true},
 	        	{field: 'title',title: '主题',align: 'left',width:'25%',sortable: false},
-	          	{field: 'remark',title: '描述',align: 'left',width:'30%',sortable: false,cellStyle:bootstrap_table_cellStyle},
+	          	{field: 'remark',title: '描述',align: 'left',width:'40%',sortable: false,cellStyle:bootstrap_table_cellStyle},
 	          	{field: 'infoType_name',title: '分类',align: 'left',width:'10%',sortable: false},
 	          	{field: 'type_name',title: '状态',align: 'left',width:'10%',sortable: false},
-	        	{field: 'createTime',title: '创建时间',align: 'left',width:'15%',sortable: false},
-	        	{field: 'picture_type',title: '焦点图',align: 'left',width:'10%',sortable: false}
+	        	{field: 'createTime',title: '创建时间',align: 'left',width:'15%',sortable: false}
 	        ]
 	    });
     }

@@ -3,7 +3,7 @@ KindEditor.ready(function(K){
 	editor = K.create('#info_add_content',{
 		uploadJson : '/image_upload',
 		fileManagerJson : '/image_manager',
-		allowFileManager : true
+		allowFileManager : false
 	});
 });
 	
@@ -22,14 +22,6 @@ $(function() {
        }
     });
     
-    $('#info_add_picture_exit').on('click', function(e) {
-    	$('#info_add_picture').val('');
-    	$('#info_add_picture_isexit').val('1');
-    	$('#info_add_picture_preview').attr('src', '/public/images/index/thumb.png');
-	});
-   
-	$("#info_add_picture").uploadPreview({ Img: "info_add_picture_preview", Width: 240, Height: 120 });
-
     var sid = $("#info_add_id").val();
     if(sid != undefined && sid != null && sid.length > 0){
     	$.get("/info_get",{"id":sid}, function(data) {
@@ -37,9 +29,6 @@ $(function() {
     		$('#info_add_remark').val(data.remark);
     		$("#info_add_type").select2("val", data.infoType_id);
     		editor.appendHtml(data.content);
-    		if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
-    			$('#info_add_picture_preview').attr('src', 'data:image/png;base64,' + data.picture);
-    		}
     	});
     }
     
