@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 import com.avaje.ebean.Query;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,7 +29,6 @@ public class Advert extends Model{
 	
 	public String name;
 	
-	@Lob
 	public String picture;
 	
 	public String url;

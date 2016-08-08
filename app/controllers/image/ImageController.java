@@ -19,7 +19,20 @@ public class ImageController extends Controller{
 	public static final String fileFolder = "upload/image/";
 	
 	/**
-	 * 主页更多
+	 * 查看图片
+	 * @return
+	 */
+	public static Result image_get(String file){
+		File storeFile = new File("upload/"+file);
+		if(storeFile.exists()){
+			return ok(storeFile);
+		}else{
+			return ok();
+		}
+	}
+	
+	/**
+	 * 图片上传
 	 * @return
 	 */
 	public static Result image_upload() {

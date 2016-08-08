@@ -27,6 +27,8 @@ GET		/portlet_html		controllers.portlet.PortletController.portlet_html
 ###########
 
 #图片管理####
+GET    /upload/*file                   controllers.image.ImageController.image_get(file:String)
+
 POST	/image_upload		controllers.image.ImageController.image_upload
 GET		/image_manager		controllers.image.ImageController.image_manager
 ###########
@@ -147,6 +149,5 @@ GET     /help                           controllers.help.HelpController.help
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /public/*file                   controllers.Assets.at(path="/public", file)
-GET    /upload/*file                   controllers.Assets.at(path="/upload", file)
 HEAD   /pispower_do_not_delete/*file   controllers.Assets.at(path="/public/pispower_do_not_delete", file)
 

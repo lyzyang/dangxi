@@ -1,6 +1,7 @@
 package controllers.admanage;
 
 import java.io.File;
+import java.util.Date;
 
 import be.objectify.deadbolt.java.actions.Pattern;
 
@@ -22,6 +23,8 @@ import views.html.admanage.advertSets;
  *
  */
 public class AdvertController extends Controller {
+	
+	public static final String fileFolder = "upload/advert/";
 	
 	/**
 	 * 获取广告信息
@@ -79,7 +82,6 @@ public class AdvertController extends Controller {
 		DynamicForm in = Form.form().bindFromRequest();
 		String sid = in.get("sid");
 		String url = in.get("url");
-		String isexit = in.get("isexit");
 		
 		JsonNode json;
 		if(sid == null || sid.length()==0
@@ -95,7 +97,9 @@ public class AdvertController extends Controller {
 		} catch (Exception e1) {
 		}
 		
-		String pic = "";
+		Advert advert = Advert.finder.byId(Long.valueOf(sid));
+		advert.url = url;
+		
 		if (picture != null) {
 			File file = picture.getFile();
 			if(!UtilTool.isImage(file)){
@@ -106,16 +110,18 @@ public class AdvertController extends Controller {
 				json = UtilTool.message(1, "图片不能大于1M！");
 		    	return ok(json);
 			}
-			pic = UtilTool.fileToString(file);
-		}
-		
-		Advert advert = Advert.finder.byId(Long.valueOf(sid));
-		advert.url = url;
-		
-		if(pic.length() != 0){
-			advert.picture = pic;
-		}else if(isexit != null && isexit.equals("1")){
-			advert.picture = "";
+			
+			String fileName = picture.getFilename();
+			int idx = fileName.lastIndexOf(".");
+			String fileType = fileName.substring(idx + 1, fileName.length());
+			
+			String new_filename = fileFolder + (new Date()).getTime()+ "."+ fileType;
+			File storeFile = new File(new_filename);
+	        play.api.libs.Files.copyFile(file, storeFile, false, false);
+	        
+	        advert.picture = new_filename;
+		}else{
+			advert.picture = null;
 		}
 		
 		advert.updateAdvert();

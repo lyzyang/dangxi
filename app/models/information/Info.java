@@ -168,6 +168,7 @@ public class Info extends Model{
 				appJson.put("type", info.type);
 				if(info.type == 1) appJson.put("type_name", "显示");
 				else appJson.put("type_name", "隐藏");
+				if(info.picture != null) appJson.put("type_name", "焦点");
 				
 				array.add(appJson);
 			}
