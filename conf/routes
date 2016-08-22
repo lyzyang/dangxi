@@ -48,6 +48,7 @@ GET 		/advertSet_get		controllers.admanage.AdvertController.advertSet_get
 GET 		/advertSet_html		controllers.admanage.AdvertController.advertSet_html
 GET 		/advertSet_page_json		controllers.admanage.AdvertController.advertSet_page_json
 POST		/advertSet_up		controllers.admanage.AdvertController.advertSet_up
+POST		/advertSet_del		controllers.admanage.AdvertController.advertSet_del
 ###########
 
 #广告类型####

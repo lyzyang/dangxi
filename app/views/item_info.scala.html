@@ -64,35 +64,35 @@
 	    
 	    $.get("/advertSet_get",{"sid":'8'}, function(data) {
 	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
-				$("#item_info_main_advert").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'"></a>'));
+				$("#item_info_main_advert").append($('<a href="'+data.url+'"><img src="'+data.picture+'" alt="'+data.url+'"></a>'));
 			}else{
 				$("#item_info_main_advert").append($('<a href="#"><img src="/public/images/index/thumb.png"></a>'));
 			}
 	    });
 	    $.get("/advertSet_get",{"sid":'9'}, function(data) {
 	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
-				$("#item_info_sec_advert1").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
+				$("#item_info_sec_advert1").append($('<a href="'+data.url+'"><img src="'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
 			}else{
 				$("#item_info_sec_advert1").append($('<a href="#"><img src="/public/images/index/thumb.png" width="146" height="102"></a>'));
 			}
 	    });
 	    $.get("/advertSet_get",{"sid":'10'}, function(data) {
 	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
-				$("#item_info_sec_advert2").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
+				$("#item_info_sec_advert2").append($('<a href="'+data.url+'"><img src="'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
 			}else{
 				$("#item_info_sec_advert2").append($('<a href="#"><img src="/public/images/index/thumb.png" width="146" height="102"></a>'));
 			}
 	    });
 	    $.get("/advertSet_get",{"sid":'11'}, function(data) {
 	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
-				$("#item_info_sec_advert3").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
+				$("#item_info_sec_advert3").append($('<a href="'+data.url+'"><img src="'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
 			}else{
 				$("#item_info_sec_advert3").append($('<a href="#"><img src="/public/images/index/thumb.png" width="146" height="102"></a>'));
 			}
 	    });
 	    $.get("/advertSet_get",{"sid":'12'}, function(data) {
 	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
-				$("#item_info_sec_advert4").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
+				$("#item_info_sec_advert4").append($('<a href="'+data.url+'"><img src="'+data.picture+'" alt="'+data.url+'" width="146" height="102"></a>'));
 			}else{
 				$("#item_info_sec_advert4").append($('<a href="#"><img src="/public/images/index/thumb.png" width="146" height="102"></a>'));
 			}
@@ -115,7 +115,7 @@
 		    $.each(data.rows, function(k, v) {
 		    	if(v.picture != undefined && v.picture != null && v.picture.length != 0 ){
 		    		$("#item_info_fund3").append($('<div class="ays-item"><a href="#" onclick="get_item_info('+v.id+
-		     		')"><div class="ays-item-pic fl"><img src="data:image/png;base64,'+v.picture+'" alt="'+v.title+
+		     		')"><div class="ays-item-pic fl"><img src="'+v.picture+'" alt="'+v.title+
 		     		'"/></div><div class="ays-item-txt fl"><h4><b>'+v.title+
 		     		'：</b><strong>'+v.remark+'</strong></h4></div></a></div>'));
 		    	}else{

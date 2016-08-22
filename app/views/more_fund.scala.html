@@ -71,7 +71,7 @@
 	    
 	    $.get("/advertSet_get",{"sid":@advertSetId}, function(data) {
 	    	if(data.picture != undefined && data.picture != null && data.picture.length != 0 ){
-				$("#more_fund_advert_set").append($('<a href="'+data.url+'"><img src="data:image/png;base64,'+data.picture+'" alt="'+data.url+'"></a>'));
+				$("#more_fund_advert_set").append($('<a href="'+data.url+'"><img src="'+data.picture+'" alt="'+data.url+'"></a>'));
 			}else{
 				$("#more_fund_advert_set").append($('<a href="#"><img src="/public/images/index/thumb.png"></a>'));
 			}

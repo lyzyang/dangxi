@@ -76,10 +76,7 @@ public class Focus{
 			appJson.put("user_userName", info.user.userName);
 			appJson.put("createTime",  UtilTool.DateToString(info.createTime));
 			appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
-			
 			appJson.put("picture", info.picture);
-			if(info.picture != null) appJson.put("pictureType_name", "焦点");
-			
 			array.add(appJson);
 		}
 		json.put("rows", array);

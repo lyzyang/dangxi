@@ -22,12 +22,20 @@ var focus_table = {
                 {field: 'title',title: '主题',align: 'left',width:'20%',sortable: false},
 	          	{field: 'remark',title: '描述',align: 'left',width:'45%',sortable: false},
 	        	{field: 'createTime',title: '创建时间',align: 'left',width:'15%',sortable: false},
-	        	{field: 'pictureType_name',title: '状态',align: 'left',width:'10%',sortable: false},
+	        	{field: 'picture',title: '状态',align: 'left',width:'10%',sortable: false,
+	        		formatter: focus_table.formatter0},
                 {field: 'operate1',title: '操作',align: 'left',width:'10%',clickToSelect: false,
                 			formatter: focus_table.formatter1,events: focus_table.events1}
             ]
         });
     },
+    formatter0: function(value, row, index) {
+    	var str;
+    	if(row.picture != undefined && row.picture != null && row.picture.length != 0 ){
+    		str =  '<a class="de btn btn-xs btn-success">焦点</a>'
+    	}
+	    return [str].join('');
+	},
     formatter1: function(value, row, index) {
     	var str = ""; 
     	str = str + '<a class="up btn btn-xs btn-primary">设置</a>&nbsp;'
@@ -39,17 +47,18 @@ var focus_table = {
 	    	focus_up_dialog_open(row);
 	    },
 	    'click .de': function (e, value, row, index) {
-	    	$.post("/focus_del",{"sid":row.id}, function(data) {
-			    if (data.status == 0) {
-                    $('#focus_up_dialog').dialog("close");
-                    $('#focus-table').bootstrapTable('reload');
-                    $.onecloud.succShow(data.mess);
-                } else if(data.status == 1) {
-                    $.onecloud.errorShow(data.mess);
-                }else{
-                    $.onecloud.warnShow(data.mess);
-                }
-		    });
+	    	if(confirm("是否取消？")) {
+		    	$.post("/focus_del",{"sid":row.id}, function(data) {
+				    if (data.status == 0) {
+	                    $('#focus-table').bootstrapTable('reload');
+	                    $.onecloud.succShow(data.mess);
+	                } else if(data.status == 1) {
+	                    $.onecloud.errorShow(data.mess);
+	                }else{
+	                    $.onecloud.warnShow(data.mess);
+	                }
+			    });
+		    }
 	    }
 	}
 };

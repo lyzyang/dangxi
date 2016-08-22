@@ -96,13 +96,7 @@ public class Advert extends Model{
 			ObjectNode appJson = mapper.createObjectNode();
 			appJson.put("id", advertType.id);
 			appJson.put("name", advertType.name);
-			
 			appJson.put("picture", advertType.picture);
-			if(advertType.picture != null && advertType.picture.length()>0)
-				appJson.put("picture_type", "已设置");
-			else
-				appJson.put("picture_type", "未设置");
-			
 			appJson.put("url", advertType.url);
 			array.add(appJson);
 		}

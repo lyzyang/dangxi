@@ -24,7 +24,7 @@ import views.html.admanage.advertSets;
  */
 public class AdvertController extends Controller {
 	
-	public static final String fileFolder = "upload/advert/";
+	public static final String fileFolder = "upload/advertSet/";
 	
 	/**
 	 * 获取广告信息
@@ -130,4 +130,30 @@ public class AdvertController extends Controller {
 		return ok(json);
 	}
 	
+	
+	/**
+	 * 取消广告
+	 * @return
+	 */
+	@Pattern("advertSet_html")
+	@Transactional
+	public static Result advertSet_del(){
+		DynamicForm in = Form.form().bindFromRequest();
+		String sid = in.get("sid");
+		
+		JsonNode json;
+		if(sid == null || sid.length()==0){
+			json = UtilTool.message(1, "请将信息填写完整！");
+	    	return ok(json);
+		}
+		
+		Advert advert = Advert.finder.byId(Long.valueOf(sid));
+		advert.picture = null;
+		advert.url = "#";
+		
+		advert.updateAdvert();
+		json = UtilTool.message(0, "取消成功!");
+
+		return ok(json);
+	}
 }

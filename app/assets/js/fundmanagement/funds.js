@@ -93,7 +93,7 @@ function fund_del(id_array) {
   if(confirm("是否删除？")) {
       var params = {
           "id_array": id_array
-       };
+      };
       
       $.post("fund_del", params, function(data) {
           	if(data.status == 0) {

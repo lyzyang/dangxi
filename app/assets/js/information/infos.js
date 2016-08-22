@@ -149,11 +149,24 @@ var info_table = {
 	        	{field: 'title',title: '主题',align: 'left',width:'25%',sortable: false},
 	          	{field: 'remark',title: '描述',align: 'left',width:'40%',sortable: false,cellStyle:bootstrap_table_cellStyle},
 	          	{field: 'infoType_name',title: '分类',align: 'left',width:'10%',sortable: false},
-	          	{field: 'type_name',title: '状态',align: 'left',width:'10%',sortable: false},
+	          	{field: 'type_name',title: '状态',align: 'left',width:'10%',sortable: false,
+                			formatter: info_table.formatter0},
 	        	{field: 'createTime',title: '创建时间',align: 'left',width:'15%',sortable: false}
 	        ]
 	    });
-    }
+    },
+    formatter0: function(value, row, index) {
+    	var str;
+    	if(row.type != undefined && row.type != null && row.type.length != 0 && row.type != 0){
+    		str =  '<a class="de btn btn-xs btn-success">显示</a>'
+    		if(row.picture != undefined && row.picture != null && row.picture.length != 0 ){
+	    		str =  '<a class="de btn btn-xs btn-danger">焦点</a>'
+	    	}
+    	}else{
+    		str =  '<a class="de btn btn-xs btn-default">隐藏</a>'
+    	}
+	    return [str].join('');
+	}
 };
   
 

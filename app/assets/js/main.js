@@ -197,7 +197,7 @@ $(function() {
 	    $.each(data.rows, function(k, v) {
 	    	if(v.picture != undefined && v.picture != null && v.picture.length != 0 ){
 	    		$("#info_getByType_2").append($('<div class="ays-item"><a href="#" onclick="get_item_info('+v.id+
-	     			')"><div class="ays-item-pic fl"><img src="data:image/png;base64,'+v.picture+'" alt="'+v.title+
+	     			')"><div class="ays-item-pic fl"><img src="'+v.picture+'" alt="'+v.title+
 	     			'"/></div><div class="ays-item-txt fl"><h4><b>'+v.title+
 	     			'：</b><strong>'+v.remark+'</strong></h4></div></a></div>'));
 	    	}else{

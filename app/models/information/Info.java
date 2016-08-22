@@ -166,10 +166,7 @@ public class Info extends Model{
 				appJson.put("createTime",  UtilTool.DateToString(info.createTime));
 				appJson.put("lastUpdateTime", UtilTool.DateToString(info.lastUpdateTime));
 				appJson.put("type", info.type);
-				if(info.type == 1) appJson.put("type_name", "显示");
-				else appJson.put("type_name", "隐藏");
-				if(info.picture != null) appJson.put("type_name", "焦点");
-				
+				appJson.put("picture", info.picture);
 				array.add(appJson);
 			}
 			json.put("rows", array);

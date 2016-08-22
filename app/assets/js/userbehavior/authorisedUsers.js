@@ -110,7 +110,7 @@ $(function() {
         pageNumber: '1',
         pageSize: '10',
         pageList: '[10, 25, 50, 100]',
-        search: false,
+        search: ture,
         showColumns: false,
         showRefresh: true,
         clickToSelect: true,
