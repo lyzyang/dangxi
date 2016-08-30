@@ -53,7 +53,7 @@ public class ImageController extends Controller{
 				json.put("message", "只能上传图片！");  
 		    	return ok(json);
 			}
-			if(file.length()>1048576){
+			if(file.length()>10485760){
 				json.put("error", 1);
 				json.put("message", "图片不能大于10M！");  
 		    	return ok(json);

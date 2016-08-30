@@ -1,22 +1,3 @@
-KindEditor.ready(function(K){
-	var editor = K.editor({
-		allowFileManager : true //允许图片管理 开启后再挑选图片的时候可以直接从图片空间内挑选
-	});
-	
-	
-	K('#image1').click(function() {  
-                    editor.loadPlugin('image', function() {  
-                        editor.plugin.imageDialog({  
-                            imageUrl : K('#url1').val(),  
-                            clickFn : function(url, title, width, height, border, align) {  
-                                K('#url1').val(url);  
-                                editor.hideDialog();  
-                            }  
-                        });  
-                    });  
-                });  
-});
-
 var focus_table = {
     Init: function () {
         $('#focus-table').bootstrapTable({
@@ -51,14 +32,14 @@ var focus_table = {
     formatter0: function(value, row, index) {
     	var str;
     	if(row.picture != undefined && row.picture != null && row.picture.length != 0 ){
-    		str =  '<a class="de btn btn-xs btn-success">焦点</a>'
+    		str =  '<a class="de btn btn-xs btn-success">焦点</a>';
     	}
 	    return [str].join('');
 	},
     formatter1: function(value, row, index) {
     	var str = ""; 
-    	str = str + '<a class="up btn btn-xs btn-primary">设置</a>&nbsp;'
-		str = str + '<a class="de btn btn-xs btn-danger">取消</a>'
+    	str = str + '<a class="up btn btn-xs btn-primary">设置</a>&nbsp;';
+		str = str + '<a class="de btn btn-xs btn-danger">取消</a>';
 	    return [str].join('');
 	},
 	events1 : {
@@ -84,6 +65,25 @@ var focus_table = {
    
    
     $(function() {
+    	KindEditor.ready(function(K){
+	var editor = K.editor({
+		allowFileManager : true //允许图片管理 开启后再挑选图片的时候可以直接从图片空间内挑选
+	});
+	console.log('asdd');
+	
+	K('#image1').click(function() {  
+        editor.loadPlugin('image', function() {  
+            editor.plugin.imageDialog({  
+                imageUrl : K('#url1').val(),  
+                clickFn : function(url, title, width, height, border, align) {  
+                    K('#url1').val(url);  
+                    editor.hideDialog();  
+                }  
+            });  
+        });  
+    });  
+});
+
         //初始化修改对话框
         focus_table.Init();
         
