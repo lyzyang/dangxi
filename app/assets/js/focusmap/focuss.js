@@ -1,3 +1,22 @@
+KindEditor.ready(function(K){
+	var editor = K.editor({
+		allowFileManager : true //允许图片管理 开启后再挑选图片的时候可以直接从图片空间内挑选
+	});
+	
+	
+	K('#image1').click(function() {  
+                    editor.loadPlugin('image', function() {  
+                        editor.plugin.imageDialog({  
+                            imageUrl : K('#url1').val(),  
+                            clickFn : function(url, title, width, height, border, align) {  
+                                K('#url1').val(url);  
+                                editor.hideDialog();  
+                            }  
+                        });  
+                    });  
+                });  
+});
+
 var focus_table = {
     Init: function () {
         $('#focus-table').bootstrapTable({

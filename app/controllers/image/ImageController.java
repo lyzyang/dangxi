@@ -78,7 +78,10 @@ public class ImageController extends Controller{
 		}
     }
 	
-	
+	/**
+	 * 图片管理
+	 * @return
+	 */
 	public static Result image_manager() {  
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode json = mapper.createObjectNode();
@@ -94,23 +97,27 @@ public class ImageController extends Controller{
        ArrayNode array = mapper.createArrayNode ();
        if (curPathFile.listFiles() != null) {  
            for (File file : curPathFile.listFiles()) {  
-        	   ObjectNode appJson = mapper.createObjectNode();
-               String fileName = file.getName();  
                if (file.isFile()) {  
+            	   ObjectNode appJson = mapper.createObjectNode();
+                   String fileName = file.getName();  
                    String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();  
                    appJson.put("is_dir", false);  
                    appJson.put("has_file", false);  
                    appJson.put("filesize", file.length());  
-                   appJson.put("is_photo", "");  
+                   appJson.put("dir_path", "");  
+                   appJson.put("is_photo", true);  
                    appJson.put("filetype", fileExt);  
-               }  
-               appJson.put("filename", fileName);  
-               appJson.put("datetime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.lastModified()));  
-               array.add(appJson);  
+                   appJson.put("filename", fileName);  
+                   appJson.put("datetime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.lastModified()));  
+                   array.add(appJson);  
+               }
            }  
        }  
        
        // 输出遍历后的文件信息数据  
+       json.put("moveup_dir_path", "");  
+       json.put("current_dir_path", "");  
+       json.put("current_url", "upload/image/");  
        json.put("total_count", array.size());  
        json.put("file_list", array);          
        return ok(json);  
