@@ -65,29 +65,28 @@ var focus_table = {
    
    
     $(function() {
-    	KindEditor.ready(function(K){
-	var editor = K.editor({
-		allowFileManager : true //允许图片管理 开启后再挑选图片的时候可以直接从图片空间内挑选
-	});
-	console.log('asdd');
-	
-	K('#image1').click(function() {  
-        editor.loadPlugin('image', function() {  
-            editor.plugin.imageDialog({  
-                imageUrl : K('#url1').val(),  
-                clickFn : function(url, title, width, height, border, align) {  
-                    K('#url1').val(url);  
-                    editor.hideDialog();  
-                }  
-            });  
-        });  
-    });  
-});
-
         //初始化修改对话框
         focus_table.Init();
         
-        $("#focus_up_picture").uploadPreview({ Img: "focus_up_picture_preview", Width: 240, Height: 120 });
+        KindEditor.ready(function(K) {
+			var editor = K.editor({
+				uploadJson : '/image_upload',
+				fileManagerJson : '/image_manager',
+				allowFileManager : true
+			});
+			K('#focus_up_picture_sel').click(function() {
+				editor.loadPlugin('image', function() {
+					editor.plugin.imageDialog({
+						imageUrl : K('#focus_up_picture').val(),
+						clickFn : function(url, title, width, height, border, align) {
+							K('#focus_up_picture').val(url);
+							$('#focus_up_picture_preview').attr('src', url);
+							editor.hideDialog();
+						}
+					});
+				});
+			});
+		});
         
         $('#focus_up_dialog').dialog({
             autoOpen: false,
@@ -123,7 +122,7 @@ var focus_table = {
     //打开修改对话框
     function focus_up_dialog_open(row) {
         $("#focus_up_id").val(row.id);
-        $("#focus_up_picture").val("");
+        $("#focus_up_picture").val('');
         
         if(row.picture != undefined && row.picture != null && row.picture.length != 0 ){
 			$('#focus_up_picture_preview').attr('src', row.picture);

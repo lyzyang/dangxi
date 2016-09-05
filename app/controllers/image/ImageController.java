@@ -63,7 +63,7 @@ public class ImageController extends Controller{
 			int idx = fileName.lastIndexOf(".");
 			fileType = fileName.substring(idx + 1, fileName.length());
 			
-			String new_filename = fileFolder + (new Date()).getTime()+ "."+ fileType;
+			String new_filename = get_image_path() + (new Date()).getTime()+ "."+ fileType;
 			File storeFile = new File(new_filename);
 	        play.api.libs.Files.copyFile(file, storeFile, false, false);
 	       
@@ -124,4 +124,8 @@ public class ImageController extends Controller{
    }  
      
   
+	public static String get_image_path(){
+		String path = fileFolder + UtilTool.year_mouth_dd.format(new Date()) + "/";
+		return path;
+	} 
 }

@@ -1,8 +1,5 @@
 package controllers.focusmap;
 
-import java.io.File;
-import java.util.Date;
-
 import models.UtilTool;
 import models.focusmap.Focus;
 import models.information.Info;
@@ -15,14 +12,10 @@ import play.data.Form;
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Http.MultipartFormData;
-import play.mvc.Http.MultipartFormData.FilePart;
 import views.html.focusmap.focuss;
 
 public class FocusController extends Controller{
 
-	public static final String fileFolder = "upload/focus/";
-	
 	/**
 	 * 获取焦点
 	 * @return
@@ -70,9 +63,11 @@ public class FocusController extends Controller{
 	public static Result focus_up(){
 		DynamicForm in = Form.form().bindFromRequest();
 		String sid = in.get("sid");
+		String picture = in.get("picture");
 		
 		JsonNode json;
-		if(sid == null || sid.length()==0){
+		if(sid == null || sid.length()==0
+				||picture == null || picture.length()==0){
 			json = UtilTool.message(1, "请将信息填写完整！");
 	    	return ok(json);
 		}
@@ -82,40 +77,11 @@ public class FocusController extends Controller{
 			json = UtilTool.message(1, "焦点图超过5张，清先取消！");
 	    	return ok(json);
 		}
-		
-		MultipartFormData body = request().body().asMultipartFormData();
-		FilePart picture = null;
-		try {
-			picture = body.getFile("picture");
-		} catch (Exception e1) {
-		}
-		
-		if (picture != null) {
-			File file = picture.getFile();
-			if(!UtilTool.isImage(file)){
-				json = UtilTool.message(1, "只能上传图片！");
-		    	return ok(json);
-			}
-			if(file.length()>10485760){
-				json = UtilTool.message(1, "图片不能大于10M！");
-		    	return ok(json);
-			}
 			
-			String fileName = picture.getFilename();
-			int idx = fileName.lastIndexOf(".");
-			String fileType = fileName.substring(idx + 1, fileName.length());
-			
-			String new_filename = fileFolder + (new Date()).getTime()+ "."+ fileType;
-			File storeFile = new File(new_filename);
-	        play.api.libs.Files.copyFile(file, storeFile, false, false);
-	        
-	        Info info = Info.finder.byId(Long.valueOf(sid));
-			info.picture = new_filename;
-			info.updateInfo();
-			json = UtilTool.message(0, "设置成功!");
-		}else{
-			json = UtilTool.message(0, "设置失败!");
-		}
+        Info info = Info.finder.byId(Long.valueOf(sid));
+		info.picture = picture;
+		info.updateInfo();
+		json = UtilTool.message(0, "设置成功!");
 
 		return ok(json);
 	}
