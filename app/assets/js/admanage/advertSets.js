@@ -31,16 +31,16 @@ var advertSet_table = {
     formatter0: function(value, row, index) {
     	var str;
     	if(row.picture != undefined && row.picture != null && row.picture.length != 0 ){
-    		str =  '<a class="de btn btn-xs btn-success">已设置</a>'
+    		str =  '<a class="de btn btn-xs btn-success">已设置</a>';
     	}else{
-    		str =  '<a class="de btn btn-xs btn-default">未设置</a>'
+    		str =  '<a class="de btn btn-xs btn-default">未设置</a>';
     	}
 	    return [str].join('');
 	},
     formatter1: function(value, row, index) {
     	var str = ""; 
-    	str = str + '<a class="up btn btn-xs btn-primary">设置</a>&nbsp;'
-		str = str + '<a class="de btn btn-xs btn-danger">取消</a>'
+    	str = str + '<a class="up btn btn-xs btn-primary">设置</a>&nbsp;';
+		str = str + '<a class="de btn btn-xs btn-danger">取消</a>';
 	    return [str].join('');
 	},
 	events1 : {
@@ -69,7 +69,20 @@ var advertSet_table = {
         //初始化修改对话框
         advertSet_table.Init();
         
-        $("#advertSet_up_picture").uploadPreview({ Img: "advertSet_up_picture_preview", Width: 240, Height: 120 });
+        KindEditor.ready(function(K) {
+			K('#advertSet_up_picture_sel').click(function() {
+				editor.loadPlugin('image', function() {
+					editor.plugin.imageDialog({
+						imageUrl : K('#advertSet_up_picture').val(),
+						clickFn : function(url, title, width, height, border, align) {
+							K('#advertSet_up_picture').val(url);
+							$('#advertSet_up_picture_preview').attr('src', url);
+							editor.hideDialog();
+						}
+					});
+				});
+			});
+		});
         
         $('#advertSet_up_dialog').dialog({
             autoOpen: false,

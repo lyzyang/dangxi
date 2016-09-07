@@ -69,11 +69,6 @@ var focus_table = {
         focus_table.Init();
         
         KindEditor.ready(function(K) {
-			var editor = K.editor({
-				uploadJson : '/image_upload',
-				fileManagerJson : '/image_manager',
-				allowFileManager : true
-			});
 			K('#focus_up_picture_sel').click(function() {
 				editor.loadPlugin('image', function() {
 					editor.plugin.imageDialog({
