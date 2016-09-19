@@ -53,6 +53,25 @@
 	background-color: #ddeefe;
 }
 
+/*增加刷新按钮样式*/
+.tabpanel_mover li .refresh {
+	/*background: transparent url(image/tab-close.gif) no-repeat;*/
+	color: #9fb1ce;
+    cursor: pointer;
+    font-size: 10px;
+    height: 12px;
+    line-height: 10px;
+    position: absolute;
+    right: 14px;
+    text-align: center;
+    top: 3px;
+    width: 12px;
+}
+.tabpanel_mover li .refresh:hover {
+	color: #23508e;
+	background-color: #ddeefe;
+}
+
 .tabpanel_mover li .closer {
 	/*background: transparent url(image/tab-close.gif) no-repeat;*/
 	color: #9fb1ce;

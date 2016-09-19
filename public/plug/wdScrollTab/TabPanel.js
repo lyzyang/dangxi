@@ -369,7 +369,6 @@ TabPanel.prototype = {
    * });   
    */
   addTab : function(tabitem){
-	
     if(this.maxLength!=-1 && this.maxLength<=this.tabs.length){
 	    return false;
     }
@@ -416,7 +415,11 @@ TabPanel.prototype = {
         }*/
       }
       
-      var closer = $('<div class="closer" title="关闭"><b>x</b></div>');
+      //增加刷新按钮
+      var refresh = $('<div class="refresh" title="刷新"><i class="icon-refresh"></i></div>');
+      refresh.appendTo(tab);
+      
+      var closer = $('<div class="closer" title="关闭"><i class="icon-remove"></i></div>');
       closer.appendTo(tab);
       
       var content = $('<DIV></DIV>');
@@ -440,12 +443,15 @@ TabPanel.prototype = {
         tabitem.preTabId = '';*/
       tabitem.tab = tab;
       tabitem.title = title;
+      tabitem.refresh = refresh;
       tabitem.closer = closer;
       tabitem.content = content;
       tabitem.disable = tabitem.disable==undefined ? false : tabitem.disable;
       tabitem.closable = tabitem.closable==undefined ? true : tabitem.closable;      
-      if(tabitem.closable==false)
+      if(tabitem.closable==false){
+      	 refresh.css('right','2px');
         closer.addClass('display_none');
+      }
       
       if(tabitem.disabled==true) {
         tab.attr('disabled', true);
@@ -460,7 +466,12 @@ TabPanel.prototype = {
         };
       }(this.tabs.length-1));
       
-
+	   refresh.bind('click', function(position){
+        return function(){
+          tabEntity.refresh(position);
+        };
+      }(this.tabs.length-1));
+      
       closer.bind('click', function(position){
         return function(){
           tabEntity.kill(position);
@@ -515,16 +526,22 @@ TabPanel.prototype = {
   {
     position = this.getTabPosision(position);
     if(typeof position == 'string')
-      return false;
-    else
-    {
-      //if IFRAME exists, refresh the sub frames
-      var iframes = this.tabs[position].content.find('iframe');
-      if(iframes.length>0)
-      {
-        var frameId = this.tabs[position].id+'Frame';
-        this.iterateFlush(window.frames[frameId]);
-      }
+      	return false;
+    else{
+    	this.tabs[position].content.empty();
+    	
+    	var tem_content = this.tabs[position].content;
+    	//load those never loaded
+    	if(tem_content.html()=='') {
+      		tem_content.html(this.tabs[position].html);
+      		var child_frame = tem_content.find('iframe');
+      		if(child_frame.length==1) {
+    	  		tem_content.addClass("iframe-overflow");
+      		}
+    	}
+    	this.tabpanel_mover.find('.active').removeClass('active');
+    	this.tabs[position].tab.addClass('active');
+      	this.moveToSee(position);
     }
   },
   
@@ -619,6 +636,7 @@ TabPanel.prototype = {
     //var preTabId = this.tabs[position].preTabId;
     
     //detroy DOM
+    this.tabs[position].refresh.remove();
     this.tabs[position].closer.remove();
     this.tabs[position].title.remove();
     this.tabs[position].tab.remove();
@@ -633,6 +651,12 @@ TabPanel.prototype = {
       this.tabs[i].tab.bind('click', function(i){
         return function(){
           tabEntity.show(i, false);
+        };
+      }(i));
+      this.tabs[i].refresh.unbind('click');
+      this.tabs[i].refresh.bind('click', function(i){
+        return function(){
+          tabEntity.refresh(i);
         };
       }(i));
       this.tabs[i].closer.unbind('click');
