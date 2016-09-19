@@ -187,6 +187,8 @@ $(function() {
     
     
     $.get("/info_getByType",{"typeId":1,"limit":10,"offset":0}, function(data) {
+    	$("#header_info_getByTypeName_1").html("<i class='icon tb-news'></i>"+data.infoTypeName);
+    	$("#info_getByTypeName_1").html(data.infoTypeName);
 	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_1").append($('<li><a href="#" onclick="get_item_info('+v.id+')"><i class="square"></i><strong>'+
 	     		v.title+'</strong></a></li>'));
@@ -194,6 +196,8 @@ $(function() {
     });
     
     $.get("/info_getByType",{"typeId":2,"limit":2,"offset":0,"isPicture":1}, function(data) {
+    	$("#header_info_getByTypeName_2").html("<i class='icon tb-data'></i>"+data.infoTypeName);
+    	$("#info_getByTypeName_2").html(data.infoTypeName);
 	    $.each(data.rows, function(k, v) {
 	    	if(v.picture != undefined && v.picture != null && v.picture.length != 0 ){
 	    		$("#info_getByType_2").append($('<div class="ays-item"><a href="#" onclick="get_item_info('+v.id+
@@ -210,6 +214,8 @@ $(function() {
     });
     
     $.get("/info_getByType",{"typeId":3,"limit":5,"offset":0}, function(data) {
+    	$("#header_info_getByTypeName_3").html("<i class='icon tb-forum'></i>"+data.infoTypeName);
+    	$("#info_getByTypeName_3").html(data.infoTypeName);
 	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_3").append($('<li><a href="#" onclick="get_item_info('+v.id+')"><i class="square"></i><strong>'+
 	     		v.title+'</strong></a></li>'));
@@ -217,6 +223,8 @@ $(function() {
     });
     
     $.get("/info_getByType",{"typeId":4,"limit":5,"offset":0}, function(data) {
+    	$("#header_info_getByTypeName_4").html("<i class='icon tb-energy'></i>"+data.infoTypeName);
+    	$("#info_getByTypeName_4").html(data.infoTypeName);
 	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_4").append($('<li><a href="#" onclick="get_item_info('+v.id+')"><i class="square"></i><strong>'+
 	     		v.title+'</strong></a></li>'));
@@ -224,6 +232,8 @@ $(function() {
     });
     
     $.get("/info_getByType",{"typeId":5,"limit":5,"offset":0}, function(data) {
+    	$("#header_info_getByTypeName_5").html("<i class='icon tb-prodcuct'></i>"+data.infoTypeName);
+    	$("#info_getByTypeName_5").html(data.infoTypeName);
 	    $.each(data.rows, function(k, v) {
 	     	$("#info_getByType_5").append($('<li><a href="#" onclick="get_item_info('+v.id+')"><i class="square"></i><strong>'+
 	     		v.title+'</strong></a></li>'));
@@ -232,6 +242,9 @@ $(function() {
     
     
     $.get("/fund_getStat",{"typeId":1}, function(data) {
+    	$("#header_fund_getByTypeName_1").html("<i class='icon tb-activity'></i>"+data.fundTypeName);
+    	$("#fund_getStatName_1").html(data.fundTypeName);
+    	
     	var option1 = {
 		    title: {text: '基金总览',subtext: '元'},
 		    tooltip: {trigger: 'axis'},
@@ -320,6 +333,9 @@ $(function() {
 
 
     $.get("/fund_getStat",{"typeId":2}, function(data) {
+    	$("#header_fund_getByTypeName_2").html("<i class='icon tb-electric'></i>"+data.fundTypeName);
+    	$("#fund_getStatName_2").html(data.fundTypeName);
+    	
     	var option1 = {
 		    title: {text: '基金总览',subtext: '元'},
 		    tooltip: {trigger: 'axis'},

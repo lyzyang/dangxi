@@ -88,8 +88,7 @@ public class Info extends Model{
 		public static JsonNode getInfoByType(long typeId,int limit,int offset,String isPicture){
 			Query<Info> query = finder.query();
 			
-			InfoType infoType = new InfoType();
-			infoType.id = typeId;
+			InfoType infoType = InfoType.finder.byId(typeId);
 			
 			query.where().eq("infoType", infoType).eq("type", 1).orderBy("createTime desc");
 			
@@ -109,6 +108,7 @@ public class Info extends Model{
 				array.add(appJson);
 			}
 			json.put("rows", array);
+			json.put("infoTypeName", infoType.name);
 			return json;
 		}
 		

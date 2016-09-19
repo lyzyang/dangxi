@@ -95,9 +95,8 @@ public class Fund extends Model{
 	 * @param typeId
 	 * @return
 	 */
-	public static JsonNode getFundStat(String[][] mo, int typeId){
-		FundType fundType = new FundType();
-		fundType.id = typeId;
+	public static JsonNode getFundStat(String[][] mo, long typeId){
+		FundType fundType = FundType.finder.byId(typeId);
 		
 		String ymd_frist = mo[0][0] + "-" + 1 +" "+"00:00:00";
 		Date frist = UtilTool.stringToDate(ymd_frist);
@@ -168,6 +167,7 @@ public class Fund extends Model{
 		json.put("month_stat_in", month_stat_in_array);
 		json.put("month_stat_out", month_stat_out_array);
 		
+		json.put("fundTypeName", fundType.name);
 		return json;
 	}
 	
