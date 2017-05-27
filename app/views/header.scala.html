@@ -10,9 +10,22 @@
 <link href="/public/css/main.css" rel="stylesheet">
 <link href="/public/plug/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
+<link href="/public/plug/jquery-ui/jquery-ui.css" rel="stylesheet"/>
+<link href="/public/plug/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/public/plug/bootstrap-validator/css/bootstrapValidator.min.css" rel="stylesheet">
+<link href="/public/plug/jquery-select2/css/select2.min.css" rel="stylesheet">
+
 <script src="/public/plug/jquery/jquery-1.11.1.min.js"></script>
+
+<script src="/public/plug/jquery-ui/jquery-ui-1.11.4.min.js"></script>
+<script src="/public/plug/bootstrap/js/bootstrap.min.js"></script>
+<script src="/public/plug/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+<script src="/public/plug/bootstrap-validator/js/language/zh_CN.js"></script>
+<script src="/public/plug/jquery-select2/js/select2.min.js"></script>
+<script src="/public/plug/jquery-select2/js/i18n/zh-CN.js"></script>
+
 <script src="/public/plug/jquery-page/jquery.page.js"></script>
-<script src="/public/plug/echarts/echarts.min.js"></script>
+<script src="/public/plug/echarts/echarts-all.js"></script>
 <script src="/public/js/header.min.js"></script>
 
 </head>
@@ -41,8 +54,8 @@
             <li><a href="#" id="header_info_getByTypeName_5" onclick="get_more_info('5','5')"><i class="icon tb-prodcuct"></i></a></li>
             <li><a href="#" id="header_fund_getByTypeName_1" onclick="get_more_fund('1','6')"><i class="icon tb-activity"></i></a></li>
             <li><a href="#" id="header_fund_getByTypeName_2" onclick="get_more_fund('2','7')"><i class="icon tb-electric"></i></a></li>
-            <li><a href="#"><i class="icon tb-analysis"></i>组织结构</a></li>
-            <li><a href="#"><i class="icon tb-rule"></i>族谱</a></li>
+            <li><a href="#" onclick="get_organization()"><i class="icon tb-analysis"></i>组织结构</a></li>
+            <li><a href="#" onclick="get_genealogy()"><i class="icon tb-rule"></i>族谱</a></li>
         </ul>
     </div>
   

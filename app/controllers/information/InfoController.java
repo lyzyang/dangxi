@@ -1,6 +1,5 @@
 package controllers.information;
 
-import java.io.File;
 import java.util.Date;
 
 import be.objectify.deadbolt.java.actions.Pattern;
@@ -15,8 +14,6 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
-import play.mvc.Http.MultipartFormData;
-import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 import views.html.information.infos;
 import views.html.information.infoAdds;

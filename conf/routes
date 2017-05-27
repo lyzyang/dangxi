@@ -4,6 +4,7 @@
 
 # Home page
 
+
 #前台页面#####
 GET    /                               controllers.Application.header
 GET    /main                               controllers.Application.main
@@ -11,6 +12,7 @@ GET    /more_info                               controllers.Application.more_inf
 GET    /item_info                               controllers.Application.item_info
 GET    /more_fund                               controllers.Application.more_fund
 GET    /item_fund                               controllers.Application.item_fund
+GET    /organization_info              controllers.organization.OrganizationController.organization_info
 ###########
 
 
@@ -106,6 +108,20 @@ POST		/infoType_up		controllers.information.InfoTypeController.infoType_up
 POST		/infoType_del		controllers.information.InfoTypeController.infoType_del
 ###########
 
+#族谱管理####
+GET       /seeFamilyMembers_html             controllers.genealogy.FamilyMemberController.seeFamilyMembers_html
+GET       /familyMembers_html             controllers.genealogy.FamilyMemberController.familyMembers_html
+GET       /familyMembers_get_life             controllers.genealogy.FamilyMemberController.familyMembers_get_life
+GET       /familyMembers_get            controllers.genealogy.FamilyMemberController.familyMembers_get
+GET       /familyMembers_get_spouse             controllers.genealogy.FamilyMemberController.familyMembers_get_spouse
+
+POST       /familyMembers_children_add             controllers.genealogy.FamilyMemberController.familyMembers_children_add
+POST       /familyMembers_up             controllers.genealogy.FamilyMemberController.familyMembers_up
+POST       /familyMembers_del             controllers.genealogy.FamilyMemberController.familyMembers_del
+POST       /familyMembers_spouse_add             controllers.genealogy.FamilyMemberController.familyMembers_spouse_add
+POST       /familyMembers_spouse_up             controllers.genealogy.FamilyMemberController.familyMembers_spouse_up
+POST       /familyMembers_spouse_del             controllers.genealogy.FamilyMemberController.familyMembers_spouse_del
+###########
 
 #用户管理####
 POST   /user_name_up                 controllers.userbehavior.AuthorisedUserController.user_name_up

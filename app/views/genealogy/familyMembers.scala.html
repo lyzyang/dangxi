@@ -1,0 +1,226 @@
+
+<!--Created by lyz-->
+<script src="/public/js/genealogy/familyMembers.min.js"></script>
+
+<!-- 搜索栏 -->
+<div style="height: 10%;margin:10px 0px 0px 0px;">
+	<form id="familyMembers_admin_tree_form" method="post" class="form-inline">
+		<div class="form-group">
+        	<label class="control-label">关键字</label>
+        	<input id="familyMembers_admin_tree_id" type="hidden" name="sid">
+        	<input id="familyMembers_admin_tree_name" type="text" class="form-control" name="name">
+       </div>
+       <div class="form-group">
+        	<label class="control-label">范围</label>
+        	<select id="familyMembers_admin_tree_life" class="form-control" name="life">
+        		<option></option>
+        		<option value='5'>前后五世</option>
+        		<option value='7'>前后七世</option>
+        		<option value='9'>前后九世</option>
+        		<option value='11'>前后十一世</option>
+        	</select>
+        </div>
+        <a id="familyMembers_admin_tree_search" class="btn btn-sm btn-primary" href="#"><i class="icon-edit icon-large"></i>搜索</a>
+        <a id="familyMembers_admin_tree_clear" class="btn btn-sm btn-primary" href="#"><i class="icon-trash icon-large"></i>清空</a>
+	</form>
+</div>
+<!-- 树状图 -->
+<div id="familyMembers_admin_tree" style="position: relative; overflow: auto; width: 100%; height: 90%;"></div>
+
+<!-- 搜索同名选择 -->
+<div id="familyMembers_admin_select_dialog" style="display:none;">
+   <form id="familyMembers_admin_select_form"  method="post" class="form-horizontal col-sm-11">
+    <br>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">同名</label>
+        <div class="col-sm-9">
+            <select id="familyMembers_admin_select" class="form-control" name="sid">
+            		<option></option>
+            </select>
+        </div>
+    </div>
+  </form>
+</div>
+
+
+<!-- 双击成员操作选择 -->
+<div id="familyMembers_admin_do_select_dialog" style="display:none;">
+   <form id="familyMembers_admin_do_select_form" class="form-horizontal col-sm-11">
+    <br>
+    <input id="familyMembers_admin_do_select_fm_id" type="hidden">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">操作</label>
+        <div class="col-sm-9">
+            <select id="familyMembers_admin_do_select" class="form-control" name="sid">
+            		<option></option>
+            </select>
+        </div>
+    </div>
+  </form>
+</div>
+
+<!--添加子女信息-->
+<div id="familyMembers_admin_add_children_dialog" style="display:none;">
+	<form id="familyMembers_admin_add_children_form" class="form-horizontal col-sm-11">
+		 <input id="familyMembers_admin_add_children_fm_id" type="hidden" name="fm_id">
+        <div class="form-group">
+            <label for="familyMembers_admin_add_children_name" class="col-sm-3 control-label">姓名</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_add_children_name" type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_add_children_sex" class="col-sm-3 control-label">性别</label>
+            <div class="col-sm-9">
+                <select id="familyMembers_admin_add_children_sex" class="form-control" name="sex">
+            		<option></option>
+            		<option value='0'>男</option>
+            		<option value='1'>女</option>
+            	  </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_add_children_residence" class="col-sm-3 control-label">住址</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_add_children_residence" type="text" class="form-control" name="residence"  placeholder="选填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_add_children_contact" class="col-sm-3 control-label">联系</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_add_children_contact" type="text" class="form-control" name="contact"  placeholder="选填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_add_children_remark" class="col-sm-3 control-label">简介</label>
+            <div class="col-sm-9">
+            	 <textarea id="familyMembers_admin_add_children_remark" type="text" class="form-control" name="remark" placeholder="选填" rows="3"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--修改成员信息-->
+<div id="familyMembers_admin_up_dialog" style="display:none;">
+	<form id="familyMembers_admin_up_form" class="form-horizontal col-sm-11">
+		 <input id="familyMembers_admin_up_fm_id" type="hidden" name="fm_id">
+        <div class="form-group">
+            <label for="familyMembers_admin_up_name" class="col-sm-3 control-label">姓名</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_up_name" type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_up_sex" class="col-sm-3 control-label">性别</label>
+            <div class="col-sm-9">
+                <select id="familyMembers_admin_up_sex" class="form-control" name="sex">
+            		<option></option>
+            		<option value='0'>男</option>
+            		<option value='1'>女</option>
+            	  </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_up_residence" class="col-sm-3 control-label">住址</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_up_residence" type="text" class="form-control" name="residence"  placeholder="选填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_up_contact" class="col-sm-3 control-label">联系</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_up_contact" type="text" class="form-control" name="contact"  placeholder="选填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_up_remark" class="col-sm-3 control-label">简介</label>
+            <div class="col-sm-9">
+            	 <textarea id="familyMembers_admin_up_remark" type="text" class="form-control" name="remark" placeholder="选填" rows="3"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--添加配偶信息-->
+<div id="familyMembers_admin_add_spouse_dialog" style="display:none;">
+	<form id="familyMembers_admin_add_spouse_form" class="form-horizontal col-sm-11">
+		 <input id="familyMembers_admin_add_spouse_fm_id" type="hidden" name="fm_id">
+        <div class="form-group">
+            <label for="familyMembers_admin_add_spouse_name" class="col-sm-3 control-label">姓名</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_add_spouse_name" type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_add_spouse_residence" class="col-sm-3 control-label">配偶住址</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_add_spouse_residence" type="text" class="form-control" name="residence"  placeholder="选填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_add_spouse_statu" class="col-sm-3 control-label">状态</label>
+            <div class="col-sm-9">
+                <select id="familyMembers_admin_add_spouse_statu" class="form-control" name="statu">
+            		<option></option>
+            		<option value='0'>正常</option>
+            		<option value='1'>离异</option>
+            	  </select>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--修改配偶信息-->
+<div id="familyMembers_admin_up_spouse_dialog" style="display:none;">
+	<form id="familyMembers_admin_up_spouse_form" class="form-horizontal col-sm-11">
+		 <input id="familyMembers_admin_up_spouse_fm_id" type="hidden" name="fm_id">
+		 <div class="form-group">
+            <label for="familyMembers_admin_up_spouse_select" class="col-sm-3 control-label">配偶列表</label>
+            <div class="col-sm-9">
+                <select id="familyMembers_admin_up_spouse_select" class="form-control" name="sid">
+            		<option></option>
+            	  </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_up_spouse_name" class="col-sm-3 control-label">姓名</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_up_spouse_name" type="text" class="form-control" name="name" placeholder="必填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_up_spouse_residence" class="col-sm-3 control-label">配偶住址</label>
+            <div class="col-sm-9">
+                <input id="familyMembers_admin_up_spouse_residence" type="text" class="form-control" name="residence"  placeholder="选填">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="familyMembers_admin_up_spouse_statu" class="col-sm-3 control-label">状态</label>
+            <div class="col-sm-9">
+                <select id="familyMembers_admin_up_spouse_statu" class="form-control" name="statu">
+            		<option></option>
+            		<option value='0'>正常</option>
+            		<option value='1'>离异</option>
+            	  </select>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--删除配偶信息-->
+<div id="familyMembers_admin_del_spouse_dialog" style="display:none;">
+	<form id="familyMembers_admin_del_spouse_form" class="form-horizontal col-sm-11">
+		 <input id="familyMembers_admin_del_spouse_fm_id" type="hidden" name="fm_id">
+		 <div class="form-group">
+            <label for="familyMembers_admin_del_spouse_select" class="col-sm-3 control-label">配偶列表</label>
+            <div class="col-sm-9">
+                <select id="familyMembers_admin_del_spouse_select" class="form-control" name="sid">
+            		<option></option>
+            	  </select>
+            </div>
+        </div>
+    </form>
+</div>
