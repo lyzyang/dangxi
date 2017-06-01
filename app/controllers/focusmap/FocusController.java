@@ -72,17 +72,20 @@ public class FocusController extends Controller{
 	    	return ok(json);
 		}
 		
-		int focus_info_size = Info.finder.where().isNotNull("picture").findRowCount();
-		if(focus_info_size>=5){
-			json = UtilTool.message(1, "焦点图超过5张，清先取消！");
-	    	return ok(json);
+		Info info = Info.finder.byId(Long.valueOf(sid));
+		
+		if(info.picture == null || info.picture.length() == 0){
+			int focus_info_size = Info.finder.where().isNotNull("picture").findRowCount();
+			if(focus_info_size>=5){
+				json = UtilTool.message(1, "焦点图超过5张，清先取消！");
+		    	return ok(json);
+			}
 		}
-			
-        Info info = Info.finder.byId(Long.valueOf(sid));
+		
 		info.picture = picture;
 		info.updateInfo();
 		json = UtilTool.message(0, "设置成功!");
-
+		
 		return ok(json);
 	}
 	

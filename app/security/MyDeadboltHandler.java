@@ -27,17 +27,17 @@ public class MyDeadboltHandler extends AbstractDeadboltHandler
     }
 
 	public Subject getSubject(Http.Context context) {
-		/*String id = checkuser();
+		String id = checkuser();
 		if (id.equals("no")||id.equals("other")||id.equals("outtime"))
 			return null;
 		
 		AuthorisedUser user = AuthorisedUser.finder.byId(Long.valueOf(id));
-		return user;*/
+		return user;
 		
-		long id = 58L;//84 58  73
+		/*long id = 58L;//84 58  73
 		LoginController.setCacheSession((new Long(System.currentTimeMillis())).toString(),String.valueOf(id));
 		AuthorisedUser user = AuthorisedUser.finder.byId(id);
-		return user;
+		return user;*/
 	}
   
 

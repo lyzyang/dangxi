@@ -1,5 +1,4 @@
 
-
 //角色下拉树
 var role_tree = {
     Init: function (url,idObj_id,nameObj_id,panelObj_id,treeObj_id) {
@@ -100,7 +99,7 @@ var role_tree = {
 			role_tree.hideMenu(nameObj_id,panelObj_id);
 		}
 	}
-}
+};
 
 
 //隐藏过长表格内容
@@ -108,14 +107,14 @@ var bootstrap_table_cellStyle = function(row,value,index) {
     return {
         classes:'cellStyle'
 	};
-}
+};
 
 //换行过长字符表格内容
 var bootstrap_table_cellStyleString = function(row,value,index) {
     return {
         classes:'cellStyleString'
 	};
-}
+};
 
 
 
